@@ -1,0 +1,116 @@
+\documentclass[twoside, headsepline, 12pt, a4paper, chapterprefix, bibtotoc]{article}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\usepackage{array}
+\usepackage{times}
+\usepackage{url}
+\usepackage{lscape}
+\usepackage{natbib}
+\usepackage{color}
+\usepackage{wrapfig}
+\usepackage[table]{xcolor}
+\usepackage[final]{pdfpages}
+\usepackage{ucs}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{framed,lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[top=3.5cm, bottom=3.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\usepackage[pdftex, pdfauthor={Karoly Szanto, Morten Esbensen},
+pdftitle={Realms Project}, linkcolor=black, urlcolor=black,
+citecolor=black, bookmarks=true, bookmarksopen=true, bookmarksnumbered=true, colorlinks=true, plainpages=false, pdfpagelabels]{hyperref}
+
+\RequirePackage{color,graphicx}
+
+%Setup hyperref package, and colours for links
+\usepackage{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour, linkcolor=linkcolour}
+
+\newcommand{\todo}[1]{\textsf{\textbf{\textcolor{Orange}{[[#1]]}}}}
+\newcommand{\myjavalisting}[0]{
+\lstset{captionpos=b,language=java,numbers=none,basicstyle=\small}
+\lstset{linewidth=1.0\textwidth}
+\lstset{
+keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+identifierstyle=\ttfamily,
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+showstringspaces=false,
+basicstyle=\small,
+numbers=none,
+stepnumber=1,
+numbersep=10pt,
+tabsize=2,
+frame=trbl,
+breaklines=true,
+prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+breakatwhitespace=false,
+aboveskip={1.5\baselineskip},
+columns=fixed,
+upquote=true,
+extendedchars=true,
+}}
+\newcommand{\myxmllisting}[0]{
+\lstset{captionpos=b,language=xml,numbers=none,basicstyle=\small}
+\lstset{linewidth=1.0\textwidth}
+\lstset{
+keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+identifierstyle=\ttfamily,
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+showstringspaces=false,
+basicstyle=\small,
+numbers=none,
+stepnumber=1,
+numbersep=10pt,
+tabsize=2,
+frame=trbl,
+breaklines=true,
+prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+breakatwhitespace=false,
+aboveskip={1.5\baselineskip},
+columns=fixed,
+upquote=true,
+extendedchars=true,
+}}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\input{dk.itu.realms.titlepage.tex}
+\cleardoublepage
+
+% TOC
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+%\listoffigures
+%\listoftables
+\cleardoublepage
+
+\pagestyle{plain}
+
+\input{dk.itu.realms.introduction.tex}
+\clearpage
+\input{dk.itu.realms.implementation.tex}
+\clearpage
+\input{dk.itu.realms.evaluation.tex}
+\clearpage
+\input{dk.itu.realms.conclusions.tex}
+
+%\cleardoublepage
+%\appendix
+
+\clearpage
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
