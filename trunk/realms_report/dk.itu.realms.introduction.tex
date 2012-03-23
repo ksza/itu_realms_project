@@ -1,2 +1,62 @@
+%!TEX root = /Users/mortenq/Documents/ITU/Master/Realms/svn/itu_realms_project/trunk/realms_report/dk.itu.realms.main.tex
+%I am structuring the introduction according to this guide: http://pages.cpsc.ucalgary.ca/~saul/wiki/pmwiki.php/Chapter1/Deconstruction. It's Saul Greenbarg's guide to thesis chapter 1's, but I think it works fine for smaller projects as well. If we find that the structure doesnt work we can always chagen it, but for now I think its a good way to do it (as it forces me think about every aspect)
+
+%I've written something down. We probably need to re-write a lot of it till it sounds good
 \section{Introduction}
 \label{sec.introduction}
+
+With the explosion of location-aware devices in the forms of mobile phones and tablets, location-based systems have become a reality rather than a vision. Programmers have many ways of using the location capabilities of these devices and numerous location aware applications are available for download. A lot of the systems are based on the same principles of basic context-awareness; the selection of available functionality or information, based on the context (location). However, despite the similarities of location-aware programs, developers needs to start from scratch when creating a new one. 
+
+In this project we want to explore the if it is possible to abstract the creation of simple location-based systems from a programming level to a configuration level.
+
+
+\subsection{Context and Motivation} % (fold)
+\label{sub:context_and_motivation}
+The use of location based systems have risen greatly over the last few years with the introduction of portable locatable devices. Location-based systems demonstrate a successful implementation of context-awareness and the popularity of systems such as foursquare and Facebook places shows that users have adapted this form of interaction. Companies as well use location information to a great extend, and while  Meanwhile the process of programming location-aware application has become easy for programmers. Operating system and library support for obtaining location data now exists on most mobile platforms, and a few lines of code can yield a precise latitude and longitude of a device. All in all the field of location-aware systems is interesting and popular and we see some possibilities of exploring further capabilities.
+% subsection context_and_motivation (end)'
+
+\subsection{Background} % (fold)
+\label{sub:background}
+This subsection should in short list related works in the area. We will write this we we have investigated the subject further.
+
+% subsection background (end)
+
+\subsection{Hypothesis} % (fold)
+\label{sub:hypothesis}
+It is our hypothesis that some common features of location-based systems can be identified, and that these features can be supported by a system designed to create location-based interaction. We want to develop a software infrastructure that, when configured, augments a certain physical area with digital capabilities. To elaborate, we introduce the notion of 'Realms'. A realm is a physically confined space augmented with digital information. A realm is always associated with a physical space, however it can provide different affordances; a game, a campaign, general public information etc. Access to the realms is provided through a mobile phone application, and so only one app is needed to access any number of realms with any number of affordances. The managing of realms is handled by a server that phones connect to and the creation of realms is handled through a web-interface. 
+% subsection hypothesis (end)
+
+\subsection{Goals and Methods} % (fold)
+\label{sub:goals_and_methods}
+Our goals with this project are three-fold:
+
+\begin{enumerate}
+	\item We will investigate popular location based apps and factor our the commonalities. From this investigation we will present a 
+	\item We will implement a Realms system that allows for the creation of augmented physical spaces through configuration. 
+	\item We will present an evaluation of the system and discuss it's possibilities and limitations
+\end{enumerate}
+
+\noindent To reach these goals, we will take the following steps:
+
+\begin{enumerate}
+	\item  We will study a number of popular location-based applications and group their functionalities. 
+	\item We will use the study of existing apps to select a few key functionalities that are popular in location based apps. We will build the Realms system to support these findings.
+	\item We will evaluate our system in two ways; (1) we will have users try the configuration manager to study the effectiveness and ease of use of our system, and (2) we will compare the functionalities of our system to those found in our study of other systems to conclude on the possibilities and limitations of our system.
+\end{enumerate}
+% subsection goals_and_methods (end)
+
+\subsection{Contributions} % (fold)
+\label{sub:contributions}
+Our main contributions follow our goals:
+
+\begin{itemize}
+	\item We present a taxonomy for location-based application functionalities.
+	\item We present the Realms system. A software platform for augmenting physical locations through configuration.
+	\item We present an discussion of the feasibility of our implementation based on a user evaluation.
+\end{itemize}
+% subsection contributions (end)
+
+\subsection{Overview} % (fold)
+\label{sub:overview}
+The remainder of the report is structured as follows. In section we present related work on augmented spaces and end user programming. In section 3 we analyze existing location-based apps as well as app creation systems. We focus on drawing out similarities between the systems and present a taxonomy of location application functionalities. We then, in section 4 present our design rationale for the Realms system, and present the implementation details in section 5. In section 6 we present our evaluation of the system and and follow with a discussion of the results in section 7. We end in section 8 by concluding and suggesting directions for future work in the area.
+% subsection overview (end)
