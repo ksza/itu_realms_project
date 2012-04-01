@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<ui:composition template="/realmsTemplate.xhtml">
+
+		<ui:define name="content">
+			<center>
+				<p:panel style="width: 40%" styleClass="normal_text">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['current_user.profile.title']}" />
+					</f:facet>
+					
+					<p:messages showDetail="false" />
+					
+					<p:graphicImage value="#{settingsService.thumbImage}" />
+
+					<h:form enctype="multipart/form-data">
+
+						<p:fileUpload value="#{settingsService.file}" mode="simple"
+							styleClass="normal_text" />
+
+						<p:commandButton value="Submit" ajax="false"
+							actionListener="#{settingsService.upload}"
+							styleClass="normal_text" />
+
+					</h:form>
+				</p:panel>
+			</center>
+		</ui:define>
+
+	</ui:composition>
+
+</f:view>
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<ui:composition template="/realmsTemplate.xhtml">
+
+		<ui:define name="header_content">
+			<h:outputStylesheet library="css" name="register.css" target="head" />
+		</ui:define>
+
+		<ui:define name="content">
+			<center>
+				<p:panel header="#{msgs['register.title']}" styleClass="normal_text"
+					style="width: 60%">
+					<h:form enctype="multipart/form-data">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{msgs['register.email']}" />
+							<p:inputText id="email" value="#{userModel.email}">
+								<f:ajax event="blur" execute="@this" render="emailMessage @this" />
+							</p:inputText>
+							<h:outputLabel for="emailMessage" />
+							<h:message id="emailMessage" class="error_label" for="email" />
+
+							<h:outputText value="#{msgs['register.password']}" />
+							<p:password id="password" feedback="false"
+								value="#{userModel.password}">
+								<f:ajax event="blur" execute="@this"
+									render="passwordMessage @this" />
+							</p:password>
+							<h:outputLabel for="passwordMessage" />
+							<h:message id="passwordMessage" class="error_label"
+								for="password" />
+
+							<h:outputText value="#{msgs['register.name']}" />
+							<p:inputText id="name" value="#{userModel.name}">
+								<f:ajax event="blur" execute="@this" render="nameMessage @this" />
+							</p:inputText>
+							<h:outputLabel for="nameMessage" />
+							<h:message id="nameMessage" class="error_label" for="name" />
+
+							<h:outputText value="#{msgs['register.address']}" />
+							<p:inputText id="address" value="#{userModel.address}">
+								<f:ajax event="blur" execute="@this"
+									render="addressMessage @this" />
+							</p:inputText>
+							<h:outputLabel for="addressMessage" />
+							<h:message id="addressMessage" class="error_label" for="address" />
+
+							<h:outputText value="#{msgs['register.zip_code']}" />
+							<p:inputText id="zipCode" value="#{userModel.zipCode}">
+								<f:ajax event="blur" execute="@this"
+									render="zipCodeMessage @this" />
+							</p:inputText>
+							<h:outputLabel for="zipCodeMessage" />
+							<h:message id="zipCodeMessage" class="error_label" for="zipCode" />
+
+							<h:outputText value="#{msgs['register.phone']}" />
+							<p:inputText id="phoneNo" value="#{userModel.phoneNo}">
+								<f:ajax event="blur" execute="@this"
+									render="phoneNoMessage @this" />
+							</p:inputText>
+							<h:outputLabel for="phoneNoMessage" />
+							<h:message id="phoneNoMessage" class="error_label" for="phoneNo" />
+
+							<h:outputText value="#{msgs['register.picture']}" />
+							<p:fileUpload value="#{registrationService.file}" mode="simple" />
+						</h:panelGrid>
+
+						<p:spacer height="100" width="0" />
+
+						<h:commandButton value="#{msgs['register.submit']}"
+							action="#{registrationService.register}" />
+					</h:form>
+
+					<f:facet name="footer">
+						<h:outputText value="#{msgs['register.footer']}"
+							styleClass="footer" />
+					</f:facet>
+				</p:panel>
+			</center>
+		</ui:define>
+
+	</ui:composition>
+
+</f:view>
+</html>

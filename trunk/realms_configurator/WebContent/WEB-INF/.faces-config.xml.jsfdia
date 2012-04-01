@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#index.xhtml" NAME="output3"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="announcements::#regular_user#announcements.xhtml" NAME="output"
+    PATH="/regular_user/announcements.xhtml"
+    TARGET="rules:#regular_user#announcements.xhtml"
+    TITLE="announcements" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="settings::#regular_user#settings.xhtml"
+    NAME="output1" PATH="/regular_user/settings.xhtml"
+    TARGET="rules:#regular_user#settings.xhtml" TITLE="settings" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="login::#login.xhtml" NAME="output2"
+    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="register::#register.xhtml" NAME="output4"
+    PATH="/register.xhtml" TARGET="rules:#register.xhtml"
+    TITLE="register" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="error::#error.xhtml" NAME="output5"
+    PATH="/error.xhtml" TARGET="rules:#error.xhtml" TITLE="error" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="manager::#admin#admin_page.xhtml"
+    NAME="output6" PATH="/admin/admin_page.xhtml"
+    TARGET="rules:#admin#admin_page.xhtml" TITLE="manager" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="features::#features.xhtml" NAME="output7"
+    PATH="/features.xhtml" TARGET="rules:#features.xhtml"
+    TITLE="features" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="240,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="240,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#admin_page.xhtml"
+  PATH="/admin/admin_page.xhtml" SHAPE="240,705,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#regular_user#settings.xhtml"
+  PATH="/regular_user/settings.xhtml" SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#regular_user#announcements.xhtml"
+  PATH="/regular_user/announcements.xhtml" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#error.xhtml" PATH="/error.xhtml"
+  SHAPE="304,305,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#features.xhtml" PATH="/features.xhtml"
+  SHAPE="304,369,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

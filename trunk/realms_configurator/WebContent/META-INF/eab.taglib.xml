@@ -1,0 +1,8 @@
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib xmlns="http://java.sun.com/JSF/Facelet">
+	<namespace>http://itu.eab.dk</namespace>
+	<tag>
+		<tag-name>announcements</tag-name>
+		<source>list_announcements.xhtml</source>
+	</tag>
+</facelet-taglib>

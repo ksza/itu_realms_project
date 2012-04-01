@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:int-security="http://www.springframework.org/schema/integration/security"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/security http://www.springframework.org/schema/integration/security/spring-integration-security-2.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+
+	<context:component-scan base-package="dk.itu.realms" />
+
+	<!-- resource security -->
+	<!-- Note: Access-denied-page is invoked when user is AUTHENTICATED but 
+		is not AUTHORIZED to access protected resources. When user is NOT AUTHENTICATED, 
+		he is moved into form-login instead of access-denied-page. -->
+	<sec:http auto-config="true" access-denied-page="/faces/accessDenied.xhtml">
+		<sec:form-login login-page="/faces/login.xhtml" />
+		<sec:intercept-url pattern="/faces/admin/**" access="ROLE_ADMIN" />
+		<sec:intercept-url pattern="/faces/regular_user/**" access="ROLE_USER" />
+	</sec:http>
+
+	<!-- business logic (method) security -->
+	<sec:global-method-security
+		secured-annotations="enabled" jsr250-annotations="enabled">
+	</sec:global-method-security>
+
+	<!-- manager responsible for loading user account with assigned roles -->
+	<bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource" ref="webshopDataSource" />
+	</bean>
+
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider
+			user-service-ref="userDetailsService" />
+	</sec:authentication-manager>
+
+	<import resource="db-config.xml" />
+
+	<jdbc:initialize-database data-source="webshopDataSource">
+		<jdbc:script location="classpath:/init_db.sql" />
+	</jdbc:initialize-database>
+</beans>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Realms Configurator</title>
+
+		<ui:insert name="header_content" />
+		
+		<h:outputStylesheet library="css" name="realmsTemplate.css" target="head" />
+	</h:head>
+
+	<h:body>
+		<div id="container">
+			<div id="header" style=" border-bottom: 1px solid gray; height: 50px">
+				<h:form>
+					<h:panelGrid columns="4" width="100%">
+						<h:commandLink title="#{msgs['dock.home']}" style="font-size: xx-large;" action="index">
+							<h:graphicImage value="#{resource['images:itu_logo.gif']}" style="width: 32px; height: 32px" />
+						</h:commandLink>
+						<h:outputText value="#{msgs['app.name']}" style="font-size: xx-large;" action="index" />
+						
+						<h:panelGroup>
+							<h:commandLink title="#{msgs['dock.home']}" action="index">
+								<h:graphicImage value="#{resource['images:home_icon.png']}"
+									style="width: 32px; height: 32px" />
+							</h:commandLink>
+							<p:spacer width="10" />
+
+							<h:commandLink title="#{msgs['dock.announcements']}"
+								action="announcements">
+								<h:graphicImage
+									value="#{resource['images:announcement_icon.png']}"
+									style="width: 32px; height: 32px" />
+							</h:commandLink>
+							<p:spacer width="10" />
+
+							<h:commandLink title="#{msgs['dock.register']}" action="register">
+								<h:graphicImage value="#{resource['images:register_icon.png']}"
+									style="width: 32px; height: 32px" />
+							</h:commandLink>
+							<p:spacer width="10" />
+
+							<h:commandLink title="#{msgs['dock.manager']}" action="manager">
+								<h:graphicImage value="#{resource['images:admin_icon.png']}"
+									style="width: 32px; height: 32px" />
+							</h:commandLink>
+							<p:spacer width="10" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<ui:include src="/current_user.xhtml" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</div>
+			
+			<div id="content" style="margin-top: 1%">
+				<ui:insert name="content" />
+			</div>
+		</div>
+	</h:body>
+</f:view>
+
+</html>

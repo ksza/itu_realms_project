@@ -1,0 +1,10 @@
+.footer {
+	font-style: italic;
+	font-size: small;
+	color: gray;
+}
+
+.error_label {
+	color: red;
+	font-style: italic;
+}

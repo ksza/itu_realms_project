@@ -1,0 +1,76 @@
+<?xml version="1.0" ?> 
+<project name="realms_configurator" default="local_install">
+
+	<property environment="env" />
+	
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+		
+		<fileset dir="${env.CATALINA_HOME}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<mkdir dir="build/classes"/>
+		<mkdir dir="dist" />
+	</target>
+	
+	<target name="compile" depends="clean,init" >
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="compile.classpath"/>
+		</javac>
+
+		<mkdir dir="build/classes/dk/itu/realms/web/i18n" />
+		
+		<copydir dest="build/classes/dk/itu/realms/web/i18n" src="src/dk/itu/realms/web/i18n" />
+		
+		<copyfile dest="build/classes/init_db.sql" src="src/init_db.sql"/>
+		<copyfile dest="build/classes/default_user_icon.png" src="src/default_user_icon.png"/>
+	</target>
+	
+	<target name="war" depends="compile">
+		<war destfile="dist/${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<classes dir="build/classes"/>
+			<!--
+			<fileset dir="resources">
+				<include name="*.*"/>
+			</fileset>
+			-->
+		</war>
+	</target>
+	
+	<target name="clean">
+		<delete dir="dist" />
+		<delete dir="build" />
+	</target>
+	
+	<!-- INSTALL -->
+	<target name="local_install" depends="war">
+    	<echo>=== Local Install ===</echo>
+		<delete file="${env.CATALINA_HOME}/webapps/${ant.project.name}.war"/>
+		<delete dir="${env.CATALINA_HOME}/webapps/${ant.project.name}"/>
+      	<copy file="dist/${ant.project.name}.war" todir="${env.CATALINA_HOME}/webapps" overwrite="true" />
+    </target>
+	
+	<target name="schemaexport" depends="compile">
+	    <taskdef name="schemaexport"
+	        classname="org.hibernate.tool.hbm2ddl.SchemaExportTask"
+	        classpathref="compile.classpath"/>
+	    
+	    <schemaexport
+	        properties="hibernate.properties"
+	        quiet="no"
+	        text="no"
+	        drop="no"
+	        delimiter=";"
+	        output="schema-export.sql">
+	        <fileset dir="src">
+	            <include name="**/*.hbm.xml"/>
+	        </fileset>
+	    </schemaexport>
+	</target>
+</project>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<ui:composition template="/realmsTemplate.xhtml">
+
+		<ui:define name="content">
+			<p:outputPanel styleClass="normal_text">
+				<h:form>
+					<p:dataTable var="user" value="#{userAccessService.users}">
+						<p:column>
+							<f:facet name="header">Email</f:facet>
+							<h:outputText value="#{user.email}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{user.name}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Address</f:facet>
+							<h:outputText value="#{user.address}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Zip</f:facet>
+							<h:outputText value="#{user.zipCode}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Phone</f:facet>
+							<h:outputText value="#{user.phoneNo}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:outputPanel>
+		</ui:define>
+
+	</ui:composition>
+
+</f:view>
+</html>
