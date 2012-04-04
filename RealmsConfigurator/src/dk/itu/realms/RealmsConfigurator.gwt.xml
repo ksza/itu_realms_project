@@ -14,8 +14,9 @@
   <!-- Other module inherits                                      -->
   <inherits name="com.google.gwt.maps.GoogleMaps" /> 
   <!-- Specify the app entry point class.                         -->
+  <!-- 
   <entry-point class='dk.itu.realms.client.RealmsConfigurator'/>
-
+ -->
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
