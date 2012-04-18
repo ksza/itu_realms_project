@@ -1,0 +1,12 @@
+{       "name": "realms_client_funf_config",
+        "version":1,
+        "dataArchivePeriod": 216000,
+        "dataUploadPeriod":864000,
+        "dataRequests":{
+        
+            "edu.mit.media.funf.probe.builtin.LocationProbe": [
+                { "PERIOD":  3, "DURATION": 85 }
+            ]
+            
+        }
+}
