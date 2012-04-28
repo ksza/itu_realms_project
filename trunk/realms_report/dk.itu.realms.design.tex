@@ -1,6 +1,25 @@
 \section{Design} % (fold)
 \label{sec:design}
-This section will include our design ideas for the realms system
+\todo{what the system is}
+The main goal of the \emph{Realms} system is to help in the creation of simple \emph{context-aware applications} based on a configuration process. Hence, the system has three major components:
+\begin{itemize}
+	\item \emph{configuration manager} - empowers users with the posibility of augmenting a physical space with virtual properties and rules (we call it a \emph{realm})
+	\item \emph{mobile client} - collects relevant context data and intermediates the interaction between the users and the system
+	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context information and posible virtual properties of the system (which can be applied in the user's context).
+\end{itemize}\\
+
+\todo{The social and technological environment in which the system will function}
+There are two end user types which will use our system: the \emph{configuration managers} which will create realms, and the \emph{?mobile client users?} which will interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the configuration managers.\\
+
+The realms which a configuration manager will be able to create can be based only on outdoors spaces. Therefore, we are excluding the possiblity of indoors usage of the application and the mobile clients are ment to work only outdoors.\\
+
+\todo{Its advantages over older systems}
+The main advange over similar system is that we empower users to create a redy-to-be-used context-aware application without writing one line of code.\\
+
+\todo{The type of the system (distributed, client-server, etc.)}
+The whole system is built around two main entities: \emph{contextual information} and \emph{rules/decisions} on top of the contextual information; hence, we are dealing with a distributed, data-driven system. Our design will follow the client-server design pattern based on a data-drive client-server interaction.
+
+\todo{here goes an abstract block diagram of the system}
 
 \subsection{Realms Infrastructure} % (fold)
 \label{sub:realms_infrastructure}
