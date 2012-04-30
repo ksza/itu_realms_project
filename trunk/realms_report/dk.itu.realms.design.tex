@@ -4,7 +4,7 @@ The main goal of the \emph{Realms} system is to help in the creation of simple \
 \begin{itemize}
 	\item \emph{configuration manager} - empowers users with the possibility of augmenting a physical space with virtual properties and rules (we call it a \emph{realm})
 	\item \emph{mobile client} - collects relevant context data and intermediates the interaction between the users and the system
-	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context (location) information and posible virtual properties of the system (which can be applied in the user's context).
+	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context (location) information and possible virtual properties of the system (which can be applied in the user's context).
 \end{itemize}
 \\\\
 There are two end user types which will use our system: the \emph{configuration managers}, which will create realms, and the \emph{?mobile client users?} which will interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the configuration managers: they are our end-users because they will be using the mobile client, that we provide, to connect to one of the realms, provided by configuration managers.
@@ -66,18 +66,36 @@ In order to enable the user to easily specify the interaction flow between the c
 	\caption{Worflow concept illustrated}
 	\label{fig.design.workflow}
 \end{figure}
-The workflow builder is represented by a graphical tool where the user can create steps and connections inside the flow. For each step simple \emph{if-then-else} decision constructs will can be applied using the above mentioned variables (user location, virtual properties and optional user choice) and optional custom constants.
+The workflow builder is represented by a graphical tool where the user can create steps and connections inside the flow. For each step simple \emph{if-then-else} decision constructs will can be applied using the above mentioned variables (user location, virtual properties and optional user choice) and optional custom constants. A sketch of the tool is shown in Figure \ref{fig.design.workflow_sketch}.
 \\\\
-\todo{insert schetch of UI here!}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/workflow_sketch}
+	\caption{Worflow tool UI sketch}
+	\label{fig.design.workflow_sketch}
+\end{figure}
 % subsection configuration_manager (end)be available having 
-
-\subsection{Realms Server} % (fold)
-\label{sub:realms_infrastructure}
-In this subsection we will describe our system infrastructure. The realms infrastructure is the backend of our system and handles connection from the mobile app and the configuration manager, and stores information such as location-based information and configurations.
-% subsection realms_infrastructure (end)
 
 \subsection{Realms Android App} % (fold)
 \label{sub:realms_android_app}
-In this subsection we describe our Android application. The app presents users with the ability to access realms and interact in them as described by their configuration.
+The mobile application presents users with the ability to access realms and interact with them as described by their configuration. It is also meant to collect location information which is a required piece of data needed by the server to successfully guide the user through the realm's workflow. Figure \ref{fig.design.mobile_client} depicts the main data structures and the interface the mobile client should implement to communicate with the realms server.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/mobile_client}
+	\caption{Data structures and communication interface which allows the mobile client to communicate with the realms server}
+	\label{fig.design.mobile_client}
+\end{figure}
 % subsection realms_android_app (end)
 % section design (end)
+
+\subsection{Realms Infrastructure} % (fold)
+\label{sub:realms_infrastructure}
+The realms infrastructure is the central component of our system and handles connections from the mobile app and the configuration manager, and stores information such as location-based information and configurations. Although we do not follow any cloud computing standards, we look at our infrastructure as described by the \emph{cloud computing} paradigm: it offers services to clients which must meet one constraints: provide the service accurately with the require data (i.e. location data). Basically, with this approach we hold the data and the computation in the \emph{realms cloud}, hence the clients only need to provide the service with the required data and present the users with the results from the services.
+\\\\
+The infrastructure provide a RESTful API with the following methods:
+\begin{itemize}
+	\item \emph{connect(userID, pass, realm)} -- try to authenticate a client based on the submitted credentials for the specified realm; it the authentication was successful, determine whether the user is already in a session which needs to be resumed. If so, return the existing sessionID, otherwise create a new session and start processing processing the realm's flow from the first step (for this user)
+	\item \emph{reportStatus(StatusData, sessionID)} -- receive status data from the client. Process the current step and advance in the flow, if the all the conditions imposed by the current step are met, and return the client with a new set of \emph{instructions}
+	\item \emph{close(userID, pass, sessionID, realm)} -- force end the current session (even if the flow is not finished)
+\end{itemize}
+% subsection realms_infrastructure (end)
