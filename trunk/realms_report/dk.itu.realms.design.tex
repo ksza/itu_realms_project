@@ -1,35 +1,60 @@
 \section{Design} % (fold)
 \label{sec:design}
-\todo{what the system is}
-The main goal of the \emph{Realms} system is to help in the creation of simple \emph{context-aware applications} based on a configuration process. Hence, the system has three major components:
+The main goal of the \emph{Realms} system is to help in the creation of simple \emph{location-based applications} based on a configuration process and consists of the following three major components:
 \begin{itemize}
 	\item \emph{configuration manager} - empowers users with the posibility of augmenting a physical space with virtual properties and rules (we call it a \emph{realm})
 	\item \emph{mobile client} - collects relevant context data and intermediates the interaction between the users and the system
-	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context information and posible virtual properties of the system (which can be applied in the user's context).
-\end{itemize}\\
-
-\todo{The social and technological environment in which the system will function}
-There are two end user types which will use our system: the \emph{configuration managers} which will create realms, and the \emph{?mobile client users?} which will interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the configuration managers.\\
-
-The realms which a configuration manager will be able to create can be based only on outdoors spaces. Therefore, we are excluding the possiblity of indoors usage of the application and the mobile clients are ment to work only outdoors.\\
-
-\todo{Its advantages over older systems}
+	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context (location) information and posible virtual properties of the system (which can be applied in the user's context).
+\end{itemize}
+\\\\
+There are two end user types which will use our system: the \emph{configuration managers}, which will create realms, and the \emph{?mobile client users?} which will interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the configuration managers: they are our end-users because they will be using the mobile client, that we provide, to connect to one of the realms, provided by configuration managers.
+\\\\
+Indoors positioning needs a lot more infrastructure than the one provided by GPS satellites which makes indoor locatins hard to deal with. Hence, we consider indoors spaces to be out of scope for our system and the realms which a configuration manager will be able to create can be based only on outdoors spaces. Therefore, we are excluding the possiblity of indoors usage of the application and the mobile clients are ment to work only outdoors.
+\\\\
 The main advange over similar system is that we empower users to create a redy-to-be-used context-aware application without writing one line of code.\\
-
-\todo{The type of the system (distributed, client-server, etc.)}
-The whole system is built around two main entities: \emph{contextual information} and \emph{rules/decisions} on top of the contextual information; hence, we are dealing with a distributed, data-driven system. Our design will follow the client-server design pattern based on a data-drive client-server interaction.
-
-\todo{here goes an abstract block diagram of the system}
-
-\subsection{Realms Infrastructure} % (fold)
-\label{sub:realms_infrastructure}
-In this subsection we will describe our system infrastructure. The realms infrastructure is the backend of our system and handles connection from the mobile app and the configuration manager, and stores information such as location-based information and configurations.
-% subsection realms_infrastructure (end)
+\\\\
+The whole system is built around three main entities: \emph{location information}, \emph{virtual properties} and \emph{rules/decisions} to govern the data; hence, we are dealing with a distributed, data-driven system. Our design will follow the client-server design pattern based on a data-drive client-server interaction.
+\\\\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/realms_high_lvl}
+	\caption{High level system overview}
+	\label{fig.design.high_lvl}
+\end{figure}
+Figure \ref{fig.design.high_lvl} depicts the major components and data structures of the system. On one hand we have the \emph{mobile clients} connected to the realms server, interacting with one of the realms and on the other hand we have the \emph{configured realms}, created by the \emph{configuration manager}, and the \emph{realms server} driving the interaction. The mobile clients communicate with the sever sending over the sensed data which, together with the virtual properties of the current realm, provides the server the necessary data to compute the next instructions for the client. Figure \ref{fig.design.comm_protocol} further details the interaction between the mobile client and the server.
+\\\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/abstract_communication_protocol}
+	\caption{Abstract Communication Protocol}
+	\label{fig.design.comm_protocol}
+\end{figure}
+After the client is started up it tries to communicate with the realms server sending over the authentication credentials and a \emph{realm} to connect to. If the authentication is successfull, the server either creates a new session or resumes and existing one; the way we manage the user sessions is an important characteristic of the system -- we are supporting long-running communication session between mobile phones and a server. The data connectivity of a mobile phones is still highly volatile so we have to consider as a fact that client-server communication can be broken at any time. We try to overcome this problem by storing each user session ID (and any relevant data), for each separate realm, in a persistent storage. When the mobile client starts to communicate with the server on a specific realm, the realms server will determine whether a new sessions has to be created or an existing one can be resume.
+\\\\
+Once the client got a connection to the server a series of \emph{report status data} - \emph{get instructions} will follow. The client gathers \emph{location data} and communicates it to the server which, using the information of the realm the client is connected to, computes the \emph{instructions} to be back to the client. The communication stops in one of the following situations: an exception occurs durring the communication session, the client exists or the interaction flow got to an end.
+\\\\
+Finally, as we will shortly describe the concrete architecture we base our infrastructure and communication uppon. \emph{REST} is an architecture style for distributed hypermedia systems. A \emph{web service} is an API which is accessed through the HyperText Transfer Protocol (HTTP) and executed on a remote system, hosting the requested service. A \emph{RESTful web service} is a web service implemented using HTTP and the principles of REST. The RESTful web service is defined by a collection of resource, each of which is defined by three main characteristics:
+\begin{itemize}
+  \item the base URI identifying the web service
+  \item the MIME\footnote{Multipurpose Internet Mail Extensions} type of the
+  data supported by the web service (JSON, XML, etc.)
+  \item the web service's interface defined against the HTTP supported methods
+  like POST, GET, PUT, DELETE etc.
+\end{itemize}
+\\\\
+The REST architectural style imposes a client-server architecture, which fits well our system's architecture, which is also based on a client-server approach.
 
 \subsection{Configuration Manager} % (fold)
 \label{sub:configuration_manager}
-In this subsection we will describe the configuration manager of our system. The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. 
+The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. There are two aspects when creating configuring a realm -- on one hand there is the map where concrete locations are augmented with virtual properties, and on the other hand there is the flow describing the interaction path between a client and the server.
+\\\\
+
 % subsection configuration_manager (end)
+
+\subsection{Realms Server} % (fold)
+\label{sub:realms_infrastructure}
+In this subsection we will describe our system infrastructure. The realms infrastructure is the backend of our system and handles connection from the mobile app and the configuration manager, and stores information such as location-based information and configurations.
+% subsection realms_infrastructure (end)
 
 \subsection{Realms Android App} % (fold)
 \label{sub:realms_android_app}
