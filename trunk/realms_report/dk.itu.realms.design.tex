@@ -46,11 +46,30 @@ The REST architectural style imposes a client-server architecture, which fits we
 
 \subsection{Configuration Manager} % (fold)
 \label{sub:configuration_manager}
-The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. There are two aspects when creating configuring a realm -- on one hand there is the map where concrete locations are augmented with virtual properties, and on the other hand there is the flow describing the interaction path between a client and the server.
+The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. There are two aspects when creating configuring a realm -- on one hand there is the interface where concrete locations are augmented with virtual properties, and on the other hand there is the flow describing the interaction path between a client and the server.
 \\\\
-
-
-% subsection configuration_manager (end)
+The most intuitive interface to augment physical location is a virtual map. This can be easily be browsed by concrete physical locations (latitude and longitude), city name, place name, address etc. These features make it easy for the user to rapidly find the desired location they want to augment. The configuration process will result in a list of (location, information) pairs where location is always \emph{(latitude, longitude)} and \emph{information} is a simple JSON string. The semantics of the information will be interpreted in the interaction flow. In this initial implementation of the system, the information will only be a list of options which will be transmitted to the client and their choice will be taken into consideration during the interaction flow.
+\\\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/virtual_properties}
+	\caption{Augmented Location Data}
+	\label{fig.design.virtual_properties}
+\end{figure}
+As depicted in Figure \ref{fig.design.virtual_properties} the data will be stored in a database where concrete locations are in relation with augmented information. As the semantics of the information can be identified through their \emph{type}, this approach allows to easily enrich the types of information supported by the system in the future.
+\\\\
+In order to enable the user to easily specify the interaction flow between the client and the server we will employ the \emph{workflow} mechanism as it is the main mechanism to  capture and develop human-to-machine interaction. A workflow which consists of a sequence of concatenated (connected) steps. Emphasis is on the flow paradigm, where each step follows the precedent without delay or gap and ends just before the subsequent step may begin. Figure \ref{fig.design.workflow} illustrates the concept of the workflow applied to our system. Each workflow has a \emph{Start} and an \emph{End} and a number of \emph{intermediate steps}. Each step of the workflow has as entry the user's current location, the optional choice of the user (based on the virtual data assigned to the user's location) and the virtual properties present at the user's location. Based in this information the step at hand will be able to decide which is the next step and when the transition will be made.
+\\\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/workflow}
+	\caption{Worflow concept illustrated}
+	\label{fig.design.workflow}
+\end{figure}
+The workflow builder is represented by a graphical tool where the user can create steps and connections inside the flow. For each step simple \emph{if-then-else} decision constructs will can be applied using the above mentioned variables (user location, virtual properties and optional user choice) and optional custom constants.
+\\\\
+\todo{insert schetch of UI here!}
+% subsection configuration_manager (end)be available having 
 
 \subsection{Realms Server} % (fold)
 \label{sub:realms_infrastructure}
