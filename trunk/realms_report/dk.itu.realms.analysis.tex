@@ -1,35 +1,39 @@
 %!TEX root = /Users/mortenq/Documents/ITU/Master/Realms/svn/itu_realms_project/trunk/realms_report/dk.itu.realms.main.tex
 \section{Analysis} % (fold)
 \label{sec:analysis}
-One of our basic assumptions is that features of location based applications can be categorized to create a taxonomy of location features. Having looked at some location-based application from the research literature, we now turn to the smart phone market places. 
+To gain a better understanding of the type of system we are developing, there are a number of fields we need to explore. Our system will allow users to create Realms - that is digitally enhanced physical locations. The motivation behind our system is the ability to allow end-users to configure these types of interactions. Having described related work in the fields of location-based system and end-user configuration for context-aware computing, we identify two important fields that we will analyze before we proceed; an abstract view on location based systems and the concept of Realms.
 
-\subsection{Popular Location-Based Apps} % (fold)
-\label{sub:popular_location_based_apps}
-This subsection will describe some popular and interesting location-based apps. We will chose a few that are popular and have a strong reliance on location-based interaction. 
-
-\subsection{foursquare} % (fold)
-\label{sub:foursquare}
-foursquare is one of the most popular location based application. It's a social platform where users share their locations by \'checking in\'. These check ins generate points and badges, allowing users to compete against each other in a race to get the most points. The competitive gaming aspects is further enhanced by the possibility to become Mayor of a given location - a title awarded the person who checks in the most. 
-% subsection foursquare (end)
-
-\subsection{Gowalla} % (fold)
-\label{sub:gowalla}
-Gowalla was a social location based app that was sold to Facebook in 2012. Similar to foursquare it allowed users to check in at different locations to receive awards. Users were awarded items which could be used in turn to create new places. The app also awarded users \emph{pins} for complete trips; checkins at a series of secified locations.
-% subsection gowalla (end)
-
-\subsection{WHERE} % (fold)
-\label{sub:where}
-WHERE is a location-based app allowing users to share information location specific information. The types of information can be ratings of places, discounts in stores or the price of gas at a gas station. WHERE makes this kind of user-generated information easily available to users in the vicinity. WHERE also has a strong business model where companies can use WHERE to promote themselves. 
-% subsection where (end)
-% subsection popular_location_based_apps (end)
-
-\subsection{Application Development Systems} % (fold)
-\label{sub:application_development_systems}
-With explosion of smart phones, businesses have realized the business potential of having an application to promote its products or services. This, in turn, have created a market for app-creation systems, where non-programmers can create simple smart phone applications. Of particular interest of our project is shoutem. shoutem is a web based system for creating smart phone apps. Users can access a webpage to create, edit, and publish iOS and Android applications. shoutem incorporates location-based features by using the foursquare API. Users can add places to the app, and allow check-ins, events (like a party - not programming language events), and user uploaded location-specific comments, media etc. 
-% subsection application_development_systems (end)
-
-\subsection{Taxonomy of Location Features} % (fold)
+\subsection{Characterization of Location Based Systems} % (fold)
 \label{sub:taxanomy_of_location_features}
-In this subsection we will try to create a taxonomy for location based features. Using the before described location based apps, we will try to factor out commonalities and abstract them to be able to describe them as general location based features.
+In this subsection we will try to characterize the properties of location-based systems. To do so we list a number of design dimensions that each describe a property of a location based systems. It is worth noticing that most location-based systems employ several features that does not have anything to do with location. While the foundations of the system may be dependent on location data, a lot of functionality that uses the location data in clever ways are supported. The design dimension we mention here are concerned only with interaction that are location-based. 
+
+\subsubsection{Location Representation}
+When we talk about location, we talk about the physical location of a user in the world. It is however important to notice that location can be represented in different ways. In general we can express location in 3 different ways; absolute, symbolic and relative (ref ubicomp book). The absolute location is the location expressed in the absolute measurements as defined by the system. For the earth as our system, the absolute location measurement is a position expressed in terms of latitude and longitude. The symbolic location measurement is a measurement that is meaningful to an interpreter (such as a human). An example would be The university - a location that makes sense for students and employees. Lastly location can be expressed in terms of relative position - that is, a position relative to another- for example 2 kilometers north of Copenhagen (note that Copenhagen is a symbolic location in this example).
+
+\subsubsection{Location Type}
+Location type describes the characteristics of the location information used in an interaction. We define two distinct types of location interaction; location-based and location-enhanced. The location based are interaction in which the outcome or result of the interaction depends on the location of the user. A good example is a search for nearby restaurants using a mobile location-enabled device. The search results from e.g. Google Search, will depend on the location of the user and their sorting likewise. On the other hand, location enhanced interactions are those where location is used to augment an interaction without affecting the outcome of it. An example is a check-in on e.g. Facebook Places. This outcome of the interaction is the check-in of the user - regardless of his location though his location is recorded. Later, a series of location based interactions may occur that follow the location-enhanced one, e.g. if a user want to search for other people in the vicinity using his previously reported location.
+
+\subsubsection{Data Type}
+The data type is a dimension we we adopt from Schilit et. al.'s categorization of context aware computing applications \cite{512740}. For data type we distinguish between information and commands. Information is data as information distributed within the system. Commands on the other hand, are executed within the systems. Again, a Goole search for restaurants will return what we characterize as information; a list of restaurants. On the other hand, presenting the user with the ability to print at a nerby printer, or allowing a check-in at a given location is a location-based command.
+
+\subsubsection{Communication Type}
+Our last dimension is the communication type. This dimension describes whether a user should query the system for updates or whether this happens automatically. An example of the fist one is the, again, a search where a user queries the system for some search results. On the other hand, a system notifying a user when he's close to a given location is an automatic system.  
+
 % subsection taxanomy_of_location_features (end)
+
+
+\subsection{Design Space} % (fold)
+\label{sub:design_space}
+To sum up, we have identified 4 dimensions that can be use to characterize a location-based system. These are; location representation, location type, data type, communication type. Based on these dimensions we present our design space for location based systems.  \emph{Here we will have a picture with the design dimensions as a design space}
+% subsection design_space (end) 
+
+
+\subsection{Realms} % (fold)
+\label{sub:realms}
+We introduce the notion of \emph{Realms} to describe a physically confined place augmented with digital information accessible by our systems. This choice is not random but motivated by several factors. The definition of the word \emph{realm} is "A community or territory over which a sovereign rules; a kingdom."\footnote{\url{http://www.thefreedictionary.com/realm}}. This definition has inspired us to choose the word. A realm is in systems is not associated with a kingdom , but it does describe rules and affordances of a territory. The sovereign or kingdom in our system can thus be thought of as the rules of the realms as dictated by the person who configured it. 
+
+Other uses of the word is found in online gaming - such as the online game World of Warcraft\footnote{\url{http://www.worldofwarcraft.com}} - where a realm is a synonym with an instance of the virtual world in which the game resides. This usage also fist will with our thoughts on realms. Indeed when entering a Realm in our system, the user is presented with a new virtual world.
+% subsection realms (end)
 % section analysis (end)
+
+
