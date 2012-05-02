@@ -29,6 +29,18 @@
 		</navigation-case>
 		
 		<navigation-case>
+			<from-outcome>new_realm</from-outcome>
+			<to-view-id>/regular_user/new_realm.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>realms</from-outcome>
+			<to-view-id>/regular_user/my_realms.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>settings</from-outcome>
 			<to-view-id>/regular_user/settings.xhtml</to-view-id>
 			<redirect />

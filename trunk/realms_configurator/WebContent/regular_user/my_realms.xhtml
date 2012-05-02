@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<ui:composition template="/realmsTemplate.xhtml">
+
+		<ui:define name="content">
+
+			<p:outputPanel styleClass="normal_text">
+				<h:form>
+					<p:commandLink title="#{msgs['realm.new']}" action="#{myRealmsService.newRealm}">
+						<p:graphicImage value="#{resource['images:add_icon.png']}" width="64" height="64" />
+					</p:commandLink>
+
+					<p:dataTable var="realm" value="#{myRealmsService.realms}"
+						emptyMessage="#{msgs['realm.empty']}">
+						<p:column>
+							<f:facet name="header">Id</f:facet>
+							<h:outputText value="#{realm.id}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{realm.name}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Description</f:facet>
+							<h:outputText value="#{realm.generalDescription}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Location Description</f:facet>
+							<h:outputText value="#{realm.locationDecription}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Latitude</f:facet>
+							<h:outputText value="#{realm.latitude}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Longitude</f:facet>
+							<h:outputText value="#{realm.longitude}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Action</f:facet>
+							<p:commandButton value="Delete" title="#{msgs['realm.delete']}"
+								action="#{myRealmsService.deleteRealm}" update="@form">
+								<f:setPropertyActionListener value="#{realm}"
+									target="#{myRealmsService.selectedRealm}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:outputPanel>
+		</ui:define>
+
+	</ui:composition>
+
+</f:view>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html">
+	<ui:composition template="/realmsTemplate.xhtml">
+
+		<ui:define name="header_content">
+			<script src="http://maps.google.com/maps/api/js?sensor=false"
+				type="text/javascript"></script>
+		</ui:define>
+
+		<ui:define name="content">
+			<center>
+				<h:form>
+					<p:panel header="#{msgs['realm.new']}" styleClass="normal_text"
+						style="width: 80%">
+
+						<f:facet name="header">
+							<h:panelGrid columns="2" style="width: 100%">
+								<h:outputText value="#{msgs['realm.new']}" />
+
+								<p:outputPanel style="float: right">
+									<p:commandLink title="#{msgs['realm.save']}" style="float: right" action="#{newRealmService.save}">
+										<p:graphicImage value="#{resource['images:save.png']}" width="16" height="16" />
+									</p:commandLink>
+								</p:outputPanel>
+							</h:panelGrid>
+						</f:facet>
+
+						<h:panelGrid columns="3">
+							<h:outputText value="#{msgs['realm.name']}" />
+							<p:inputText id="realmName" required="true"
+								value="#{newRealmService.realm.name}">
+								<p:ajax event="blur" execute="@this" update="nameMessage @this" />
+							</p:inputText>
+							<p:message id="nameMessage" for="realmName" display="icon" />
+
+							<h:outputText value="#{msgs['realm.description']}" />
+							<p:inputText id="realmDescription" required="true"
+								value="#{newRealmService.realm.generalDescription}">
+								<p:ajax event="blur" execute="@this"
+									update="descriptionMessage @this" />
+							</p:inputText>
+							<p:message id="descriptionMessage" for="realmDescription"
+								display="icon" />
+
+							<h:outputText value="#{msgs['realm.radius']}" />
+							<p:inputText id="realmRadius" required="true"
+								value="#{newRealmService.realm.radius}">
+								<p:ajax event="blur" execute="@this"
+									update="radiusMessage @this" />
+							</p:inputText>
+							<p:message id="radiusMessage" for="realmRadius" display="icon" />
+
+							<h:outputText value="#{msgs['realm.location_description']}" />
+							<p:inputText id="locationDescription" value="#{newRealmService.realm.locationDecription}">
+								<p:ajax event="blur" execute="@this" />
+							</p:inputText>
+							<p:spacer height="30" width="0" />
+
+							<p:spacer height="30" width="0" />
+							<h:commandButton value="#{msgs['realm.update']}"
+								action="#{newRealmService.update}">
+								<p:ajax update="@form" />
+							</h:commandButton>
+						</h:panelGrid>
+
+						<p:gmap center="55.676097,12.568337" zoom="11" type="ROADMAP"
+							model="#{newRealmService.draggableModel}"
+							style="width:1300px;height:500px">
+							<p:ajax event="markerDrag"
+								listener="#{newRealmService.onMarkerDrag}" update="@this" />
+						</p:gmap>
+					</p:panel>
+				</h:form>
+			</center>
+		</ui:define>
+
+	</ui:composition>
+
+</f:view>
+</html>
