@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="hello">Hello World, RACActivity!</string>
     <string name="app_name">RAC</string>
+    <string name="loading">Loading ...</string>
+    <string name="realm_title">Realm:<xliff:g id="realm">%s</xliff:g></string>
+
+    <string name="options_button">Choose Option</string>
+    <string name="report_button">Report Status</string>
+    <string name="step_title">Step: </string>
+    
+    <!-- Setup screen -->
+    <string name="setup_title">Setup</string>
+    <string name="access_denied">Access Denied!</string>
+    <string name="nextbutton">Next</string>
+    <string name="title">Setup</string>
+    <string name="useridtitle">Enter user ID</string>
+    <string name="useridprompt">User ID</string>
+    <string name="password">Password</string>
+    <string name="Realm">Realm</string>
+    <string name="useriderrortext">Please enter a user ID</string>
+    <string name="save_button">Save</string>
 
 </resources>

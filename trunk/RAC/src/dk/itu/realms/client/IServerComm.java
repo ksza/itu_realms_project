@@ -9,7 +9,7 @@ import dk.itu.realms.client.model.Step;
  * @author karcsi
  * @version 1.0
  */
-public interface IServerConn {
+public interface IServerComm {
 
 	/**
 	 * Start a new session on the server for the specified user. The sessionID is returned
@@ -19,7 +19,7 @@ public interface IServerConn {
 	 * @param password
 	 * @return the generated sessionID
 	 */
-	public String startSession(String userName, String password);
+	public String connect(String userName, String password);
 	
 	/**
 	 * Send the data to the server and receive the computed result.
@@ -27,13 +27,13 @@ public interface IServerConn {
 	 * @param token
 	 * @return the computed step
 	 */
-	public Step communicate(CommunicationToken token);
+	public Step reportStatus(CommunicationToken token);
 
 	/**
 	 * Stop the session with the given sessionID.
 	 * 
 	 * @param sessionID
 	 */
-	public void stopSession(String sessionID);
+	public void end(String sessionID);
 	
 }

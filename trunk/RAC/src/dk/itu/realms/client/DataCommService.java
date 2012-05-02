@@ -9,7 +9,7 @@ import android.os.IBinder;
 public class DataCommService extends Service {
 	private static final String TAG = "DATA_COMM_SERVICE";
 
-	private IServerConn adapter = new ServerConnMock();
+	private IServerComm adapter = new ServerConnMock();
 
 	public class LocalBinder extends Binder {
 		public DataCommService getService() {
@@ -22,10 +22,10 @@ public class DataCommService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		/* keep the service running indefinitely */
-		return START_STICKY;
+		return START_NOT_STICKY;
 	}
 
-	public synchronized IServerConn getServerConn() {
+	public synchronized IServerComm getServerConn() {
 		return adapter;
 	}
 

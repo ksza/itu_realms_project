@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/ss_user_setup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/setup_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <!-- user id -->
+
+    <EditText
+        android:id="@+id/ss_userid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ss_user_setup_title"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/useridprompt"
+        android:inputType="number"
+        android:singleLine="true" />
+
+    <!-- user id error -->
+
+    <TextView
+        android:id="@+id/ss_useriderror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ss_userid"
+        android:layout_centerHorizontal="true"
+        android:text="@string/useriderrortext"
+        android:textColor="@drawable/red"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/ss_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ss_useriderror"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/password"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/ss_realm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ss_pass"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/Realm"
+        android:singleLine="true" />
+
+    <!-- Save settings button -->
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="106dp"
+        android:layout_height="106dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save_button" />
+
+</RelativeLayout>

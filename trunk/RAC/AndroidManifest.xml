@@ -17,8 +17,9 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        <activity android:name=".activities.RACActivity" />
         <activity
-            android:name=".activities.RACActivity"
+            android:name=".activities.UserSetupScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,11 @@
             </intent-filter>
         </activity>
 
-        <provider android:name="dk.itu.realms.client.funf.persistence.PersistedSensorDataProvider" android:authorities="dk.itu.realms.client"/>
+        <provider
+            android:name="dk.itu.realms.client.funf.persistence.PersistedSensorDataProvider"
+            android:authorities="dk.itu.realms.client" />
+
+        <service android:name="dk.itu.realms.client.DataCommService" />
         
         <!-- Probe Services -->
         <service android:name="edu.mit.media.funf.probe.builtin.LocationProbe" />
