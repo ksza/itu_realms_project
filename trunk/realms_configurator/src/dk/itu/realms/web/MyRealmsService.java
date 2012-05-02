@@ -36,6 +36,10 @@ public class MyRealmsService {
 		}
 	}
 
+	public String editRealm() {
+		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + selectedRealm.getId();
+	}
+	
 	private Realm selectedRealm;
 	
 	public void setSelectedRealm(Realm realm) {

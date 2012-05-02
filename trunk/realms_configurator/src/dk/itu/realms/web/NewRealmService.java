@@ -81,8 +81,10 @@ public class NewRealmService {
 		realm.setOwner(userDAO.findByEmail(currentUserService.getEmail()));
 
 		realmDAO.save(realm);
+		
+		realm = realmDAO.getByName(realm.getName());
 
-		return "/regular_user/my_realms.xhtml?faces-redirect=true";
+		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + realm.getId();
 		//		}
 		//		
 		//		return null;

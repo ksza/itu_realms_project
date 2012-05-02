@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dk.itu.realms.model.dao.RealmDAO;
-import dk.itu.realms.model.entity.HibernateUser;
 import dk.itu.realms.model.entity.Realm;
 
 @Repository("realmDAO")

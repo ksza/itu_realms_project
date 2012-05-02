@@ -28,7 +28,7 @@ public class LoginBean implements Serializable {
 		boolean success = authenticationService.login(login, password);
 		
 		if (success){
-			return "index";
+			return "/regular_user/my_realms.xhtml?faces-redirect=true";
 		} else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Incorrect username or password!", null));
 			return null;

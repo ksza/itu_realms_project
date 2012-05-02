@@ -12,12 +12,15 @@
 
 			<p:outputPanel styleClass="normal_text">
 				<h:form>
-					<p:commandLink title="#{msgs['realm.new']}" action="#{myRealmsService.newRealm}">
-						<p:graphicImage value="#{resource['images:add_icon.png']}" width="64" height="64" />
+					<p:commandLink title="#{msgs['realm.new']}"
+						action="#{myRealmsService.newRealm}">
+						<p:graphicImage value="#{resource['images:add_icon.png']}"
+							width="64" height="64" />
 					</p:commandLink>
 
 					<p:dataTable var="realm" value="#{myRealmsService.realms}"
 						emptyMessage="#{msgs['realm.empty']}">
+
 						<p:column>
 							<f:facet name="header">Id</f:facet>
 							<h:outputText value="#{realm.id}" />
@@ -49,9 +52,15 @@
 						</p:column>
 
 						<p:column>
-							<f:facet name="header">Action</f:facet>
+							<f:facet name="header">Actions</f:facet>
+							<p:commandButton value="Edit" title="Edit"
+								action="#{myRealmsService.editRealm}">
+								<f:setPropertyActionListener value="#{realm}"
+									target="#{myRealmsService.selectedRealm}" />
+							</p:commandButton>
+							
 							<p:commandButton value="Delete" title="#{msgs['realm.delete']}"
-								action="#{myRealmsService.deleteRealm}" update="@form">
+								action="#{myRealmsService.deleteRealm}" update="@form" style="float: right">
 								<f:setPropertyActionListener value="#{realm}"
 									target="#{myRealmsService.selectedRealm}" />
 							</p:commandButton>
