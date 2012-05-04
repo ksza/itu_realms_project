@@ -47,7 +47,7 @@ public class MyRealmsService {
 	}
 	
 	public String newRealm() {
-		newRealmService.intit();
+		newRealmService.init();
 		
 		return "new_realm";
 	}

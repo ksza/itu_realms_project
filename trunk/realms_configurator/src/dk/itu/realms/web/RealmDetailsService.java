@@ -8,16 +8,16 @@ import javax.inject.Named;
 import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 import org.springframework.context.annotation.Scope;
 
 import dk.itu.realms.model.dao.RealmDAO;
 import dk.itu.realms.model.entity.Realm;
+import dk.itu.realms.web.map.AbstractMapService;
 
 @Named("realmDetails")
 @Scope("session")
-public class RealmDetailsService {
+public class RealmDetailsService extends AbstractMapService {
 
 	@Inject
 	@Named("realmDAO")
@@ -27,15 +27,10 @@ public class RealmDetailsService {
 	@Named("currentUser")
 	protected CurrentUserService currentUserService;
 	
-	private MapModel mapModel;
-	
+	@Override
 	@PostConstruct
 	public void init() {
-		mapModel = new DefaultMapModel();
-	}
-	
-	public MapModel getModel() {
-		return mapModel;
+		super.init();
 	}
 	
 	private Realm realm;
@@ -67,6 +62,8 @@ public class RealmDetailsService {
 			realmRadius.setFillOpacity(0.2);
 			
 			mapModel.addOverlay(realmRadius);
+			
+			mapParams.setCenter(realm.getLatitude() + ", " + realm.getLongitude());
 		}
 	}
 	

@@ -70,7 +70,7 @@
 						</h:panelGrid>
 
 						<p:gmap center="#{newRealmService.mapParams.center}" zoom="#{newRealmService.mapParams.zoom}" type="ROADMAP"
-							model="#{newRealmService.draggableModel}"
+							model="#{newRealmService.mapModel}"
 							style="width:1300px;height:500px">
 							<p:ajax event="markerDrag" listener="#{newRealmService.onMarkerDrag}" update="@this" />
 							<p:ajax event="stateChange" listener="#{newRealmService.onStateChange}" />

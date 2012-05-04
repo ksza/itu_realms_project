@@ -24,10 +24,11 @@
 								<f:param value="#{realmDetails.realm.name}" />
 							</h:outputFormat>
 						</f:facet>
-						<p:gmap center="55.676097,12.568337" zoom="11" type="ROADMAP"
-							model="#{realmDetails.model}"
+						<p:gmap center="#{realmDetails.mapParams.center}" zoom="#{realmDetails.mapParams.zoom}" type="ROADMAP"
+							model="#{realmDetails.mapModel}"
 							onPointClick="handlePointClick(event);" widgetVar="detailsMap"
 							style="width:1300px;height:700px">
+							<p:ajax event="stateChange" listener="#{realmDetails.onStateChange}" />
 						</p:gmap>
 
 						<p:dialog widgetVar="dlg" effect="FADE" effectDuration="0.5"
