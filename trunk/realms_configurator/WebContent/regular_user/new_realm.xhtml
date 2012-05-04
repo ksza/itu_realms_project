@@ -69,11 +69,11 @@
 							</h:commandButton>
 						</h:panelGrid>
 
-						<p:gmap center="55.676097,12.568337" zoom="11" type="ROADMAP"
+						<p:gmap center="#{newRealmService.mapParams.center}" zoom="#{newRealmService.mapParams.zoom}" type="ROADMAP"
 							model="#{newRealmService.draggableModel}"
 							style="width:1300px;height:500px">
-							<p:ajax event="markerDrag"
-								listener="#{newRealmService.onMarkerDrag}" update="@this" />
+							<p:ajax event="markerDrag" listener="#{newRealmService.onMarkerDrag}" update="@this" />
+							<p:ajax event="stateChange" listener="#{newRealmService.onStateChange}" />
 						</p:gmap>
 					</p:panel>
 				</h:form>

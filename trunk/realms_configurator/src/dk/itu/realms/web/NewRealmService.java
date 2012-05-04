@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -36,8 +37,12 @@ public class NewRealmService {
 
 	private MapModel draggableModel;
 
+	private MapParams mapParams;
+
 	@PostConstruct
 	public void intit() {
+		mapParams = new MapParams();
+
 		draggableModel = new DefaultMapModel();
 
 		realm = new Realm();
@@ -65,6 +70,10 @@ public class NewRealmService {
 		draggableModel.addOverlay(realmRadius);
 	}
 
+	public MapParams getMapParams() {
+		return mapParams;
+	}
+
 	public Realm getRealm() {
 		return realm;
 	}
@@ -81,7 +90,7 @@ public class NewRealmService {
 		realm.setOwner(userDAO.findByEmail(currentUserService.getEmail()));
 
 		realmDAO.save(realm);
-		
+
 		realm = realmDAO.getByName(realm.getName());
 
 		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + realm.getId();
@@ -103,4 +112,29 @@ public class NewRealmService {
 		draggableModel.getCircles().get(0).setCenter(new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng()));
 	}
 
+	public void onStateChange(StateChangeEvent event) {  
+		//        LatLngBounds bounds = event.getBounds();  
+		int zoomLevel = event.getZoomLevel();  
+
+		mapParams.setCenter(event.getCenter().getLat() + ", " + event.getCenter().getLng());
+		mapParams.setZoom(String.valueOf(zoomLevel));
+	}  
+
+	public class MapParams {
+		private String center = "55.676097,12.568337";
+		private String zoom = "11";
+
+		public String getCenter() {
+			return center;
+		}
+		public void setCenter(String center) {
+			this.center = center;
+		}
+		public String getZoom() {
+			return zoom;
+		}
+		public void setZoom(String zoom) {
+			this.zoom = zoom;
+		}
+	}
 }
