@@ -1,6 +1,9 @@
 package dk.itu.realms.model.entity;
 
+import java.util.Set;
+
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,6 +32,7 @@ public class Realm {
 	private Double latitude;
 	private Double longitude;
 	private Double radius;
+	private Set<Mark> marks;
 	
 	private HibernateUser owner;
 	
@@ -91,6 +96,14 @@ public class Realm {
 		this.radius = radius;
 	}
 
+	@OneToMany(targetEntity = Mark.class, cascade = CascadeType.ALL)
+	public Set<Mark> getMarks() {
+		return marks;
+	}
+	public void setMarks(Set<Mark> marks) {
+		this.marks = marks;
+	}
+	
 	@OneToOne(targetEntity = HibernateUser.class, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_realms", 

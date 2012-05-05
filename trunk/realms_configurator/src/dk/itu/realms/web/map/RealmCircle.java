@@ -5,13 +5,36 @@ import org.primefaces.model.map.LatLng;
 
 public class RealmCircle extends Circle {
 
-	private static final double DEFAULT_RADIUS 			= 500;
-	private static final String DEFAULT_TROKE_COLOR 	= "#d93c3c";
-	private static final String DEFAULT_FILL_COLOR 		= "#d93c3c";
-	private static final double DEFAULT_OPACITY 		= 0.7;
+	private static final String STROKE_COLOR 	= "#ff8c00";
+	private static final String FILL_COLOR 		= "#ff7f50";
+	private static final double OPACITY 		= 0.7;
 	
-	public RealmCircle(LatLng center, double radius) {
+	private static final String STROKE_COLOR_SELECTED 		= "#228b22";
+	private static final String FILL_COLOR_SELECTED 		= "#7cfc00";
+	
+	private RealmsMarker parent;
+	
+	public RealmCircle(LatLng center, double radius, RealmsMarker parent) {
 		super(center, radius);
+		
+		setStrokeColor(STROKE_COLOR);
+		setFillColor(FILL_COLOR);
+		setStrokeOpacity(OPACITY);
+		
+		this.parent = parent;
 	}
 
+	public RealmsMarker getParent() {
+		return this.parent;
+	}
+	
+	public void setSelected(boolean selected) {
+		if(! selected) {
+			setStrokeColor(STROKE_COLOR);
+			setFillColor(FILL_COLOR);
+		} else {
+			setStrokeColor(STROKE_COLOR_SELECTED);
+			setFillColor(FILL_COLOR_SELECTED);
+		}
+	}
 }

@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Scope;
 @Entity
 @Table(name = "marks", schema = "realms")
 public class Mark {
+	
+	private static final Double DEFAULT_RADIUS = 500d;
 
 	private Long id;
 	
@@ -30,6 +32,15 @@ public class Mark {
 	
 	private List<Option> options;
 
+	public Mark() { }
+	
+	public Mark(Double lat, Double lng) {
+		this.latitude = lat;
+		this.longitude = lng;
+		
+		radius = DEFAULT_RADIUS;
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -80,7 +91,7 @@ public class Mark {
 		this.radius = radius;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL)
 	public List<Option> getOptions() {
 		return options;
 	}
