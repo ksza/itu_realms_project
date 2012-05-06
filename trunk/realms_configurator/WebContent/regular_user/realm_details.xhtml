@@ -57,9 +57,12 @@
 
 							</p:layoutUnit>
 
-							<p:layoutUnit position="east" size="300"
+							<p:layoutUnit position="east" size="350"
 								header="#{msgs['realm.edit.properties']}" resizable="true"
 								collapsible="true" effect="drop">
+								<h:outputText value="Select a marker to see properties"
+									rendered="#{! realmDetails.hasSelected}" />
+
 								<h:panelGrid columns="2" rendered="#{realmDetails.hasSelected}">
 									<h:outputText value="#{msgs['realm.edit.marker_title']}" />
 									<p:inputText id="markerTitle"
@@ -75,13 +78,54 @@
 									<p:inputText id="markerRadius"
 										value="#{realmDetails.selectedMarker.radius}">
 									</p:inputText>
-
-									<p:spacer height="30" />
-									<p:commandButton value="Update" update="@form" />
 								</h:panelGrid>
+								<p:spacer height="25" />
+								<p:panel header="Options" styleClass="normal_text"
+									rendered="#{realmDetails.hasSelected}" toggleable="true">
+									<p:panelGrid columns="2">
+										<h:outputText value="Option Title: *" />
+										<p:inputText id="optionTitleInput" />
 
-								<h:outputText value="Select a marker to see properties"
-									rendered="#{! realmDetails.hasSelected}" />
+										<h:outputText value="Option Description: " />
+										<p:inputText id="optionDescInput" />
+
+										<h:outputText value="Option Weight: " />
+										<p:inputText id="optionWeinghtInput" />
+
+										<p:commandButton value="Add" ajax="true" />
+									</p:panelGrid>
+									<p:spacer height="15" />
+									<p:dataTable var="optionsTable">
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="Name" />
+											</f:facet>
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="Description" />
+											</f:facet>
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="Weight" />
+											</f:facet>
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputText value="Action" />
+											</f:facet>
+											<p:commandButton value="Delete" />
+										</p:column>
+									</p:dataTable>
+								</p:panel>
+
+								<p:spacer height="100" />
+								<p:commandButton value="Update" update="@form" rendered="#{realmDetails.hasSelected}" />
 							</p:layoutUnit>
 
 							<p:layoutUnit position="center">

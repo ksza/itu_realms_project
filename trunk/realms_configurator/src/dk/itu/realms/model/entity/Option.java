@@ -48,7 +48,7 @@ public class Option {
 		this.optionDescription = optionDescription;
 	}
 	
-	@Column(name = "weight", nullable = false)
+	@Column(name = "weight", nullable = true)
 	public Double getWeight() {
 		return weight;
 	}
