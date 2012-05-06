@@ -27,34 +27,6 @@
 						<h:outputText value="#{msgs['app.name']}" style="font-size: xx-large;" action="index" />
 						
 						<h:panelGroup>
-<!-- 							<h:commandLink title="#{msgs['dock.home']}" action="index">
-								<h:graphicImage value="#{resource['images:home_icon.png']}"
-									style="width: 32px; height: 32px" />
-							</h:commandLink>
-							<p:spacer width="10" /> -->
-
-							<h:commandLink title="#{msgs['dock.realms']}"
-								action="realms">
-								<h:graphicImage
-									value="#{resource['images:home_icon.png']}"
-									style="width: 32px; height: 32px" />
-							</h:commandLink>
-							<p:spacer width="10" />
-
-							<h:commandLink title="#{msgs['dock.register']}" action="register">
-								<h:graphicImage value="#{resource['images:register_icon.png']}"
-									style="width: 32px; height: 32px" />
-							</h:commandLink>
-							<p:spacer width="10" />
-
-							<h:commandLink title="#{msgs['dock.manager']}" action="manager">
-								<h:graphicImage value="#{resource['images:admin_icon.png']}"
-									style="width: 32px; height: 32px" />
-							</h:commandLink>
-							<p:spacer width="10" />
-						</h:panelGroup>
-
-						<h:panelGroup>
 							<ui:include src="/current_user.xhtml" />
 						</h:panelGroup>
 					</h:panelGrid>

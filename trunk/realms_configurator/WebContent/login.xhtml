@@ -32,9 +32,14 @@
 							<p:commandButton ajax="false"
 								value="#{msgs['current_user.login.title']}"
 								action="#{loginBean.login}" />
+							<h:outputText value="OR" />
 						</h:panelGrid>
 
 					</h:form>
+					<h:form>
+												<p:commandButton ajax="true"
+								value="Register" action="register" />
+								</h:form>
 				</p:panel>
 			</center>
 		</ui:define>

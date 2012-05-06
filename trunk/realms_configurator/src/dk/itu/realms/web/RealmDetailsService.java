@@ -10,7 +10,6 @@ import javax.inject.Named;
 import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.event.map.PointSelectEvent;
-import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
@@ -64,12 +63,10 @@ public class RealmDetailsService extends AbstractMapService {
 			LatLng realmCenterCoord = new LatLng(realm.getLatitude(), realm.getLongitude());
 
 			/* circle */
-			Circle realmRadius = new Circle(realmCenterCoord, realm.getRadius());
-			realmRadius.setStrokeColor("#d93c3c");
-			realmRadius.setFillColor("#d93c3c");
-			realmRadius.setFillOpacity(0.2);
-			
-			mapModel.addOverlay(realmRadius);
+			Marker realmCenterMarker = new Marker(realmCenterCoord);
+			realmCenterMarker.setDraggable(false);
+			realmCenterMarker.setIcon("/realms_configurator/faces/resources/images/marker_flag.png");
+			mapModel.addOverlay(realmCenterMarker);
 
 			mapParams.setCenter(realm.getLatitude() + ", " + realm.getLongitude());
 
@@ -112,7 +109,7 @@ public class RealmDetailsService extends AbstractMapService {
 	public boolean getAllComplete() {
 		boolean complete = true;
 		for(Marker m: getMapModel().getMarkers()) {
-			if(! ((RealmsMarker)m).isComplete()) {
+			if((m instanceof RealmsMarker) && ! ((RealmsMarker)m).isComplete()) {
 				complete = false;
 			}
 		}
@@ -124,7 +121,9 @@ public class RealmDetailsService extends AbstractMapService {
 		if(realm != null) {
 			final Set<Mark> marks = new HashSet<Mark>();
 			for(Marker m: mapModel.getMarkers()) {
-				marks.add((Mark)m.getData());
+				if(m instanceof RealmsMarker) {
+					marks.add((Mark)m.getData());
+				}
 			}
 			realm.setMarks(marks);
 
@@ -148,7 +147,16 @@ public class RealmDetailsService extends AbstractMapService {
 			mapModel.addOverlay(marker.getCircle());
 			
 			selectedMarker = marker;
-
+			if(marker != null) {
+				marker.setSelected(true);
+				for(Marker m: mapModel.getMarkers()) {
+					if(! m.getId().equals(marker.getId()) && (m instanceof RealmsMarker)) {
+						((RealmsMarker)m).setSelected(false);
+					}
+				}
+			}
+			marker.setSelected(true);
+			
 			//		}
 		}
 	}
@@ -180,7 +188,7 @@ public class RealmDetailsService extends AbstractMapService {
 		if(marker != null) {
 			marker.setSelected(true);
 			for(Marker m: mapModel.getMarkers()) {
-				if(! m.getId().equals(marker.getId())) {
+				if(! m.getId().equals(marker.getId())  && (m instanceof RealmsMarker)) {
 					((RealmsMarker)m).setSelected(false);
 				}
 			}

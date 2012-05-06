@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13333135045860" configfile="/realms_configurator/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1522" id="pf13333135353031" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13333135353032 pf13333135353033 pf13333135353034 pf13333135353035 pf13333135353036 pf13333135353037 pf13359593955700" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf13333135353048" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13333135353032" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="regular_user/settings.xhtml" x="338" y="946" id="pf13333135353049" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf13333135353033" path="/regular_user/settings.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="1330" id="pf133331353530410" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf13333135353034" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="338" y="1714" id="pf133331353530411" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf13333135353035" path="/register.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="338" y="2098" id="pf133331353530412" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf13333135353036" path="/error.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="admin/admin_page.xhtml" x="338" y="2482" id="pf133331353530413" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf13333135353037" path="/admin/admin_page.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="regular_user/my_realms.xhtml" id="pf13359593955711" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13359593955700" path="/regular_user/my_realms.xhtml"/>
-  <links id="pf13333135353032" target="pf13333135353048" source="pf13333135353031" outcome="index" redirect="true"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1522" id="pf13333135353031" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13333135353033 pf13333135353034 pf13333135353035 pf13333135353036 pf13333135353037 pf13359593955700 pf13363315923430 pf13363315923431" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="regular_user/settings.xhtml" x="338" y="562" id="pf13333135353049" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf13333135353033" path="/regular_user/settings.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="946" id="pf133331353530410" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf13333135353034" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register.xhtml" x="338" y="1330" id="pf133331353530411" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf13333135353035" path="/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="338" y="1714" id="pf133331353530412" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf13333135353036" path="/error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="admin/admin_page.xhtml" x="338" y="2098" id="pf133331353530413" referenceLink="//@navigationRule.0/@navigationCase.7/@toViewId|" inlinks="pf13333135353037" path="/admin/admin_page.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="regular_user/my_realms.xhtml" x="338" y="2482" id="pf13359593955711" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13359593955700 pf13363315923431" path="/regular_user/my_realms.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="regular_user/new_realm.xhtml" x="338" y="2866" id="pf13363315923442" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13363315923430" path="/regular_user/new_realm.xhtml"/>
   <links id="pf13333135353033" target="pf13333135353049" source="pf13333135353031" outcome="settings" redirect="true"/>
   <links id="pf13333135353034" target="pf133331353530410" source="pf13333135353031" outcome="login" redirect="true"/>
   <links id="pf13333135353035" target="pf133331353530411" source="pf13333135353031" outcome="register" redirect="true"/>
   <links id="pf13333135353036" target="pf133331353530412" source="pf13333135353031" outcome="error" redirect="true"/>
   <links id="pf13333135353037" target="pf133331353530413" source="pf13333135353031" outcome="manager" redirect="true"/>
   <links id="pf13359593955700" target="pf13359593955711" source="pf13333135353031" outcome="realms" redirect="true"/>
+  <links id="pf13363315923430" target="pf13363315923442" source="pf13333135353031" outcome="new_realm" redirect="true"/>
+  <links id="pf13363315923431" target="pf13359593955711" source="pf13333135353031" outcome="index" redirect="true"/>
 </pageflow:Pageflow>

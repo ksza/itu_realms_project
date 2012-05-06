@@ -7,7 +7,7 @@ public class RealmCircle extends Circle {
 
 	private static final String STROKE_COLOR 	= "#ff8c00";
 	private static final String FILL_COLOR 		= "#ff7f50";
-	private static final double OPACITY 		= 0.7;
+	private static final double OPACITY 		= 0.2;
 	
 	private static final String STROKE_COLOR_SELECTED 		= "#228b22";
 	private static final String FILL_COLOR_SELECTED 		= "#7cfc00";
@@ -19,7 +19,7 @@ public class RealmCircle extends Circle {
 		
 		setStrokeColor(STROKE_COLOR);
 		setFillColor(FILL_COLOR);
-		setStrokeOpacity(OPACITY);
+		setFillOpacity(OPACITY);
 		
 		this.parent = parent;
 	}

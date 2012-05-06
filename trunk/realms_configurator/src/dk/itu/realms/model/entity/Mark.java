@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Scope;
 @Table(name = "marks", schema = "realms")
 public class Mark {
 	
-	private static final Double DEFAULT_RADIUS = 500d;
+	private static final Double DEFAULT_RADIUS = 300d;
 
 	private Long id;
 	

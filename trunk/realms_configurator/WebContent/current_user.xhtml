@@ -13,6 +13,7 @@
 			<p:menuitem value="#{msgs['app.profile']}" rendered="#{currentUser.isLoggedIn}" action="settings" />
 			<p:menuitem value="#{msgs['app.logout']}" rendered="#{currentUser.isLoggedIn}" action="#{currentUser.logout}" />
 			<p:menuitem value="#{msgs['app.login']}" rendered="#{! currentUser.isLoggedIn}" action="login" />
+			<p:menuitem value="Register" rendered="#{! currentUser.isLoggedIn}" action="register" />
 		</p:menuButton>	
 	</h:panelGrid>
 </f:view>

@@ -24,7 +24,7 @@
 		
 		<navigation-case>
 			<from-outcome>index</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
+			<to-view-id>/regular_user/my_realms.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		
