@@ -49,6 +49,11 @@ public class RealmDAOImpl implements RealmDAO {
 		Realm realm = hibernateTemplate.get(Realm.class, id);
 		
 		/* force lazy loading */
+		realm.getMarks().size();
+		
+		for(Mark m: realm.getMarks()) {
+			m.getOptions().size();
+		}
 		
 		return realm;
 	}

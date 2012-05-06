@@ -1,9 +1,12 @@
 package dk.itu.realms.web.map;
 
+import java.util.List;
+
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
 
 import dk.itu.realms.model.entity.Mark;
+import dk.itu.realms.model.entity.Option;
 
 public class RealmsMarker extends Marker {
 
@@ -89,6 +92,12 @@ public class RealmsMarker extends Marker {
 		return ((Mark)getData()).getRadius();
 	}
 	
+	public List<Option> getOptions() {
+		return ((Mark)getData()).getOptions();
+	}
+	public void setOptions(List<Option> options) {
+		((Mark)getData()).setOptions(options);
+	}
 	/* UI element manipulation */
 	private boolean selected = false;
 	public boolean isSelected() {

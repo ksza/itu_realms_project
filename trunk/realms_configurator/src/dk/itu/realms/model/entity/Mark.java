@@ -1,5 +1,6 @@
 package dk.itu.realms.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -39,6 +40,8 @@ public class Mark {
 		this.longitude = lng;
 		
 		radius = DEFAULT_RADIUS;
+		
+		options = new ArrayList<Option>();
 	}
 	
 	@Id

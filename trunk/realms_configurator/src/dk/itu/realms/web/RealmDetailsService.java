@@ -10,6 +10,7 @@ import javax.inject.Named;
 import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.event.map.PointSelectEvent;
+import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Scope;
 
 import dk.itu.realms.model.dao.RealmDAO;
 import dk.itu.realms.model.entity.Mark;
+import dk.itu.realms.model.entity.Option;
 import dk.itu.realms.model.entity.Realm;
 import dk.itu.realms.web.map.AbstractMapService;
 import dk.itu.realms.web.map.RealmCircle;
@@ -38,6 +40,41 @@ public class RealmDetailsService extends AbstractMapService {
 	@PostConstruct
 	public void init() {
 		super.init();
+
+		optionBean = new OptionBean();
+		addMarksMode = false;
+		showRealmRadius = false;
+	}
+
+	private Circle realmRadiusCircle;
+	
+	private OptionBean optionBean;
+	private Option selectedOption;
+	public OptionBean getOptionBean() {
+		return optionBean;
+	}
+	public void setOptionBean(OptionBean optionBean) {
+		this.optionBean = optionBean;
+	}
+	public Option getSelectedOption() {
+		return selectedOption;
+	}
+	public void setSelectedOption(Option selectedOption) {
+		this.selectedOption = selectedOption;
+	}
+	public void addOption() {
+		Option newOption = new Option();
+		newOption.setOptionTitle(optionBean.getOptionTitle());
+		newOption.setOptionDescription(optionBean.getOptionDescription());
+		newOption.setWeight(optionBean.getWeight());
+
+		selectedMarker.getOptions().add(newOption);
+		optionBean.clean();
+	}
+	public void deleteSelectedOption() {
+		if(selectedOption != null) {
+			selectedMarker.getOptions().remove(selectedOption);
+		}
 	}
 
 	private Realm realm;
@@ -63,6 +100,11 @@ public class RealmDetailsService extends AbstractMapService {
 			LatLng realmCenterCoord = new LatLng(realm.getLatitude(), realm.getLongitude());
 
 			/* circle */
+			realmRadiusCircle = new Circle(new LatLng(realm.getLatitude(), realm.getLongitude()), realm.getRadius());
+			realmRadiusCircle.setStrokeColor("#d93c3c");
+			realmRadiusCircle.setFillColor("#d93c3c");
+			realmRadiusCircle.setFillOpacity(0.2);
+			
 			Marker realmCenterMarker = new Marker(realmCenterCoord);
 			realmCenterMarker.setDraggable(false);
 			realmCenterMarker.setIcon("/realms_configurator/faces/resources/images/marker_flag.png");
@@ -99,6 +141,20 @@ public class RealmDetailsService extends AbstractMapService {
 	}  
 	public void setAddMarksMode(boolean addMarksMode) {  
 		this.addMarksMode = addMarksMode;  
+	}
+	
+	private boolean showRealmRadius;
+	public boolean isShowRealmRadius() {
+		return showRealmRadius;
+	}
+	public void setShowRealmRadius(boolean showRealmRadius) {
+		this.showRealmRadius = showRealmRadius;
+		
+		if(showRealmRadius) {
+			mapModel.addOverlay(realmRadiusCircle);
+		} else {
+			mapModel.getCircles().remove(realmRadiusCircle);
+		}
 	}
 
 	private RealmsMarker selectedMarker;
@@ -145,7 +201,7 @@ public class RealmDetailsService extends AbstractMapService {
 			RealmsMarker marker = new RealmsMarker(new LatLng(latlng.getLat(), latlng.getLng()));
 			mapModel.addOverlay(marker);
 			mapModel.addOverlay(marker.getCircle());
-			
+
 			selectedMarker = marker;
 			if(marker != null) {
 				marker.setSelected(true);
@@ -156,7 +212,7 @@ public class RealmDetailsService extends AbstractMapService {
 				}
 			}
 			marker.setSelected(true);
-			
+
 			//		}
 		}
 	}
@@ -175,7 +231,7 @@ public class RealmDetailsService extends AbstractMapService {
 		//		}
 	}
 
-	
+
 	public void onMarkerSelect(OverlaySelectEvent event) {
 		RealmsMarker marker = null;
 
@@ -197,4 +253,37 @@ public class RealmDetailsService extends AbstractMapService {
 		}
 	}  
 
+	public class OptionBean {
+		private String optionTitle;
+		private String optionDescription;
+		private Double weight;
+
+		public String getOptionTitle() {
+			return optionTitle;
+		}
+		public void setOptionTitle(String optionTitle) {
+			this.optionTitle = optionTitle;
+		}
+
+		public String getOptionDescription() {
+			return optionDescription;
+		}
+		public void setOptionDescription(String optionDescription) {
+			this.optionDescription = optionDescription;
+		}
+
+		public Double getWeight() {
+			return weight;
+		}
+		public void setWeight(Double weight) {
+			this.weight = weight;
+		}
+
+		public void clean() {
+			optionTitle = null;
+			optionDescription = null;
+			weight = null;
+		}
+
+	}
 }
