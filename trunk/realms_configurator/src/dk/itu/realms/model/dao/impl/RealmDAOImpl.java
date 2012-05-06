@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dk.itu.realms.model.dao.RealmDAO;
+import dk.itu.realms.model.entity.Mark;
 import dk.itu.realms.model.entity.Realm;
 
 @Repository("realmDAO")
@@ -81,6 +82,11 @@ public class RealmDAOImpl implements RealmDAO {
 		if(realms != null && realms.size() > 0) {
 			Realm r = realms.get(0);
 			/* force lazy loading -- if necesary */
+			r.getMarks().size();
+			
+			for(Mark m: r.getMarks()) {
+				m.getOptions().size();
+			}
 			
 			return r;
 		}

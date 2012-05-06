@@ -96,7 +96,7 @@ public class Realm {
 		this.radius = radius;
 	}
 
-	@OneToMany(targetEntity = Mark.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Mark.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Mark> getMarks() {
 		return marks;
 	}

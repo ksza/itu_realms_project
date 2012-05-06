@@ -1,7 +1,7 @@
 package dk.itu.realms.web;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -68,12 +68,19 @@ public class RealmDetailsService extends AbstractMapService {
 			realmRadius.setStrokeColor("#d93c3c");
 			realmRadius.setFillColor("#d93c3c");
 			realmRadius.setFillOpacity(0.2);
-
+			
 			mapModel.addOverlay(realmRadius);
 
 			mapParams.setCenter(realm.getLatitude() + ", " + realm.getLongitude());
 
 			selectedMarker = null;
+
+			/* load markers */
+			for(Mark m: realm.getMarks()) {
+				RealmsMarker marker = new RealmsMarker(m);
+				mapModel.addOverlay(marker);
+				mapModel.addOverlay(marker.getCircle());
+			}
 		}
 	}
 
@@ -89,17 +96,12 @@ public class RealmDetailsService extends AbstractMapService {
 		}
 	}
 
-	private boolean value1;
-	public boolean isValue1() {  
-		return value1;  
+	private boolean addMarksMode;
+	public boolean isAddMarksMode() {  
+		return addMarksMode;  
 	}  
-	public void setValue1(boolean value1) {  
-		this.value1 = value1;  
-	}
-	public void buttonStateChanged() {
-		if(value1) {
-
-		}
+	public void setAddMarksMode(boolean addMarksMode) {  
+		this.addMarksMode = addMarksMode;  
 	}
 
 	private RealmsMarker selectedMarker;
@@ -114,36 +116,41 @@ public class RealmDetailsService extends AbstractMapService {
 				complete = false;
 			}
 		}
-		
+
 		return complete;
 	}
-	
-	public void saveRealm() {
+
+	public String saveRealm() {
 		if(realm != null) {
-			final Set<Mark> marks = new TreeSet<Mark>();
+			final Set<Mark> marks = new HashSet<Mark>();
 			for(Marker m: mapModel.getMarkers()) {
 				marks.add((Mark)m.getData());
 			}
-			
+			realm.setMarks(marks);
+
 			realmDAO.save(realm);
 		}
+
+		return "/regular_user/my_realms.xhtml?faces-redirect=true";
 	}
-	
+
 	public void onPointSelect(PointSelectEvent event) {  
-		//		if(value1) {
-		LatLng latlng = event.getLatLng();
+		if(addMarksMode) {
+			LatLng latlng = event.getLatLng();
 
-		//		if(latlng.getLat() <= (realm.getLatitude() + realm.getRadius()/1000) && 
-		//				latlng.getLat() >= (realm.getLatitude() - realm.getRadius()/1000) &&
-		//				latlng.getLng() <= (realm.getLongitude() + realm.getRadius()/1000) &&
-		//				latlng.getLng() >= (realm.getLongitude() - realm.getRadius()/1000)) {
+			//		if(latlng.getLat() <= (realm.getLatitude() + realm.getRadius()/1000) && 
+			//				latlng.getLat() >= (realm.getLatitude() - realm.getRadius()/1000) &&
+			//				latlng.getLng() <= (realm.getLongitude() + realm.getRadius()/1000) &&
+			//				latlng.getLng() >= (realm.getLongitude() - realm.getRadius()/1000)) {
 
-		RealmsMarker marker = new RealmsMarker(new LatLng(latlng.getLat(), latlng.getLng()));
-		mapModel.addOverlay(marker);
-		mapModel.addOverlay(marker.getCircle());
+			RealmsMarker marker = new RealmsMarker(new LatLng(latlng.getLat(), latlng.getLng()));
+			mapModel.addOverlay(marker);
+			mapModel.addOverlay(marker.getCircle());
+			
+			selectedMarker = marker;
 
-		//		}
-		//		 }
+			//		}
+		}
 	}
 
 	public void onMarkerDrag(MarkerDragEvent event) {
@@ -160,6 +167,7 @@ public class RealmDetailsService extends AbstractMapService {
 		//		}
 	}
 
+	
 	public void onMarkerSelect(OverlaySelectEvent event) {
 		RealmsMarker marker = null;
 

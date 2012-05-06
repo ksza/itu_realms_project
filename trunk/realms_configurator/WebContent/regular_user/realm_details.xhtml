@@ -15,19 +15,6 @@
 		<ui:define name="header_content">
 			<script src="http://maps.google.com/maps/api/js?sensor=false"
 				type="text/javascript"></script>
-			<script type="text/javascript">
-				function focusRadius() {
-					document.getElementById('markerRadius').focus();
-				}
-
-				function focusTitle() {
-					document.getElementById('markerTitle').focus();
-				}
-
-				function focusDescription() {
-					document.getElementById('markerDescription').focus();
-				}
-			</script>
 		</ui:define>
 
 		<ui:define name="content">
@@ -44,31 +31,28 @@
 								header="#{msgs['realm.edit.tools']}" resizable="true"
 								collapsible="true" effect="drop">
 								<p:spacer height="100" />
-								
+
 								<h:panelGrid columns="2">
 									<h:outputText value="Add Marks Mode" />
-									<h:selectBooleanCheckbox value="#{realmDetails.value1}" />
-<!-- 									<p:selectBooleanButton offLabel="isOff" onLabel="isOn"
-										value="#{realmDetails.value1}">
-										<p:ajax listener="#{realmDetails.buttonStateChanged}" />
-									</p:selectBooleanButton> -->
-									
-									<h:outputText value="Delete Selected" />
-									<h:commandButton value="Delete" disabled="#{! realmDetails.hasSelected}" action="#{realmDetails.deleteSelected}">
+									<p:selectBooleanButton offLabel="isOff" onLabel="isOn"
+										value="#{realmDetails.addMarksMode}">
 										<p:ajax update="@form" />
-									</h:commandButton>
-									
-																	<h:outputText
-									value="Please fill in the required data for all markers (blinking)!"
-									rendered="#{! realmDetails.allComplete}" style="color: red" />
-								<h:outputText value="All required data is filled in!"
-									rendered="#{realmDetails.allComplete}" style="color: green" />
+									</p:selectBooleanButton>
 
-								<h:commandButton value="Save Realm"
-									disabled="#{! realmDetails.allComplete}"
-									action="#{realmDetails.saveRealm}">
-									<p:ajax update="@form" />
-								</h:commandButton>
+									<h:outputText value="Delete Selected" />
+									<p:commandButton value="Delete"
+										disabled="#{! realmDetails.hasSelected}"
+										actionListener="#{realmDetails.deleteSelected}" update="@form" />
+
+									<h:outputText
+										value="Please fill in the required data for all markers (blinking)!"
+										rendered="#{! realmDetails.allComplete}" style="color: red" />
+									<h:outputText value="All required data is filled in!"
+										rendered="#{realmDetails.allComplete}" style="color: green" />
+
+									<p:commandButton value="Save Realm"
+										disabled="#{! realmDetails.allComplete}"
+										action="#{realmDetails.saveRealm}" />
 								</h:panelGrid>
 
 							</p:layoutUnit>
@@ -80,23 +64,20 @@
 									<h:outputText value="#{msgs['realm.edit.marker_title']}" />
 									<p:inputText id="markerTitle"
 										value="#{realmDetails.selectedMarker.title}">
-										<p:ajax event="blur" execute="@this" update="@form"
-											oncomplete="focusDescription()" />
 									</p:inputText>
 
 									<h:outputText value="#{msgs['realm.edit.description']}" />
 									<p:inputText id="markerDescription"
 										value="#{realmDetails.selectedMarker.description}">
-										<p:ajax event="blur" oncomplete="focusRadius()"
-											execute="@this" update="@form" />
 									</p:inputText>
 
 									<h:outputText value="#{msgs['realm.edit.radius']}" />
 									<p:inputText id="markerRadius"
 										value="#{realmDetails.selectedMarker.radius}">
-										<p:ajax event="blur" execute="@this" update="@form"
-											oncomplete="focusTitle()" />
 									</p:inputText>
+
+									<p:spacer height="30" />
+									<p:commandButton value="Update" update="@form" />
 								</h:panelGrid>
 
 								<h:outputText value="Select a marker to see properties"
@@ -107,7 +88,7 @@
 								<p:gmap id="map" center="#{realmDetails.mapParams.center}"
 									zoom="#{realmDetails.mapParams.zoom}" type="ROADMAP"
 									model="#{realmDetails.mapModel}" widgetVar="detailsMap"
-									style="width:100%;height:90%">
+									fitBounds="true" style="width:100%;height:90%">
 									<p:ajax event="stateChange"
 										listener="#{realmDetails.onStateChange}" />
 									<p:ajax event="pointSelect"
