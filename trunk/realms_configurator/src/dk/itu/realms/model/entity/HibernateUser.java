@@ -23,8 +23,6 @@ public class HibernateUser extends User {
 
 	private Long id;
 
-	private ProfileThumbs profileThumb;
-
 	private Set<Authorities> roles;
 
 	public HibernateUser() { }
@@ -91,11 +89,4 @@ public class HibernateUser extends User {
 		this.roles = roles;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	public ProfileThumbs getThumb() {
-		return profileThumb;
-	}
-	public void setThumb(ProfileThumbs profileThumb) {
-		this.profileThumb = profileThumb;
-	}
 }

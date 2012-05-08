@@ -41,7 +41,15 @@ public class RealmDAOImpl implements RealmDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Realm> listAll() throws DataAccessException {
-		return hibernateTemplate.find("from " + Realm.class.getName());
+		List<Realm> result = hibernateTemplate.find("from " + Realm.class.getName());
+		/* force lazy loading */
+		for(Realm r: result) {
+			if(r.getOwner() != null)
+				r.getOwner().getRoles().size();
+		}
+		
+		return result;
+		
 	}
 
 	@Override
@@ -71,6 +79,8 @@ public class RealmDAOImpl implements RealmDAO {
 		
 		List<Realm> result = new ArrayList<Realm>();
 		for(Realm r: allRealms) {
+			if(r.getOwner() != null)
+				r.getOwner().getRoles().size();
 			if(r.getOwner() != null && r.getOwner().getEmail().equals(email)) {
 				result.add(r);
 			}

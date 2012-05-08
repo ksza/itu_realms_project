@@ -13,7 +13,6 @@ import org.springframework.dao.DataAccessException;
 import dk.itu.realms.model.dao.UserDAO;
 import dk.itu.realms.model.entity.Authorities;
 import dk.itu.realms.model.entity.HibernateUser;
-import dk.itu.realms.model.entity.ProfileThumbs;
 
 @Named("registrationService")
 @Scope("request")
@@ -36,10 +35,7 @@ public class RegistrationService {
 	public String register() {
 		try {
 			userModel.setEnabled(true);
-			if(file != null && file.getSize() > 0) {
-				userModel.setThumb(new ProfileThumbs(appUtils.createProfileThumb(file)));
-			}
-
+			
 			Authorities userRole = new Authorities();
 			userRole.setUsername(userModel.getEmail());
 			userRole.setAuthority("ROLE_USER");

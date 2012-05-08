@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Scope;
 
 import dk.itu.realms.model.dao.UserDAO;
 import dk.itu.realms.model.entity.HibernateUser;
-import dk.itu.realms.model.entity.ProfileThumbs;
 
 @Named("settingsService")
 @Scope("request")
@@ -46,14 +45,6 @@ public class SettingsService {
 		this.file = file;
 	}
 
-	public void upload() {
-		FacesMessage msg = new FacesMessage("Profile picture successfully updated", null);
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		currentUser.setThumb(new ProfileThumbs(appUtils.createProfileThumb(file)));
-		userDAO.save(currentUser);
-	}
-
 	public HibernateUser getCurrentUser() {
 		return currentUser;
 	}
@@ -61,7 +52,5 @@ public class SettingsService {
 		this.currentUser = currentUser;
 	}
 
-	public StreamedContent getThumbImage() {
-		return currentUserService.getThumbImage();
-	}
+
 }

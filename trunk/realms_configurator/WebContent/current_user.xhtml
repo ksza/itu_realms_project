@@ -8,7 +8,6 @@
 
 <f:view>
 	<h:panelGrid columns="2" style="float: right; border: 1px solid gray; font-size: small">
-		<p:graphicImage value="#{currentUser.thumbImage}" width="32" height="32" />
 		<p:menuButton value="#{currentUser.userName}" >
 			<p:menuitem value="#{msgs['app.profile']}" rendered="#{currentUser.isLoggedIn}" action="settings" />
 			<p:menuitem value="#{msgs['app.logout']}" rendered="#{currentUser.isLoggedIn}" action="#{currentUser.logout}" />

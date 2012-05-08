@@ -50,29 +50,7 @@ public class CurrentUserService {
 		return userDAO.findByEmail(authenticationService.getLoginID());
 	}
 	
-	/**
-	 * Get the thumbnail image of the user. A default image should be presented
-	 * if the user does not have a profile picture.
-	 */
-	public StreamedContent getThumbImage() {
-		user = load();
-		
-		if(user != null && user.getThumb() != null && user.getThumb().getPic() != null) {
-			try {
-				thumbImage = new DefaultStreamedContent(user.getThumb().getPic().getBinaryStream(), "image/png");
-			} catch (SQLException e) {
-				thumbImage = new DefaultStreamedContent();
-				e.printStackTrace();
-			}
-		} else {
-			thumbImage = new DefaultStreamedContent();
-		}
-		
-		return thumbImage;
-	}
-	public void setThumbImage(StreamedContent thumbImage) {
-		this.thumbImage = thumbImage;
-	}
+	
 	
 	public String getUserName() {
 		if(user != null) {

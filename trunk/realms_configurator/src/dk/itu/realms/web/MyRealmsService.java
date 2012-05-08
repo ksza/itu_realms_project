@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import dk.itu.realms.model.dao.RealmDAO;
 import dk.itu.realms.model.entity.Realm;
