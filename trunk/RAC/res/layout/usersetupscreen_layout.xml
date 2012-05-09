@@ -48,15 +48,6 @@
         android:hint="@string/password"
         android:singleLine="true" />
 
-    <EditText
-        android:id="@+id/ss_realm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ss_pass"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/Realm"
-        android:singleLine="true" />
-
     <!-- Save settings button -->
 
     <Button

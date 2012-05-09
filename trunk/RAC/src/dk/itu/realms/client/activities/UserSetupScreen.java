@@ -14,8 +14,6 @@ import dk.itu.realms.client.R;
 public class UserSetupScreen extends Activity {
 	public static final String PREFS_NAME = "monarcaSettings";
 
-	private static final String DEFAULT_PASSWORD = "q";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +30,6 @@ public class UserSetupScreen extends Activity {
 			public void onClick(View v) {
 				EditText userID = (EditText) findViewById(R.id.ss_userid);
 				EditText pass = (EditText) findViewById(R.id.ss_pass);
-				EditText realm = (EditText) findViewById(R.id.ss_realm);
 				
 				TextView userIDError = (TextView) findViewById(R.id.ss_useriderror);
 				
@@ -57,12 +54,8 @@ public class UserSetupScreen extends Activity {
 					
 					editor.putString("pass", pass.getText().toString());
 					
-					editor.putString("realm", realm.getText().toString());
-					
 					// Put password
 					editor.putString("password", "");
-					
-					
 
 					// Tell the app that we've done this
 					editor.putBoolean("setupDone", true);

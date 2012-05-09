@@ -9,6 +9,15 @@ import android.net.Uri;
 
 public class PersistDataHelper {
 
+	public static synchronized void clearDatabase(Context context) {
+		ContentResolver contentResolver = context.getContentResolver();
+		contentResolver.delete(
+				PersistedSensorData.Columns.CONTENT_URI, 
+				PersistedSensorData.Columns.DATA_TYPE + " = " + "'LOCATION'", 
+				null
+		);
+	}
+
 	public static synchronized void persistSensorData(Context context, PersistedSensorData data) {
 		ContentResolver contentResolver = context.getContentResolver();
 		Cursor cursor = contentResolver.query(
@@ -18,23 +27,23 @@ public class PersistDataHelper {
 				null, 
 				PersistedSensorData.Columns.DEFAULT_SORT_ORDER
 		);
-		
+
 		if(cursor != null) {
 			if(cursor.moveToFirst()) {
 				PersistedSensorData existingSensorData = new PersistedSensorData(cursor);
 				existingSensorData.value = data.value;
-				
+
 				update(context, existingSensorData);
 			} else {
 				insertSensorData(context, data);
 			}
-			
+
 			cursor.close();
 		} else {
 			insertSensorData(context, data);
 		}
 	}
-	
+
 	public static synchronized PersistedSensorData getSensorData(Context context, String type) {
 		ContentResolver contentResolver = context.getContentResolver();
 		Cursor cursor = contentResolver.query(
@@ -44,20 +53,20 @@ public class PersistDataHelper {
 				null, 
 				PersistedSensorData.Columns.DEFAULT_SORT_ORDER
 		);
-		
+
 		if(cursor != null) {
 			if(cursor.moveToFirst()) {
 				PersistedSensorData data = new PersistedSensorData(cursor);
 				cursor.close();
-				
+
 				return data;
 			} else {
 				cursor.close();
-				
+
 				return null;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -78,7 +87,7 @@ public class PersistDataHelper {
 		}
 		return sensorData;
 	}
-	
+
 	private static int insertSensorData(Context context, PersistedSensorData data) {
 		ContentValues values = createContentValues(data);
 		Uri uri = context.getContentResolver().insert(PersistedSensorData.Columns.CONTENT_URI, values);

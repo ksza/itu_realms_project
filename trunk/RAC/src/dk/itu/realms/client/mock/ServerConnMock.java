@@ -1,11 +1,13 @@
 package dk.itu.realms.client.mock;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import dk.itu.realms.client.IServerComm;
 import dk.itu.realms.client.model.CommunicationToken;
+import dk.itu.realms.client.model.Realm;
 import dk.itu.realms.client.model.Step;
-import dk.itu.realms.client.model.StepState;
 
 public class ServerConnMock implements IServerComm {
 
@@ -28,6 +30,16 @@ public class ServerConnMock implements IServerComm {
 	@Override
 	public void end(String sessionID) {
 		currentSessionID = null;
+	}
+	
+	public static List<Realm> getRealms() {
+		final List<Realm> realms = new ArrayList<Realm>();
+		
+		realms.add(new Realm("Realm1", "description one", "location description one"));
+		realms.add(new Realm("Realm2", "description two", "location description 2"));
+		realms.add(new Realm("Realm3", "description three", "location description 3"));
+		
+		return realms;
 	}
 
 }

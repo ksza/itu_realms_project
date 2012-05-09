@@ -1,94 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewSwitcher"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_vertical|center_horizontal" >
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/realm_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="10dp"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textStyle="italic" />
-
-    <TableLayout
-        android:id="@+id/footer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:stretchColumns="0,1" >
-
-        <TableRow>
-
-            <Button
-                android:id="@+id/option_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:text="@string/options_button" />
-
-            <Button
-                android:id="@+id/report_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="@string/report_button" />
-        </TableRow>
-    </TableLayout>
-
-    <!-- Actual Content -->
-
-    <ViewSwitcher
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/viewSwitcher"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/footer"
-        android:layout_below="@id/realm_title" >
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal" >
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="@string/loading"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="@string/loading"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+        <ListView
+            android:id="@+id/realms_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="false"
+            android:fadeScrollbars="false" />
+        
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/step_label"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="asd" />
-
-            <EditText
-                android:id="@+id/message_label"
-                android:text="asdasdsasdasa"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="top|left"
-                android:inputType="textMultiLine"
-                android:scrollHorizontally="false"
-                android:editable="false" />
-        </LinearLayout>
-    </ViewSwitcher>
-
-</RelativeLayout>
+</ViewSwitcher>
