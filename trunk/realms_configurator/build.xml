@@ -55,22 +55,4 @@
 		<delete dir="${env.CATALINA_HOME}/webapps/${ant.project.name}"/>
       	<copy file="dist/${ant.project.name}.war" todir="${env.CATALINA_HOME}/webapps" overwrite="true" />
     </target>
-	
-	<target name="schemaexport" depends="compile">
-	    <taskdef name="schemaexport"
-	        classname="org.hibernate.tool.hbm2ddl.SchemaExportTask"
-	        classpathref="compile.classpath"/>
-	    
-	    <schemaexport
-	        properties="hibernate.properties"
-	        quiet="no"
-	        text="no"
-	        drop="no"
-	        delimiter=";"
-	        output="schema-export.sql">
-	        <fileset dir="src">
-	            <include name="**/*.hbm.xml"/>
-	        </fileset>
-	    </schemaexport>
-	</target>
 </project>
