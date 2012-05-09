@@ -36,7 +36,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import dk.itu.realms.client.funf.collectors.AccelerometerProbeDataService;
 import dk.itu.realms.client.funf.collectors.LocationProbeDataService;
 import edu.mit.media.funf.IOUtils;
 import edu.mit.media.funf.Utils;
@@ -53,13 +52,6 @@ public class MainPipeline extends ConfiguredPipeline {
 
 	public static final String ACTION_RUN_ONCE = "RUN_ONCE";
 	public static final String RUN_ONCE_PROBE_NAME = "PROBE_NAME";
-
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		super.onStartCommand(intent, flags, startId);
-
-		return START_STICKY;
-	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {

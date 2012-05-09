@@ -32,7 +32,8 @@ public class ServerConnMock implements IServerComm {
 		currentSessionID = null;
 	}
 	
-	public static List<Realm> getRealms() {
+	@Override
+	public List<Realm> getRealms(final Double latitude, final Double longitude) {
 		final List<Realm> realms = new ArrayList<Realm>();
 		
 		realms.add(new Realm("Realm1", "description one", "location description one"));

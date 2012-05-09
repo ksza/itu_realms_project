@@ -1,40 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/viewSwitcher"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:gravity="center_vertical|center_horizontal" >
 
-    <LinearLayout
+     <TextView
+        android:id="@+id/current_location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:text="..."
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textStyle="italic" />
+    
+    <TableLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:stretchColumns="0,1" >
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="@string/refresh_button" />
+
+            <Button
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="@string/close_button" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- Actual Content -->
+
+    <ViewSwitcher
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/viewSwitcher"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal" >
+        android:layout_above="@id/footer"
+        android:layout_below="@id/current_location" >
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="@string/loading"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/loading"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
 
-        <ListView
-            android:id="@+id/realms_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawSelectorOnTop="false"
-            android:fadeScrollbars="false" />
-        
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
-</ViewSwitcher>
+            <ListView
+                android:id="@+id/realms_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawSelectorOnTop="false"
+                android:fadeScrollbars="false" />
+        </LinearLayout>
+    </ViewSwitcher>
+
+</RelativeLayout>

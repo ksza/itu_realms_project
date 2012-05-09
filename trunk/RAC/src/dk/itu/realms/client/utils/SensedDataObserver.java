@@ -32,9 +32,7 @@ public class SensedDataObserver extends ContentObserver {
 				@Override
 				public void run() {
 					chageStrategy.run();
-					chageStrategy = null;
-					
-					unregisterObserver(context.getContentResolver());
+//					unregisterObserver(context.getContentResolver());
 				}
 			}).start();
 		}
@@ -42,17 +40,15 @@ public class SensedDataObserver extends ContentObserver {
 
 	public static void registerObserver(final Context c) {
 		/* in case it was registered already */
-		unregisterObserver(c.getContentResolver());
 
 		context = c;
-
 		context.getContentResolver().registerContentObserver(SENSED_DATA_URI, true, observer);
 	}
 
-	private static void unregisterObserver(final ContentResolver cr) {
-		context = null;
-		cr.unregisterContentObserver(observer);
-	}
+//	public static void unregisterObserver(final ContentResolver cr) {
+//		context = null;
+//		cr.unregisterContentObserver(observer);
+//	}
 
 	public static synchronized void registerChangeStrategy(final Runnable strategy) {
 		chageStrategy = strategy;

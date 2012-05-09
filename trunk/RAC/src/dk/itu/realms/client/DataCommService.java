@@ -9,7 +9,7 @@ import android.os.IBinder;
 public class DataCommService extends Service {
 	private static final String TAG = "DATA_COMM_SERVICE";
 
-	private IServerComm adapter = new ServerConnMock();
+	private IServerComm adapter = new RACServerConn();
 
 	public class LocalBinder extends Binder {
 		public DataCommService getService() {

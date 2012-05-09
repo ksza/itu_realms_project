@@ -1,6 +1,9 @@
 package dk.itu.realms.client;
 
+import java.util.List;
+
 import dk.itu.realms.client.model.CommunicationToken;
+import dk.itu.realms.client.model.Realm;
 import dk.itu.realms.client.model.Step;
 
 /**
@@ -35,5 +38,7 @@ public interface IServerComm {
 	 * @param sessionID
 	 */
 	public void end(String sessionID);
+	
+	public List<Realm> getRealms(final Double latitude, final Double longitude);
 	
 }

@@ -10,6 +10,9 @@
     <string name="report_button">Report Status</string>
     <string name="step_title">Step: </string>
     
+    <string name="refresh_button">Refresh</string>
+    <string name="close_button">Close</string>
+    
     <!-- Setup screen -->
     <string name="setup_title">Setup</string>
     <string name="access_denied">Access Denied!</string>
