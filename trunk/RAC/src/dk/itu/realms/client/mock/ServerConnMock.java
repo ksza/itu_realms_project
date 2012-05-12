@@ -36,9 +36,9 @@ public class ServerConnMock implements IServerComm {
 	public List<Realm> getRealms(final Double latitude, final Double longitude) {
 		final List<Realm> realms = new ArrayList<Realm>();
 		
-		realms.add(new Realm("Realm1", "description one", "location description one"));
-		realms.add(new Realm("Realm2", "description two", "location description 2"));
-		realms.add(new Realm("Realm3", "description three", "location description 3"));
+		realms.add(new Realm(1L, "Realm1", "description one", "location description one"));
+		realms.add(new Realm(2L, "Realm2", "description two", "location description 2"));
+		realms.add(new Realm(3L, "Realm3", "description three", "location description 3"));
 		
 		return realms;
 	}

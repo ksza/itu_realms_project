@@ -54,7 +54,7 @@ public class RACActivity extends Activity {
 		public void onServiceDisconnected(ComponentName component) {
 		}
 	};
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -177,6 +177,8 @@ public class RACActivity extends Activity {
 
 		PersistDataHelper.clearDatabase(this);
 		stopService(new Intent(this, MainPipeline.class));
+		
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	@Override
@@ -185,6 +187,8 @@ public class RACActivity extends Activity {
 
 		PersistDataHelper.clearDatabase(this);
 		stopService(new Intent(this, MainPipeline.class));
+		
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	private class SensedDataObserver extends ContentObserver {
@@ -210,7 +214,7 @@ public class RACActivity extends Activity {
 					if(jsonData.has("LOCATION")) {
 						JSONObject locationData = jsonData.optJSONObject("LOCATION");
 
-						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 15) {
+						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 5000) {
 							RealmListAdapter adapter = new RealmListAdapter(
 									RACActivity.this, 
 									dataComm.getServerConn().getRealms(

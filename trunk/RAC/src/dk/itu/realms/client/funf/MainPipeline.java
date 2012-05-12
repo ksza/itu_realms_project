@@ -54,6 +54,13 @@ public class MainPipeline extends ConfiguredPipeline {
 	public static final String RUN_ONCE_PROBE_NAME = "PROBE_NAME";
 
 	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		super.onStartCommand(intent, flags, startId);
+		
+		return START_STICKY;
+	}
+	
+	@Override
 	protected void onHandleIntent(Intent intent) {
 		if (ACTION_RUN_ONCE.equals(intent.getAction())) {
 			String probeName = intent.getStringExtra(RUN_ONCE_PROBE_NAME);

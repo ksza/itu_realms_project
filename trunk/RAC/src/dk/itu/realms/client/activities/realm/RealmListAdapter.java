@@ -3,6 +3,10 @@ package dk.itu.realms.client.activities.realm;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +15,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import dk.itu.realms.client.R;
+import dk.itu.realms.client.activities.RealmActivity;
+import dk.itu.realms.client.activities.UserSetupScreen;
 import dk.itu.realms.client.model.Realm;
 
 public class RealmListAdapter extends BaseAdapter {
@@ -37,7 +43,7 @@ public class RealmListAdapter extends BaseAdapter {
 		 * a ViewHolder keeps references to children views to avoid unnecessary 
 		 * calls to findViewById() on each row 
 		 */
-		ViewHolder holder;
+		final ViewHolder holder;
 
 		/* 
 		 * When convertView is not null, we can reuse it directly, there is no need
@@ -56,10 +62,20 @@ public class RealmListAdapter extends BaseAdapter {
 			holder.locationDescriptionView = (TextView) convertView.findViewById(R.id.locationDescriptionView);
 			
 			convertView.setOnClickListener(new OnClickListener() {
-				private int pos = position;
 
 				@Override
 				public void onClick(View v) {
+					Realm r = data.get(holder.position);
+					
+					SharedPreferences settings = context.getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
+					Editor editor = settings.edit();
+					
+					editor.putLong("realm_id", r.getId());
+					editor.putString("realm_name", r.getName());
+					
+					editor.commit();
+					
+					context.startActivity(new Intent(context.getApplicationContext(), RealmActivity.class));
 				}
 			});
 
@@ -80,6 +96,8 @@ public class RealmListAdapter extends BaseAdapter {
 
 		holder.locationDescriptionView.setText(rowData.getLocationDecription());
 
+		holder.position = position;
+		
 		return convertView;
 	}
 
@@ -99,6 +117,7 @@ public class RealmListAdapter extends BaseAdapter {
 	}
 
 	static class ViewHolder {
+		int position;
 		TextView titleView;
 		TextView descriptionView;
 		TextView locationDescriptionView;

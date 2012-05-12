@@ -22,7 +22,6 @@
         android:layout_below="@id/ss_user_setup_title"
         android:layout_centerHorizontal="true"
         android:hint="@string/useridprompt"
-        android:inputType="number"
         android:singleLine="true" />
 
     <!-- user id error -->
@@ -45,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ss_useriderror"
         android:layout_centerHorizontal="true"
+        android:password="true"
         android:hint="@string/password"
         android:singleLine="true" />
 

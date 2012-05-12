@@ -5,7 +5,7 @@
         "dataRequests":{
         
             "edu.mit.media.funf.probe.builtin.LocationProbe": [
-                { "PERIOD":  3, "DURATION": 85 }
+                { "PERIOD":  60, "DURATION": 85 }
             ]
             
         }

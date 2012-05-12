@@ -2,6 +2,7 @@ package dk.itu.realms.client.model;
 
 public class Realm {
 
+	private long id;
 	private String name;
 	private String generalDescription;
 	private String locationDecription;
@@ -11,6 +12,20 @@ public class Realm {
 		this.generalDescription = generalDescription;
 		this.locationDecription = locationDecription;
 	}
+	
+	public Realm(Long id, String name, String generalDescription, String locationDecription) {
+		this(name, generalDescription, locationDecription);
+		
+		this.id = id;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -31,7 +46,5 @@ public class Realm {
 	public void setLocationDecription(String locationDecription) {
 		this.locationDecription = locationDecription;
 	}
-
-	
 	
 }

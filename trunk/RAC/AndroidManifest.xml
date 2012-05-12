@@ -20,15 +20,16 @@
         android:theme="@android:style/Theme.Light">
         <activity
             android:name=".activities.RACActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserSetupScreen" />
-		<activity android:name=".activities.RealmActivity" />
+        <activity android:name=".activities.UserSetupScreen" android:launchMode="singleInstance"/>
+		<activity android:name=".activities.RealmActivity" android:launchMode="singleInstance" />
         	
         <provider
             android:name="dk.itu.realms.client.funf.persistence.PersistedSensorDataProvider"
