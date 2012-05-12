@@ -42,11 +42,8 @@ public class Mark {
 	
 	private List<Option> options;
 
-	public String[] getSupportedTypes() {
+	public static String[] getSupportedTypes() {
 		return TYPES;
-	}
-	public void setSupportedTypes(String[] s) {
-		/* do nothing */
 	}
 	
 	public Mark() { }
