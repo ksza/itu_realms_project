@@ -94,7 +94,7 @@
 						<p:gmap id="map" center="#{newRealmService.mapParams.center}"
 							zoom="#{newRealmService.mapParams.zoom}" type="ROADMAP"
 							model="#{newRealmService.mapModel}"
-							style="width:1300px;height:500px">
+							style="width:100%;height:600px">
 							<p:ajax event="markerDrag"
 								listener="#{newRealmService.onMarkerDrag}" update="@this" />
 							<p:ajax event="stateChange"
