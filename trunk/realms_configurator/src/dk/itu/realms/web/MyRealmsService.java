@@ -8,6 +8,8 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import sun.security.provider.certpath.OCSP.RevocationStatus.Reason;
+
 import dk.itu.realms.model.dao.RealmDAO;
 import dk.itu.realms.model.entity.Realm;
 
@@ -27,6 +29,10 @@ public class MyRealmsService {
 	@Named("newRealmService")
 	private NewRealmService newRealmService;
 	
+	@Inject
+	@Named("realmDetails")
+	private RealmDetailsService realmDetails;
+	
 	public List<Realm> getRealms() {
 		return realmDAO.getAllByUserId(currentUserService.getEmail());
 	}
@@ -38,6 +44,7 @@ public class MyRealmsService {
 	}
 
 	public String editRealm() {
+		realmDetails.init();
 		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + selectedRealm.getId();
 	}
 	
