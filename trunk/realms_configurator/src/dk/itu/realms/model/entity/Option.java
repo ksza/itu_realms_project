@@ -18,9 +18,8 @@ public class Option {
 	
 	private Long id;
 	
-	private String optionTitle;
-	private String optionDescription;
-	private Double weight;
+	private String optionName;
+	private boolean correctAnswer;
 	
 	@Id
 	@GeneratedValue
@@ -32,28 +31,20 @@ public class Option {
 		this.id = id;
 	}
 	
-	@Column(name = "title", nullable = false)
-	public String getOptionTitle() {
-		return optionTitle;
+	@Column(name = "name", nullable = false)
+	public String getOptionName() {
+		return optionName;
 	}
-	public void setOptionTitle(String optionTitle) {
-		this.optionTitle = optionTitle;
-	}
-	
-	@Column(name = "description", nullable = true)
-	public String getOptionDescription() {
-		return optionDescription;
-	}
-	public void setOptionDescription(String optionDescription) {
-		this.optionDescription = optionDescription;
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
 	}
 	
-	@Column(name = "weight", nullable = true)
-	public Double getWeight() {
-		return weight;
+	@Column(name = "correct_answer", nullable = false)
+	public boolean isCorrectAnswer() {
+		return correctAnswer;
 	}
-	public void setWeight(Double weight) {
-		this.weight = weight;
+	public void setCorrectAnswer(boolean correctAnswer) {
+		this.correctAnswer = correctAnswer;
 	}
 
 }

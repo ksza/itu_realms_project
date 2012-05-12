@@ -72,6 +72,28 @@ public class RealmsMarker extends Marker {
 		return ((Mark)getData()).getMarkTitle();
 	}
 	
+	public String getType() {
+		return ((Mark)getData()).getType();
+	}
+	public void setType(String type) {
+		((Mark)getData()).setType(type);
+	}
+	
+	public String getTextBlob() {
+		return ((Mark)getData()).getTextBlob();
+	}
+	public void setTextBlob(String textBlob) {
+		((Mark)getData()).setTextBlob(textBlob);
+	}
+	
+	public String[] getSupportedTypes() {
+		return ((Mark)getData()).getSupportedTypes();
+	}
+	
+	public boolean getIsInformation() {
+		return getType().equals("INFORMATION");
+	}
+	
 	public void setDescription(String description) {
 		((Mark)getData()).setMarkDescription(description);
 		
@@ -95,9 +117,6 @@ public class RealmsMarker extends Marker {
 	public List<Option> getOptions() {
 		return ((Mark)getData()).getOptions();
 	}
-	public void setOptions(List<Option> options) {
-		((Mark)getData()).setOptions(options);
-	}
 	/* UI element manipulation */
 	private boolean selected = false;
 	public boolean isSelected() {
@@ -118,7 +137,6 @@ public class RealmsMarker extends Marker {
 		Mark markData = (Mark)getData();
 		
 		return markData.getMarkTitle() != null && !markData.getMarkTitle().isEmpty() &&
-			markData.getMarkDescription() != null && !markData.getMarkDescription().isEmpty() &&
 			markData.getLatitude() != null && markData.getLongitude() != null;
 	}
 	

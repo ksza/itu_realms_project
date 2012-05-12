@@ -20,13 +20,13 @@
 		<ui:define name="content">
 			<center>
 				<h:form id="mapsForm" prependId="false">
-					<p:panel styleClass="normal_text" style="width: 90%; height: 150%">
+					<p:panel styleClass="normal_text" style="width: 100%">
 						<f:facet name="header">
 							<h:outputFormat value="#{msgs['realm.edit.title']}">
 								<f:param value="#{realmDetails.realm.name}" />
 							</h:outputFormat>
 						</f:facet>
-						<p:layout fullPage="false" style="width: 100%;height: 600px">
+						<p:layout fullPage="false" style="width: 100%;height: 800px">
 							<p:layoutUnit position="west" size="200"
 								header="#{msgs['realm.edit.tools']}" resizable="true"
 								collapsible="true" effect="drop">
@@ -71,13 +71,26 @@
 
 							</p:layoutUnit>
 
-							<p:layoutUnit position="east" size="400"
+							<p:layoutUnit position="east" size="500"
 								header="#{msgs['realm.edit.properties']}" resizable="true"
 								collapsible="true" effect="drop">
 								<h:outputText value="Select a marker to see properties"
 									rendered="#{! realmDetails.hasSelected}" />
 
 								<h:panelGrid columns="2" rendered="#{realmDetails.hasSelected}">
+									<h:outputText value="#{msgs['realm.edit.type']}" />
+									<p:selectOneMenu value="#{realmDetails.selectedMarker.type}"
+										effect="fade">
+										<f:selectItems
+											value="#{realmDetails.selectedMarker.supportedTypes}"
+											var="marker_type" itemLabel="#{marker_type}"
+											itemValue="#{marker_type}" />
+										<p:ajax update="@form" />
+									</p:selectOneMenu>
+
+									<p:spacer height="30" />
+									<p:spacer height="30" />
+
 									<h:outputText value="#{msgs['realm.edit.marker_title']}" />
 									<p:inputText id="markerTitle"
 										value="#{realmDetails.selectedMarker.title}">
@@ -93,66 +106,88 @@
 										value="#{realmDetails.selectedMarker.radius}">
 									</p:inputText>
 								</h:panelGrid>
+
 								<p:spacer height="25" />
-								<p:panel id="newOptionPanel" header="Options"
-									styleClass="normal_text" rendered="#{realmDetails.hasSelected}"
+
+								<p:panel id="informationPanel" header="Information"
+									styleClass="normal_text"
+									rendered="#{realmDetails.hasSelected and realmDetails.selectedMarker.isInformation}"
 									toggleable="true">
-									<p:panelGrid columns="2">
-										<h:outputText value="Option Title: *" />
-										<p:inputText id="optionTitleInput"
-											value="#{realmDetails.optionBean.optionTitle}" />
 
-										<h:outputText value="Option Description: " />
-										<p:inputText id="optionDescInput"
-											value="#{realmDetails.optionBean.optionDescription}" />
+									<p:editor width="430" value="#{realmDetails.selectedMarker.textBlob}"
+										controls="bold italic underline | font size | color | bullets numbering | link unlink | cut copy paste pastetext" />
 
-										<h:outputText value="Option Weight: " />
-										<p:inputText id="optionWeinghtInput"
-											value="#{realmDetails.optionBean.weight}" />
-
-										<p:commandButton value="Add" ajax="true"
-											action="#{realmDetails.addOption}"
-											update="optionsTable newOptionPanel" />
-									</p:panelGrid>
-									<p:spacer height="15" />
-									<p:dataTable id="optionsTable" var="opt"
-										value="#{realmDetails.selectedMarker.options}">
-
-										<p:column>
-											<f:facet name="header">
-												<h:outputText value="Name" />
-											</f:facet>
-											<h:outputText value="#{opt.optionTitle}" />
-										</p:column>
-
-										<p:column>
-											<f:facet name="header">
-												<h:outputText value="Description" />
-											</f:facet>
-											<h:outputText value="#{opt.optionDescription}" />
-										</p:column>
-
-										<p:column>
-											<f:facet name="header">
-												<h:outputText value="Weight" />
-											</f:facet>
-											<h:outputText value="#{opt.weight}" />
-										</p:column>
-
-										<p:column>
-											<f:facet name="header">
-												<h:outputText value="Action" />
-											</f:facet>
-											<p:commandButton value="Delete"
-												action="#{realmDetails.deleteSelectedOption}" update="@form">
-												<f:setPropertyActionListener value="#{opt}"
-													target="#{realmDetails.selectedOption}" />
-											</p:commandButton>
-										</p:column>
-									</p:dataTable>
 								</p:panel>
 
-								<p:spacer height="100" />
+								<p:panel id="questionPanel" header="Question"
+									styleClass="normal_text"
+									rendered="#{realmDetails.hasSelected and !realmDetails.selectedMarker.isInformation}"
+									toggleable="true">
+
+									<p:editor width="430" height="100" value="#{realmDetails.selectedMarker.textBlob}"
+										controls="bold italic underline | font size | color | bullets numbering | link unlink | cut copy paste pastetext" />
+
+									<p:spacer height="5" />
+
+									<p:panel id="answersPanel" header="Answer Options">
+										<p:panelGrid columns="3">
+											<h:outputText value="Name: *" />
+											<p:inputText id="optionTitleInput"
+												value="#{realmDetails.optionBean.optionName}" />
+											<p:commandButton value="Add"
+												actionListener="#{realmDetails.addOption}"
+												update="answersPanel" />
+										</p:panelGrid>
+
+										<p:spacer height="15" />
+										<p:dataTable id="optionsTable" var="opt"
+											value="#{realmDetails.selectedMarker.options}">
+
+											<p:column>
+												<f:facet name="header">
+													<h:outputText value="Name" />
+												</f:facet>
+												<h:outputText value="#{opt.optionName}" />
+											</p:column>
+
+											<p:column>
+												<f:facet name="header">
+													<h:outputText value="Is Answer" />
+												</f:facet>
+
+												<center> <h:graphicImage width="16" height="16"
+													value="#{resource['images:check_icon.png']}"
+													rendered="#{opt.correctAnswer}" /> </center>
+											</p:column>
+
+											<p:column>
+												<f:facet name="header">
+													<h:outputText value="Action" />
+												</f:facet>
+
+												<p:commandButton value="Mark as Answer"
+													action="#{realmDetails.markAnswer}" update="@form">
+													<f:setPropertyActionListener value="#{opt}"
+														target="#{realmDetails.selectedOption}" />
+												</p:commandButton>
+
+												<p:commandButton value="Delete"
+													action="#{realmDetails.deleteSelectedOption}"
+													update="@form" style="float: right">
+													<f:setPropertyActionListener value="#{opt}"
+														target="#{realmDetails.selectedOption}" />
+												</p:commandButton>
+											</p:column>
+										</p:dataTable>
+
+										<f:facet name="footer">
+											<h:outputText value="#{msgs['realm.edit.footer']}"
+												styleClass="footer" />
+										</f:facet>
+									</p:panel>
+								</p:panel>
+
+								<p:spacer height="60" />
 								<p:commandButton value="Update" update="@form"
 									rendered="#{realmDetails.hasSelected}" />
 							</p:layoutUnit>

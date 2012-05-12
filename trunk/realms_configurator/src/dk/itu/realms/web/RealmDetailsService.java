@@ -1,6 +1,7 @@
 package dk.itu.realms.web;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -64,16 +65,26 @@ public class RealmDetailsService extends AbstractMapService {
 	}
 	public void addOption() {
 		Option newOption = new Option();
-		newOption.setOptionTitle(optionBean.getOptionTitle());
-		newOption.setOptionDescription(optionBean.getOptionDescription());
-		newOption.setWeight(optionBean.getWeight());
-
-		selectedMarker.getOptions().add(newOption);
+		newOption.setOptionName(optionBean.getOptionName());
+		newOption.setCorrectAnswer(false);
+		
+		((List<Option>)selectedMarker.getOptions()).add(newOption);
 		optionBean.clean();
 	}
 	public void deleteSelectedOption() {
 		if(selectedOption != null) {
-			selectedMarker.getOptions().remove(selectedOption);
+			((List<Option>)selectedMarker.getOptions()).remove(selectedOption);
+		}
+	}
+	public void markAnswer() {
+		if(selectedMarker != null) {
+			for(Option o: selectedMarker.getOptions()) {
+				if(! o.getOptionName().equals(selectedOption.getId())) {
+					o.setCorrectAnswer(false);
+				}
+				
+				selectedOption.setCorrectAnswer(true);
+			}
 		}
 	}
 
@@ -254,35 +265,17 @@ public class RealmDetailsService extends AbstractMapService {
 	}  
 
 	public class OptionBean {
-		private String optionTitle;
-		private String optionDescription;
-		private Double weight;
+		private String optionName;
 
-		public String getOptionTitle() {
-			return optionTitle;
+		public String getOptionName() {
+			return optionName;
 		}
-		public void setOptionTitle(String optionTitle) {
-			this.optionTitle = optionTitle;
-		}
-
-		public String getOptionDescription() {
-			return optionDescription;
-		}
-		public void setOptionDescription(String optionDescription) {
-			this.optionDescription = optionDescription;
-		}
-
-		public Double getWeight() {
-			return weight;
-		}
-		public void setWeight(Double weight) {
-			this.weight = weight;
+		public void setOptionName(String optionName) {
+			this.optionName = optionName;
 		}
 
 		public void clean() {
-			optionTitle = null;
-			optionDescription = null;
-			weight = null;
+			optionName = "";
 		}
 
 	}

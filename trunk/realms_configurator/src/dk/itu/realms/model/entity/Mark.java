@@ -21,8 +21,11 @@ import org.springframework.context.annotation.Scope;
 @Table(name = "marks", schema = "realms")
 public class Mark {
 	
+	private static final String[] TYPES = new String[] { "INFORMATION", "QUESTION" };
+	
 	private static final Double DEFAULT_RADIUS = 300d;
-
+	private static final String DEFAULT_TYPE = TYPES[0];
+	
 	private Long id;
 	
 	private String markTitle;
@@ -31,8 +34,21 @@ public class Mark {
 	private Double longitude;
 	private Double radius; // accuracy
 	
+	/* possible types: INFORMATION, QUESTION */
+	private String type;
+
+	/* can represent a Question or INFORMATION -> the data stored here will be formatted! */
+	private String textBlob;
+	
 	private List<Option> options;
 
+	public String[] getSupportedTypes() {
+		return TYPES;
+	}
+	public void setSupportedTypes(String[] s) {
+		/* do nothing */
+	}
+	
 	public Mark() { }
 	
 	public Mark(Double lat, Double lng) {
@@ -40,6 +56,7 @@ public class Mark {
 		this.longitude = lng;
 		
 		radius = DEFAULT_RADIUS;
+		type = DEFAULT_TYPE;
 		
 		options = new ArrayList<Option>();
 	}
@@ -62,7 +79,7 @@ public class Mark {
 		this.markTitle = markTitle;
 	}
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = true)
 	public String getMarkDescription() {
 		return markDescription;
 	}
@@ -94,6 +111,22 @@ public class Mark {
 		this.radius = radius;
 	}
 
+	@Column(name = "type", nullable = false)
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	@Column(name = "text_blob", nullable = false)
+	public String getTextBlob() {
+		return textBlob;
+	}
+	public void setTextBlob(String textBlob) {
+		this.textBlob = textBlob;
+	}
+	
 	@OneToMany(targetEntity = Option.class, cascade = CascadeType.ALL)
 	public List<Option> getOptions() {
 		return options;
