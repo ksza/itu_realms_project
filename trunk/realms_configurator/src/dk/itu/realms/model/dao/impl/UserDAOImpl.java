@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dk.itu.realms.model.dao.UserDAO;
 import dk.itu.realms.model.entity.HibernateUser;
-import dk.itu.realms.model.entity.User;
 
 @Repository("userDAO")
 @Transactional
@@ -40,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<HibernateUser> listAll() throws DataAccessException {
-		return hibernateTemplate.find("from " + User.class.getName());
+		return hibernateTemplate.find("from " + HibernateUser.class.getName());
 	}
 
 	@Override

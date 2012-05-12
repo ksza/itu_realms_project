@@ -39,12 +39,9 @@ public class UserTest {
 		int expectedResult = 1;
 
 		HibernateUser user = new HibernateUser();
-		user.setAddress("test_address");
 		user.setEmail("user@test.com");
 		user.setName("Test User");
 		user.setPassword("six_char_12");
-		user.setPhoneNo("12345678");
-		user.setZipCode("2300");
 
 		Set<Authorities> roles = new HashSet<Authorities>();
 		
@@ -84,14 +81,12 @@ public class UserTest {
 		Assert.assertEquals(1, userList.size());
 		
 		HibernateUser user = userList.get(0);
-		user.setAddress("test_address2");
 		user.setName("Test User update");
 		
 		userDAO.save(user);
 		
 		HibernateUser userResult = userDAO.get(user.getId());
 		Assert.assertEquals(user.getName(), userResult.getName());
-		Assert.assertEquals(user.getAddress(), userResult.getAddress());
 	}
 
 	@Test

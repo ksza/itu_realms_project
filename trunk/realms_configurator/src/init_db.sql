@@ -6,9 +6,8 @@ insert into authorities(username,authority) values ('ksza@itu.dk','ROLE_USER');
 
 insert into authorities(username,authority) values ('ampi@itu.dk','ROLE_USER');
 
-insert into users(username, password, enabled, name, address, zip, phone) values ('ksza@itu.dk', 'ksza', true, 'Karoly Szanto', 'user address', '1234', '12345678');
-insert into users(username, password, enabled, name, address, zip, phone) values ('ampi@itu.dk', 'ampi', true, 'Amin Piramoon', 'user address', '1234', '12345678');
-insert into users(username, password, enabled, name, address, zip, phone) values ('admin', 'admin', true, 'Administrator', 'admin address', '1234', '12345678');
+insert into users(username, password, name, enabled) values ('ksza@itu.dk', 'ksza', 'Karoly Szanto', true);
+insert into users(username, password, name, enabled) values ('mortenq@itu.dk', 'mortenq', 'Morten Esbensen', true);
 
 insert into phoneusers(username, password, fullname) value ('morten', 'morten', 'morten');
 

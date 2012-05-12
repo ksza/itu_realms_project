@@ -114,7 +114,8 @@
 									rendered="#{realmDetails.hasSelected and realmDetails.selectedMarker.isInformation}"
 									toggleable="true">
 
-									<p:editor width="430" value="#{realmDetails.selectedMarker.textBlob}"
+									<p:editor width="430"
+										value="#{realmDetails.selectedMarker.textBlob}"
 										controls="bold italic underline | font size | color | bullets numbering | link unlink | cut copy paste pastetext" />
 
 								</p:panel>
@@ -124,7 +125,8 @@
 									rendered="#{realmDetails.hasSelected and !realmDetails.selectedMarker.isInformation}"
 									toggleable="true">
 
-									<p:editor width="430" height="100" value="#{realmDetails.selectedMarker.textBlob}"
+									<p:editor width="430" height="100"
+										value="#{realmDetails.selectedMarker.textBlob}"
 										controls="bold italic underline | font size | color | bullets numbering | link unlink | cut copy paste pastetext" />
 
 									<p:spacer height="5" />
@@ -155,9 +157,11 @@
 													<h:outputText value="Is Answer" />
 												</f:facet>
 
-												<center> <h:graphicImage width="16" height="16"
-													value="#{resource['images:check_icon.png']}"
-													rendered="#{opt.correctAnswer}" /> </center>
+												<center>
+													<h:graphicImage width="16" height="16"
+														value="#{resource['images:check_icon.png']}"
+														rendered="#{opt.correctAnswer}" />
+												</center>
 											</p:column>
 
 											<p:column>
