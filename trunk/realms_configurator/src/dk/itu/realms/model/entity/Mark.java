@@ -116,7 +116,7 @@ public class Mark {
 		this.type = type;
 	}
 	
-	@Column(name = "text_blob", nullable = true)
+	@Column(name = "text_blob", columnDefinition="text", nullable = true)
 	public String getTextBlob() {
 		return textBlob;
 	}
