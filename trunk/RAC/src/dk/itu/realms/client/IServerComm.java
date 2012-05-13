@@ -2,9 +2,8 @@ package dk.itu.realms.client;
 
 import java.util.List;
 
-import dk.itu.realms.client.model.CommunicationToken;
+import dk.itu.realms.client.model.Mark;
 import dk.itu.realms.client.model.Realm;
-import dk.itu.realms.client.model.Step;
 
 /**
  * Server communication API.
@@ -15,30 +14,17 @@ import dk.itu.realms.client.model.Step;
 public interface IServerComm {
 
 	/**
-	 * Start a new session on the server for the specified user. The sessionID is returned
-	 * as a result.
-	 * 
-	 * @param userName
-	 * @param password
-	 * @return the generated sessionID
-	 */
-	public String connect(String userName, String password);
-	
-	/**
 	 * Send the data to the server and receive the computed result.
 	 * 
 	 * @param token
 	 * @return the computed step
 	 */
-	public Step reportStatus(CommunicationToken token);
+	public Mark updateStatus(Long realmId, Double lat, Double lon, String userID);
 
-	/**
-	 * Stop the session with the given sessionID.
-	 * 
-	 * @param sessionID
-	 */
-	public void end(String sessionID);
-	
 	public List<Realm> getRealms(final Double latitude, final Double longitude);
+	
+	public void rateInfo(Long realmId, Long markID, String rating, String userID);
+	
+	public void markOption(Long realmID, Long markID, Long optionID, String userID);
 	
 }

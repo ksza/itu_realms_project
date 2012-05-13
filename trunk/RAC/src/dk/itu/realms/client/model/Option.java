@@ -9,19 +9,25 @@ package dk.itu.realms.client.model;
  */
 public class Option {
 
-	private int id;
+	private Long id;
 	private String description;
+	private boolean answer;
 	
-	public Option(final int id, final String description) {
+	public Option(final Long id, final String description, final boolean answer) {
 		this.id = id;
 		this.description = description;
+		this.answer = answer;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public boolean isAnswer() {
+		return answer;
 	}
 }

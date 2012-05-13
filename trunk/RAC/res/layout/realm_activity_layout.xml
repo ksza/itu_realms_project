@@ -4,6 +4,51 @@
     android:layout_height="fill_parent"
     android:gravity="center_vertical|center_horizontal" >
 
+    <ViewSwitcher
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/viewSwitcher"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" >
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="@string/loading"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <TextView
+                android:id="@+id/text_blob"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="10dip"
+                android:gravity="center"
+                android:singleLine="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </ViewSwitcher>
 
     <TableLayout
         android:id="@+id/footer"
@@ -11,7 +56,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical|center_horizontal"
-        android:stretchColumns="0,1" >
+        android:stretchColumns="0" >
+
+        <TableRow>
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:numStars="5"
+                android:stepSize="1.0"
+                style="?android:attr/ratingBarStyle"
+                android:text="@string/options_button" />
+        </TableRow>
 
         <TableRow>
 
@@ -21,13 +79,16 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:text="@string/options_button" />
+        </TableRow>
+
+        <TableRow>
 
             <Button
-                android:id="@+id/report_button"
+                android:id="@+id/update_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="@string/report_button" />
+                android:layout_column="0"
+                android:text="@string/update_button" />
         </TableRow>
     </TableLayout>
 

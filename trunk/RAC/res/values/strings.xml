@@ -7,11 +7,13 @@
     <string name="choose_realm_title">Select Realm</string>
 
     <string name="options_button">Choose Option</string>
-    <string name="report_button">Report Status</string>
-    <string name="step_title">Step: </string>
+    <string name="update_button">Update</string>
+    <string name="submit_button">Submit</string>
     
     <string name="refresh_button">Refresh</string>
     <string name="close_button">Close</string>
+    
+    <string name="look_for_tag">Hit update to search for nearby marks!</string>
     
     <!-- Setup screen -->
     <string name="setup_title">Setup</string>

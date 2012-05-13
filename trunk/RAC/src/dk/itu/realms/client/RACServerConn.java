@@ -16,28 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
-import dk.itu.realms.client.model.CommunicationToken;
+import dk.itu.realms.client.model.Mark;
 import dk.itu.realms.client.model.Realm;
-import dk.itu.realms.client.model.Step;
 
 public class RACServerConn implements IServerComm {
 
 	private static final String TAG = "RAC_SERVER_CONN";
 	private static final String URL = "http://130.226.142.177:8080/realms_configurator/services/realms";
-
-	@Override
-	public String connect(String userName, String password) {
-		return null;
-	}
-
-	@Override
-	public Step reportStatus(CommunicationToken token) {
-		return null;
-	}
-
-	@Override
-	public void end(String sessionID) {
-	}
 
 	@Override
 	public List<Realm> getRealms(final Double latitude, final Double longitude) {
@@ -68,6 +53,19 @@ public class RACServerConn implements IServerComm {
 
 		return realms;
 	}
+	
+	@Override
+	public Mark updateStatus(Long realmId, Double lat, Double lon, String userID) {
+		return null;
+	}
+
+	@Override
+	public void rateInfo(Long realmId, Long markID, String rating, String userID) {
+	}
+
+	@Override
+	public void markOption(Long realmID, Long markID, Long optionID, String userID) {
+	}
 
 	private static String read(InputStream instream) {
 		StringBuilder sb = null;
@@ -87,4 +85,5 @@ public class RACServerConn implements IServerComm {
 		return sb.toString();
 
 	}
+
 }
