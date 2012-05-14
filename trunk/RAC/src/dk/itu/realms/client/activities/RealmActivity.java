@@ -211,6 +211,8 @@ public class RealmActivity extends Activity {
 												};
 
 												((Button)findViewById(R.id.update_button)).setText(R.string.submit_button);
+											} else {
+												v.setEnabled(true);
 											}
 										}
 									});

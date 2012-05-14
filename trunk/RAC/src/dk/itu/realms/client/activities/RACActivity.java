@@ -66,40 +66,9 @@ public class RACActivity extends Activity {
 			return;
 		}
 
-		dk.itu.realms.client.utils.SensedDataObserver.registerChangeStrategy(new Runnable() {
-
-			@Override
-			public void run() {
-				PersistedSensorData data = PersistDataHelper.getSensorData(RACActivity.this, "LOCATION");
-				if(data != null) {
-					JSONObject jsonData = new JSONObject();
-
-					try {
-						jsonData = new JSONObject(data.value);
-
-						if(jsonData.has("LOCATION")) {
-							final JSONObject locationData = jsonData.optJSONObject("LOCATION");
-
-							RACActivity.this.runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									((TextView)RACActivity.this.findViewById(R.id.current_location)).setText(
-											"" + locationData.optDouble("mLatitude") + ", " + locationData.optDouble("mLongitude") + ", " + locationData.optDouble("mAccuracy"));
-								}
-							});
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		dk.itu.realms.client.utils.SensedDataObserver.registerObserver(this);
-
 		setContentView(R.layout.main);
+		
 		PersistDataHelper.clearDatabase(this);
-
 		realmsList = (ListView)findViewById(R.id.realms_list);
 
 		getContentResolver().registerContentObserver(SENSED_DATA_URI, true, observer);
@@ -130,7 +99,7 @@ public class RACActivity extends Activity {
 						if(jsonData.has("LOCATION")) {
 							JSONObject locationData = jsonData.optJSONObject("LOCATION");
 
-							if(locationData.has("mAccuracy") && locationData.optDouble("mAccuracy") <= 15) {
+							if(locationData.has("mAccuracy") && locationData.optDouble("mAccuracy") <= 100) {
 								RACActivity.this.runOnUiThread(new Runnable() {
 
 									@Override
@@ -213,9 +182,18 @@ public class RACActivity extends Activity {
 					jsonData = new JSONObject(data.value);
 
 					if(jsonData.has("LOCATION")) {
-						JSONObject locationData = jsonData.optJSONObject("LOCATION");
+						final JSONObject locationData = jsonData.optJSONObject("LOCATION");
+						
+						RACActivity.this.runOnUiThread(new Runnable() {
 
-						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 5000) {
+							@Override
+							public void run() {
+								((TextView)RACActivity.this.findViewById(R.id.current_location)).setText(
+										"" + locationData.optDouble("mLatitude") + ", " + locationData.optDouble("mLongitude") + ", " + locationData.optDouble("mAccuracy"));
+							}
+						});
+
+						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 15) {
 							RealmListAdapter adapter = new RealmListAdapter(
 									RACActivity.this, 
 									dataComm.getServerConn().getRealms(
