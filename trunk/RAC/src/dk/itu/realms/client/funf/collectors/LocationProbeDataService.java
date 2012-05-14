@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import dk.itu.realms.client.funf.persistence.PersistDataHelper;
 import dk.itu.realms.client.funf.persistence.PersistedSensorData;
-
 import edu.mit.media.funf.probe.Probe;
 
 public class LocationProbeDataService extends AbstractProbeDataService {

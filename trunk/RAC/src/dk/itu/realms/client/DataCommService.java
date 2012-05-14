@@ -1,6 +1,5 @@
 package dk.itu.realms.client;
 
-import dk.itu.realms.client.mock.ServerConnMock;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -9,7 +8,7 @@ import android.os.IBinder;
 public class DataCommService extends Service {
 	private static final String TAG = "DATA_COMM_SERVICE";
 
-	private IServerComm adapter = new ServerConnMock();
+	private IServerComm adapter = new RACServerConn();
 
 	public class LocalBinder extends Binder {
 		public DataCommService getService() {

@@ -59,7 +59,7 @@ public class RACActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences settings = getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
+		final SharedPreferences settings = getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
 		if(! settings.getBoolean("setupDone", false)) {
 			startActivity(new Intent(this, UserSetupScreen.class));
 			finish();
@@ -142,7 +142,7 @@ public class RACActivity extends Activity {
 								RealmListAdapter adapter = new RealmListAdapter(
 										RACActivity.this, 
 										dataComm.getServerConn().getRealms(
-												locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"))
+												locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"), settings.getString("userID", "anonymous"))
 								);
 								realmsList.setAdapter(adapter);
 
@@ -204,7 +204,8 @@ public class RACActivity extends Activity {
 			super.onChange(selfChange);
 
 			PersistedSensorData data = PersistDataHelper.getSensorData(RACActivity.this, "LOCATION");
-
+			final SharedPreferences settings = getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
+			
 			if(data != null) {
 				JSONObject jsonData = new JSONObject();
 
@@ -218,7 +219,7 @@ public class RACActivity extends Activity {
 							RealmListAdapter adapter = new RealmListAdapter(
 									RACActivity.this, 
 									dataComm.getServerConn().getRealms(
-											locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"))
+											locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"), settings.getString("userID", "anonymous"))
 							);
 							realmsList.setAdapter(adapter);
 

@@ -162,12 +162,12 @@ public class RealmActivity extends Activity {
 								if(jsonData.has("LOCATION")) {
 									final JSONObject locationData = jsonData.optJSONObject("LOCATION");
 									currentMark = dataComm.getServerConn().updateStatus(settings.getLong("realm_id", 0), locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"), settings.getString("userID", "anonymous"));
-
+									
 									runOnUiThread(new Runnable() {
 
 										@Override
 										public void run() {
-											if(currentMark != null) {
+											if(currentMark != null && currentMark.getMarkTitle() != null && currentMark.getMarkTitle() != "") {
 
 												((TextView)findViewById(R.id.text_blob)).setText(Html.fromHtml(currentMark.getTextBlob()));
 

@@ -21,7 +21,7 @@ public interface IServerComm {
 	 */
 	public Mark updateStatus(Long realmId, Double lat, Double lon, String userID);
 
-	public List<Realm> getRealms(final Double latitude, final Double longitude);
+	public List<Realm> getRealms(final Double latitude, final Double longitude, String userID);
 	
 	public void rateInfo(Long realmId, Long markID, String rating, String userID);
 	

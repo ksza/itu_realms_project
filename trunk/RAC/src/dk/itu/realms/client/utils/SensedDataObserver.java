@@ -1,6 +1,5 @@
 package dk.itu.realms.client.utils;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;

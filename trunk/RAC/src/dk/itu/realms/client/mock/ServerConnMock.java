@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
-
 import dk.itu.realms.client.IServerComm;
 import dk.itu.realms.client.model.Mark;
 import dk.itu.realms.client.model.Option;
@@ -49,7 +48,7 @@ public class ServerConnMock implements IServerComm {
 	}
 	
 	@Override
-	public List<Realm> getRealms(final Double latitude, final Double longitude) {
+	public List<Realm> getRealms(final Double latitude, final Double longitude, final String userID) {
 		final List<Realm> realms = new ArrayList<Realm>();
 		
 		realms.add(new Realm(1L, "Realm1", "description one", "location description one"));
