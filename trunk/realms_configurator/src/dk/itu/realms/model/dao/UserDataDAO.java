@@ -1,10 +1,11 @@
 package dk.itu.realms.model.dao;
 
-import org.springframework.dao.DataAccessException;
+import java.util.List;
 
 import dk.itu.realms.model.entity.UserData;
 
-public interface UserDataDAO {
+public interface UserDataDAO extends GenericDAO<UserData> {
 
-	public void save(UserData data) throws DataAccessException;
+	public List<UserData> getFiltered(Long realmID);
+	
 }

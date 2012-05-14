@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Scope;
 public class UserData {
 	
 	private Long id;
+	private Long realmId;
 	private Long markId;
 	private String userId;
 	private String data;
@@ -29,16 +30,22 @@ public class UserData {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Column(name="realm_id", nullable= false)
+	public Long getRealmId() {
+		return realmId;
+	}
+	public void setRealmId(Long realmId) {
+		this.realmId = realmId;
 	}
 
 	@Column(name="mark_id", nullable= false)
 	public Long getMarkId() {
 		return markId;
 	}
-
 	public void setMarkId(Long markId) {
 		this.markId = markId;
 	}
@@ -47,7 +54,6 @@ public class UserData {
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -56,11 +62,8 @@ public class UserData {
 	public String getData() {
 		return data;
 	}
-
 	public void setData(String data) {
 		this.data = data;
 	}
-	
-	
 
 }
