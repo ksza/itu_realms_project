@@ -17,10 +17,10 @@
 						<p:graphicImage value="#{resource['images:add_icon.png']}"
 							width="64" height="64" />
 					</p:commandLink>
-					
-					<br/>
+
+					<br />
 					<p:spacer height="50" />
-					
+
 					<p:dataTable var="realm" value="#{myRealmsService.realms}"
 						emptyMessage="#{msgs['realm.empty']}">
 
@@ -61,9 +61,17 @@
 								<f:setPropertyActionListener value="#{realm}"
 									target="#{myRealmsService.selectedRealm}" />
 							</p:commandButton>
-							
+
+							<p:spacer width="20" />
+							<p:commandButton value="Collected Results" title="Collected Results"
+								action="#{myRealmsService.viewFeedback}">
+								<f:setPropertyActionListener value="#{realm}"
+									target="#{myRealmsService.selectedRealm}" />
+							</p:commandButton>
+
 							<p:commandButton value="Delete" title="#{msgs['realm.delete']}"
-								action="#{myRealmsService.deleteRealm}" update="@form" style="float: right">
+								action="#{myRealmsService.deleteRealm}" update="@form"
+								style="float: right">
 								<f:setPropertyActionListener value="#{realm}"
 									target="#{myRealmsService.selectedRealm}" />
 							</p:commandButton>

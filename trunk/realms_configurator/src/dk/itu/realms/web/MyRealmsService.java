@@ -12,6 +12,7 @@ import sun.security.provider.certpath.OCSP.RevocationStatus.Reason;
 
 import dk.itu.realms.model.dao.RealmDAO;
 import dk.itu.realms.model.entity.Realm;
+import dk.itu.realms.web.feedback.RealmFeedbackService;
 
 @Named("myRealmsService")
 @Scope("request")
@@ -33,6 +34,10 @@ public class MyRealmsService {
 	@Named("realmDetails")
 	private RealmDetailsService realmDetails;
 	
+	@Inject
+	@Named("realmFeedback")
+	private RealmFeedbackService realmFeedback;
+	
 	public List<Realm> getRealms() {
 		return realmDAO.getAllByUserId(currentUserService.getEmail());
 	}
@@ -46,6 +51,11 @@ public class MyRealmsService {
 	public String editRealm() {
 		realmDetails.init();
 		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + selectedRealm.getId();
+	}
+	
+	public String viewFeedback() {
+		realmFeedback.init();
+		return "/regular_user/feedback.xhtml?faces-redirect=true&realmID=" + selectedRealm.getId();
 	}
 	
 	private Realm selectedRealm;

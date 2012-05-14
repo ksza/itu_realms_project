@@ -40,7 +40,7 @@ public class UserDataDAOImpl implements UserDataDAO {
 
 	@Override
 	public List<UserData> getFiltered(Long realmID) {
-		final DetachedCriteria criteria = DetachedCriteria.forClass(UserData.class).add(Restrictions.eq("realm_id", realmID));
+		final DetachedCriteria criteria = DetachedCriteria.forClass(UserData.class).add(Restrictions.eq("realmId", realmID));
 		final List<UserData> result = hibernateTemplate.findByCriteria(criteria);
 		
 		return result;

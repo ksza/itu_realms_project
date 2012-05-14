@@ -17,9 +17,9 @@ import dk.itu.realms.model.entity.Mark;
 public class MarkDAOImpl implements MarkDAO {
 
 	private HibernateTemplate hibernateTemplate;
-	
+
 	public MarkDAOImpl() { }
-	
+
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		hibernateTemplate = new HibernateTemplate(sessionFactory);
@@ -28,9 +28,9 @@ public class MarkDAOImpl implements MarkDAO {
 	@Override
 	public void save(Mark mark) throws DataAccessException {
 		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
-		
+
 		hibernateTemplate.saveOrUpdate(mark);
-		
+
 		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
 	}
 
@@ -43,11 +43,13 @@ public class MarkDAOImpl implements MarkDAO {
 	@Override
 	public Mark get(long id) throws DataAccessException {
 		Mark mark = hibernateTemplate.get(Mark.class, id);
-		
+
 		/* force lazy loading */
-		if(mark.getOptions() != null)
-			mark.getOptions().size();
-		
+		if(mark != null) {
+			if(mark.getOptions() != null)
+				mark.getOptions().size();
+		}
+
 		return mark;
 	}
 
