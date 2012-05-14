@@ -33,11 +33,13 @@ public class NewRealmService extends AbstractMapService {
 
 	private Realm realm;
 
+	private String coordsFromAddress;
+
 	@Override
 	@PostConstruct
 	public void init() {
 		super.init();
-		
+
 		realm = new Realm();
 		realm.setLatitude(55.676097);
 		realm.setLongitude(12.568337);
@@ -72,10 +74,6 @@ public class NewRealmService extends AbstractMapService {
 	}
 
 	public String save() {
-		//		if(realmDAO.getByName(realm.getName()) != null) {
-		//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Already Exists!"));
-		//		} else {
-
 		realm.setOwner(userDAO.findByEmail(currentUserService.getEmail()));
 
 		realmDAO.save(realm);
@@ -83,9 +81,6 @@ public class NewRealmService extends AbstractMapService {
 		realm = realmDAO.getByName(realm.getName());
 
 		return "/regular_user/realm_details.xhtml?faces-redirect=true&realmID=" + realm.getId();
-		//		}
-		//		
-		//		return null;
 	}
 
 	public void onMarkerDrag(MarkerDragEvent event) {
@@ -97,4 +92,26 @@ public class NewRealmService extends AbstractMapService {
 		mapModel.getCircles().get(0).setCenter(new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng()));
 	}
 
+	public void modifyAddress() {
+		if(coordsFromAddress != null) {
+			final String[] latLng = coordsFromAddress.split(", ");
+
+			realm.setLatitude(Double.parseDouble(latLng[0]));
+			realm.setLongitude(Double.parseDouble(latLng[1]));
+
+			mapModel.getMarkers().get(0).setLatlng(new LatLng(Double.parseDouble(latLng[0]), Double.parseDouble(latLng[1])));
+			mapModel.getCircles().get(0).setCenter(new LatLng(Double.parseDouble(latLng[0]), Double.parseDouble(latLng[1])));
+			
+			getMapParams().setCenter(coordsFromAddress);
+			
+			coordsFromAddress = "";			
+		}
+	}
+
+	public String getCoordsFromAddress() {
+		return coordsFromAddress;
+	}
+	public void setCoordsFromAddress(String coordsFromAddress) {
+		this.coordsFromAddress = coordsFromAddress;
+	}
 }

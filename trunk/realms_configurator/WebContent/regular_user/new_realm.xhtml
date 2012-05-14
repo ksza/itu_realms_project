@@ -31,12 +31,56 @@
 						return message;
 					} : null;
 				}
+
+				var geocoder = new google.maps.Geocoder();
+
+				function geocodeAddress() {
+					var inputAddress = $("[id='addressID']")
+					
+					geocoder
+							.geocode(
+									{
+										'address' : inputAddress.val()
+									},
+									function(results, status) {
+										if (status == google.maps.GeocoderStatus.OK) {
+											if (results.length > 0) {
+												if (results.length > 1) {
+													alert("Multiple addresses found for given input. Please refine your search!")
+												}
+
+												//set name of address text field, direct usage
+												inputAddress
+														.text(String(results[0].address_components[0].long_name));
+
+												var latLng = results[0].geometry.location;
+
+												//set lat and lng text fields
+												$("[id='latlngID']").val(latLng.lat() + ", "+ latLng.lng());
+											}
+										}
+									});
+				}
 			</script>
 		</ui:define>
 
 		<ui:define name="content">
 			<center>
-				<h:form>
+			<h:panelGroup id="grp">
+				<h:form id="myform" prependId="false">
+				<h:outputText value="Address Search: " />
+					<p:inputText id="addressID" styleClass="normal_text" size="100">
+						<p:ajax event="blur" oncomplete="geocodeAddress();" execute="@form" />
+					</p:inputText>
+					<h:inputHidden id="latlngID" value="#{newRealmService.coordsFromAddress}" />
+					<p:spacer width="5" />
+					<p:commandButton value="Go!" execute="latlngID" action="#{newRealmService.modifyAddress}" update="@form :grp" />
+				</h:form>
+
+				<p:spacer height="20" />
+
+				<h:form id="mapsForm" prependId="false">
+
 					<p:panel header="#{msgs['realm.new']}" styleClass="normal_text"
 						style="width: 80%">
 
@@ -45,8 +89,9 @@
 								<h:outputText value="#{msgs['realm.new']}" />
 
 								<p:outputPanel style="float: right">
-									<p:commandLink id="save_link" title="#{msgs['realm.save']}" onstart="setConfirmUnload(false);"
-										style="float: right" action="#{newRealmService.save}">
+									<p:commandLink id="save_link" title="#{msgs['realm.save']}"
+										onstart="setConfirmUnload(false);" style="float: right"
+										action="#{newRealmService.save}">
 										<h:outputText value="Save" />
 										<p:spacer width="10" />
 										<p:graphicImage value="#{resource['images:save.png']}"
@@ -59,6 +104,14 @@
 						</f:facet>
 
 						<h:panelGrid columns="3">
+							<p:commandButton value="Update" update="@form" />
+							<p:spacer height="10" />
+							<p:spacer height="10" />
+							
+							<p:spacer height="30" />
+							<p:spacer height="30" />
+							<p:spacer height="30" />
+							
 							<h:outputText value="#{msgs['realm.name']}" />
 							<p:inputText id="realmName" required="true"
 								value="#{newRealmService.realm.name}">
@@ -78,7 +131,8 @@
 							<h:outputText value="#{msgs['realm.radius']}" />
 							<p:inputText id="realmRadius" required="true"
 								value="#{newRealmService.realm.radius}">
-								<p:ajax event="blur" update="@form" listener="#{newRealmService.update}">
+								<p:ajax event="blur" update="@form"
+									listener="#{newRealmService.update}">
 								</p:ajax>
 							</p:inputText>
 							<p:message id="radiusMessage" for="realmRadius" display="icon" />
@@ -91,7 +145,9 @@
 							<p:spacer height="30" width="0" />
 						</h:panelGrid>
 
-						<p:gmap id="map" center="#{newRealmService.mapParams.center}"
+						<p:gmap widgetVar="map" id="mapID"
+							center="#{newRealmService.mapParams.center}"
+							fitBounds="true"
 							zoom="#{newRealmService.mapParams.zoom}" type="ROADMAP"
 							model="#{newRealmService.mapModel}"
 							style="width:100%;height:600px">
@@ -102,6 +158,7 @@
 						</p:gmap>
 					</p:panel>
 				</h:form>
+				</h:panelGroup>
 			</center>
 		</ui:define>
 
