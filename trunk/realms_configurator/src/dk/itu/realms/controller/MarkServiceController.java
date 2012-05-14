@@ -26,9 +26,13 @@ public class MarkServiceController {
 			@RequestParam("userid") String userId) {
 		Mark mark = markService.getMark(lat, lon, Long.parseLong(realmId),
 				userId);
-		if(mark != null)
-			System.out.println(mark.getMarkTitle());
-		return new MarkReduced(mark);
+		MarkReduced markre;
+		if(mark != null) {
+			markre = new MarkReduced(mark);
+		} else {
+			markre = new MarkReduced();
+		}
+		return markre;
 	}
 
 	@RequestMapping(method= RequestMethod.POST, value="/mark/rate")
