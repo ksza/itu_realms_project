@@ -55,8 +55,24 @@ public class RACServerConn implements IServerComm {
 	}
 	
 	@Override
-	public Mark updateStatus(Long realmId, Double lat, Double lon, String userID) {
-		return null;
+	public Mark updateStatus(Long realmID, Double lat, Double lon, String userID) {
+		Mark marks = null;
+		
+		try {
+			final HttpClient httpclient = new DefaultHttpClient();
+			final HttpGet request = new HttpGet(URL + "?realmID=" + realmID + "lat=" + lat + "&lon=" + lon + "&userID=" + userID);
+			request.addHeader("Accept", "application/json");
+
+			final HttpResponse response = httpclient.execute(request);
+			final HttpEntity entity = response.getEntity();
+			final InputStream instream = entity.getContent();
+			String content = read(instream);
+			final JSONArray entries = new JSONObject(content).optJSONArray("realms");
+		} catch(Exception e) {
+			Log.i(TAG, e.getStackTrace().toString());
+		}
+		
+		return marks;
 	}
 
 	@Override
