@@ -6,11 +6,15 @@ import org.springframework.stereotype.Service;
 import dk.itu.realms.model.dao.PhoneUserDAO;
 import dk.itu.realms.model.entity.PhoneUser;
 
-@Service("phoneregister")
-public class PhoneRegistrationService {
+@Service("phoneuser")
+public class PhoneUserService {
 
 	@Autowired
 	private PhoneUserDAO puDAO;
+	
+	public PhoneUser getUser(long id) {
+		return puDAO.getUser(id);
+	}
 
 	public PhoneUser createUser(String username, String password, String fullname) {
 		// Chekc if user exists
@@ -20,7 +24,7 @@ public class PhoneRegistrationService {
 			user.setPassword(password);
 			user.setFullname(fullname);
 			puDAO.save(user);
-			return user;
+			return puDAO.findUserByUserName(username);
 		}
 		return null;
 	}

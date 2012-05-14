@@ -7,4 +7,6 @@ public interface PhoneUserDAO {
 	public void save(PhoneUser user);
 
 	public PhoneUser findUserByUserName(final String userName);
+	
+	public PhoneUser getUser(long id);
 }

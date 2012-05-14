@@ -1,7 +1,5 @@
 package dk.itu.realms.model.dao.impl;
 
-import java.util.List;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,51 +7,33 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dk.itu.realms.model.dao.MarkDAO;
+import dk.itu.realms.model.dao.UserDataDAO;
 import dk.itu.realms.model.entity.Mark;
+import dk.itu.realms.model.entity.UserData;
 
-@Repository("markDAO")
+@Repository("userDataDAO")
 @Transactional
-public class MarkDAOImpl implements MarkDAO {
+public class UserDataDAOImpl implements UserDataDAO {
 
 	private HibernateTemplate hibernateTemplate;
 	
-	public MarkDAOImpl() { }
+	public UserDataDAOImpl() { }
 	
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		hibernateTemplate = new HibernateTemplate(sessionFactory);
 	}
 
+	
 	@Override
-	public void save(Mark mark) throws DataAccessException {
+	public void save(UserData data) throws DataAccessException {
+		System.out.println("Saving data: " + data.getData());
 		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
 		
-		hibernateTemplate.saveOrUpdate(mark);
+		hibernateTemplate.saveOrUpdate(data);
 		
 		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
-	}
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Mark> listAll() throws DataAccessException {
-		return hibernateTemplate.find("from " + Mark.class.getName());
-	}
-
-	@Override
-	public Mark get(long id) throws DataAccessException {
-		Mark mark = hibernateTemplate.get(Mark.class, id);
-		
-		/* force lazy loading */
-		if(mark.getOptions() != null)
-			mark.getOptions().size();
-		
-		return mark;
-	}
-
-	@Override
-	public void delete(Mark mark) {
-		hibernateTemplate.delete(mark);	
 	}
 
 }

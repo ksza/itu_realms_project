@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.context.annotation.Scope;
 
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 @Scope("request")
 
 @Entity
+@XmlRootElement
 @Table(name = "marks", schema = "realms")
 public class Mark {
 	

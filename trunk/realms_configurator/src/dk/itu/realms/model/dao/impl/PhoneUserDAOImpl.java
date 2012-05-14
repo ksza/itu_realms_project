@@ -34,6 +34,12 @@ public class PhoneUserDAOImpl implements PhoneUserDAO {
 		hibernateTemplate.saveOrUpdate(user);	
 		hibernateTemplate.getSessionFactory().getCurrentSession().flush();
 	}
+	
+	@Override
+	public PhoneUser getUser(long userId) {
+		PhoneUser user = hibernateTemplate.get(PhoneUser.class, userId);
+		return user;
+	}
 
 	
 	@Override
