@@ -39,8 +39,7 @@ public class MarkServiceController {
 	public void rateInfo(@RequestParam("realmid") String realmId,
 			@RequestParam("markid") String markId,
 			@RequestParam("rating") String rating,
-			@RequestParam("userId") String userId) {
-		System.out.println("Rate ");
+			@RequestParam("userid") String userId) {
 		markService.rateInfo(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(rating), userId);
 	}
 	
@@ -49,7 +48,6 @@ public class MarkServiceController {
 			@RequestParam("markid") String markId,
 			@RequestParam("optionid") String optionId,
 			@RequestParam("userid") String userId) {
-		System.out.println("Mark option");
 		markService.markOption(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(optionId), userId);
 	}
 	
