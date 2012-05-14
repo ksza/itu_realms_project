@@ -51,19 +51,21 @@ public class RealmFeedbackService {
 		for(UserData data: rawUserData) {
 			final Mark m = markDAO.get(data.getMarkId());
 			Option selectedOption = null;
-			
-			if(m.getType().equals("QUESTION")) {
-				Long optionID = Long.parseLong(data.getData());
-				
-				for(Option o: m.getOptions()) {
-					if(o.getId() == optionID) {
-						selectedOption = o;
-						break;
+
+			if(m != null) {
+				if(m.getType().equals("QUESTION")) {
+					Long optionID = Long.parseLong(data.getData());
+
+					for(Option o: m.getOptions()) {
+						if(o.getId() == optionID) {
+							selectedOption = o;
+							break;
+						}
 					}
 				}
+
+				userData.add(new UserDataAdapter(data.getUserId(), data.getData(), m, selectedOption));
 			}
-			
-			userData.add(new UserDataAdapter(data.getUserId(), data.getData(), m, selectedOption));
 		}
 	}
 	
