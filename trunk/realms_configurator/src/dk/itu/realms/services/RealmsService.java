@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import dk.itu.realms.model.dao.PhoneUserDAO;
 import dk.itu.realms.model.dao.RealmDAO;
+import dk.itu.realms.model.dao.UserDAO;
+import dk.itu.realms.model.dao.UserDataDAO;
 import dk.itu.realms.model.entity.Realm;
 import dk.itu.realms.services.util.LatLonCalculator;
 
@@ -19,7 +21,7 @@ public class RealmsService {
 	private RealmDAO realmDAO;
 
 	@Autowired
-	private PhoneUserDAO userDAO;
+	private UserDAO userDAO;
 
 	public Realm getRealm(long realmId) {
 		return realmDAO.get(realmId);
@@ -31,7 +33,7 @@ public class RealmsService {
 
 	public List<Realm> getRealmsByLocation(String lat, String lon, String userId) {
 		List<Realm> result = new ArrayList<Realm>();
-		if (userDAO.getUser(Long.parseLong(userId)) != null) {
+		if (userDAO.findByEmail(userId) != null) {
 
 			LatLonCalculator cal = new LatLonCalculator();
 

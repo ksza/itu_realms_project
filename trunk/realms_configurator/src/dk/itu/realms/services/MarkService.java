@@ -25,7 +25,7 @@ public class MarkService {
 	@Autowired
 	private MarkDAO markDAO;
 
-	public Mark getMark(String lat, String lon, long realmId, long userId) {
+	public Mark getMark(String lat, String lon, long realmId, String userId) {
 
 		Realm realm = realmDAO.get(realmId);
 
@@ -47,7 +47,7 @@ public class MarkService {
 		UserData data = new UserData();
 		data.setRealmId(realmId);
 		data.setMarkId(markId);
-		data.setData(String.valueOf(rating));
+		data.setData(Integer.toString(rating));
 		data.setUserId(userId);
 		userDataDAO.save(data);
 	}

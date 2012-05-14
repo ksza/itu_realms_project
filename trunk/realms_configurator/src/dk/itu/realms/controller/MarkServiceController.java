@@ -25,7 +25,7 @@ public class MarkServiceController {
 			@RequestParam("realm") String realmId,
 			@RequestParam("userid") String userId) {
 		Mark mark = markService.getMark(lat, lon, Long.parseLong(realmId),
-				Long.parseLong(userId));
+				userId);
 		if(mark != null)
 			System.out.println(mark.getMarkTitle());
 		return new MarkReduced(mark);
@@ -43,7 +43,7 @@ public class MarkServiceController {
 	@RequestMapping(method= RequestMethod.POST, value="/mark/markoption")
 	public void markOption(@RequestParam("realmid") String realmId,
 			@RequestParam("markid") String markId,
-			@RequestParam("rating") String optionId,
+			@RequestParam("optionid") String optionId,
 			@RequestParam("userid") String userId) {
 		System.out.println("Mark option");
 		markService.markOption(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(optionId), userId);
