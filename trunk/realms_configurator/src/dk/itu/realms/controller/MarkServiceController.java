@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dk.itu.realms.model.entity.Mark;
+import dk.itu.realms.model.entity.reduced.MarkReduced;
 import dk.itu.realms.services.MarkService;
 
 @Controller
@@ -19,7 +20,7 @@ public class MarkServiceController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Mark getMark(@RequestParam("lat") String lat,
+	public MarkReduced getMark(@RequestParam("lat") String lat,
 			@RequestParam("lon") String lon,
 			@RequestParam("realm") String realmId,
 			@RequestParam("userid") String userId) {
@@ -27,7 +28,7 @@ public class MarkServiceController {
 				Long.parseLong(userId));
 		if(mark != null)
 			System.out.println(mark.getMarkTitle());
-		return mark;
+		return new MarkReduced(mark);
 	}
 
 	@RequestMapping(method= RequestMethod.POST, value="/mark/rate")
