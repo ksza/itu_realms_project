@@ -9,6 +9,34 @@ public class LatLonCalculator {
 
 	private static int EARTH_RADIUS = 6371; // In kilometers
 
+	
+	public boolean insideRealm(LatLng userPosition, Realm realm) {
+		double latRad1 = Math.toRadians(userPosition.getLat());
+		double lonRad1 = Math.toRadians(userPosition.getLng());
+		double latRad2 = Math.toRadians(realm.getLatitude());
+		double lonRad2 = Math.toRadians(realm.getLongitude());
+		//Caculate the distance between the 2 points
+		double dist = Math.acos(Math.sin(latRad1) * Math.sin(latRad2) + Math.cos(latRad1) * Math.cos(latRad2) * Math.cos(lonRad1 - lonRad2)) * EARTH_RADIUS;
+		if(dist * 1000 <= realm.getRadius()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean insideMark(LatLng userPosition, Mark mark) {
+		double latRad1 = Math.toRadians(userPosition.getLat());
+		double lonRad1 = Math.toRadians(userPosition.getLng());
+		double latRad2 = Math.toRadians(mark.getLatitude());
+		double lonRad2 = Math.toRadians(mark.getLongitude());
+		//Caculate the distance between the 2 points
+		double dist = Math.acos(Math.sin(latRad1) * Math.sin(latRad2) + Math.cos(latRad1) * Math.cos(latRad2) * Math.cos(lonRad1 - lonRad2)) * EARTH_RADIUS;
+		if(dist * 1000 <= mark.getRadius()) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	public boolean insideRealm(LatLng userPosition, Realm realm) {
 		System.out.println("--------------------------------------");
 		System.out.println("Lat, Lon " + userPosition.getLat() + ", "
@@ -54,6 +82,7 @@ public class LatLonCalculator {
 		} else {
 			return c * EARTH_RADIUS <= mark.getRadius() / 1000;
 		}
+
 		
-	}
+	}*/
 }
