@@ -45,6 +45,7 @@ public class MarkService {
 
 	public void rateInfo(long realmId, long markId, int rating, String userId) {
 		UserData data = new UserData();
+		data.setRealmId(realmId);
 		data.setMarkId(markId);
 		data.setData(String.valueOf(rating));
 		data.setUserId(userId);
@@ -53,6 +54,7 @@ public class MarkService {
 
 	public void markOption(long realmId, long markId, long optionId, String userId) {
 		UserData data = new UserData();
+		data.setRealmId(realmId);
 		data.setMarkId(markId);
 		data.setUserId(userId);
 
