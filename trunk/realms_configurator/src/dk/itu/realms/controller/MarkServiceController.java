@@ -37,7 +37,7 @@ public class MarkServiceController {
 			@RequestParam("rating") String rating,
 			@RequestParam("userId") String userId) {
 		System.out.println("Rate ");
-		markService.rateInfo(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(rating), Long.parseLong(userId));
+		markService.rateInfo(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(rating), userId);
 	}
 	
 	@RequestMapping(method= RequestMethod.POST, value="/mark/markoption")
@@ -46,7 +46,7 @@ public class MarkServiceController {
 			@RequestParam("rating") String optionId,
 			@RequestParam("userid") String userId) {
 		System.out.println("Mark option");
-		markService.markOption(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(optionId), Long.parseLong(userId));
+		markService.markOption(Long.parseLong(realmId), Long.parseLong(markId), Integer.parseInt(optionId), userId);
 	}
 	
 	

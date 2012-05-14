@@ -18,7 +18,7 @@ public class UserData {
 	
 	private Long id;
 	private Long markId;
-	private Long userId;
+	private String userId;
 	private String data;
 	
 	public UserData() {}
@@ -44,11 +44,11 @@ public class UserData {
 	}
 
 	@Column(name="user_id", nullable = false)
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

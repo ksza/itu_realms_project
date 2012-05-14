@@ -43,7 +43,7 @@ public class MarkService {
 		return null;
 	}
 
-	public void rateInfo(long realmId, long markId, int rating, long userId) {
+	public void rateInfo(long realmId, long markId, int rating, String userId) {
 		UserData data = new UserData();
 		data.setMarkId(markId);
 		data.setData(String.valueOf(rating));
@@ -51,7 +51,7 @@ public class MarkService {
 		userDataDAO.save(data);
 	}
 
-	public void markOption(long realmId, long markId, long optionId, long userId) {
+	public void markOption(long realmId, long markId, long optionId, String userId) {
 		UserData data = new UserData();
 		data.setMarkId(markId);
 		data.setUserId(userId);
