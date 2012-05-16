@@ -29,7 +29,7 @@ import dk.itu.realms.client.funf.persistence.PersistedSensorData;
 public class RACActivity extends Activity {
 
 	private static final String TAG = "RAC_ACTIVITY";
-	private final Uri SENSED_DATA_URI = Uri.parse("content://dk.itu.realms.client/sensor_data");
+//	private final Uri SENSED_DATA_URI = Uri.parse("content://dk.itu.realms.client/sensor_data");
 
 	private ViewSwitcher switcher;
 
@@ -37,7 +37,7 @@ public class RACActivity extends Activity {
 
 	private DataCommService dataComm;
 
-	private SensedDataObserver observer = new SensedDataObserver();
+//	private SensedDataObserver observer = new SensedDataObserver();
 	private final ServiceConnection conn = new ServiceConnection() {
 
 		public void onServiceConnected(ComponentName component, IBinder service) {
@@ -71,7 +71,7 @@ public class RACActivity extends Activity {
 		PersistDataHelper.clearDatabase(this);
 		realmsList = (ListView)findViewById(R.id.realms_list);
 
-		getContentResolver().registerContentObserver(SENSED_DATA_URI, true, observer);
+//		getContentResolver().registerContentObserver(SENSED_DATA_URI, true, observer);
 
 		startService(new Intent(this, MainPipeline.class));
 
@@ -83,7 +83,7 @@ public class RACActivity extends Activity {
 			}
 		}).start();
 		setTitle(R.string.choose_realm_title);
-
+		switcher.showNext();
 		((Button)findViewById(R.id.refresh_button)).setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -160,63 +160,63 @@ public class RACActivity extends Activity {
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
-	private class SensedDataObserver extends ContentObserver {
-
-		private static final String TAG = "SENSED_DATA_OBSERVER";
-
-		public SensedDataObserver() {
-			super(new Handler());
-		}
-
-		@Override
-		public void onChange(boolean selfChange) {
-			super.onChange(selfChange);
-
-			PersistedSensorData data = PersistDataHelper.getSensorData(RACActivity.this, "LOCATION");
-			final SharedPreferences settings = getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
-			
-			if(data != null) {
-				JSONObject jsonData = new JSONObject();
-
-				try {
-					jsonData = new JSONObject(data.value);
-
-					if(jsonData.has("LOCATION")) {
-						final JSONObject locationData = jsonData.optJSONObject("LOCATION");
-						
-						RACActivity.this.runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								((TextView)RACActivity.this.findViewById(R.id.current_location)).setText(
-										"" + locationData.optDouble("mLatitude") + ", " + locationData.optDouble("mLongitude") + ", " + locationData.optDouble("mAccuracy"));
-							}
-						});
-
-						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 15) {
-							RealmListAdapter adapter = new RealmListAdapter(
-									RACActivity.this, 
-									dataComm.getServerConn().getRealms(
-											locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"), settings.getString("userID", "anonymous"))
-							);
-							realmsList.setAdapter(adapter);
-
-							RACActivity.this.runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									switcher.showNext();
-								}
-							});
-
-							RACActivity.this.getContentResolver().unregisterContentObserver(observer);
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-	}
+//	private class SensedDataObserver extends ContentObserver {
+//
+//		private static final String TAG = "SENSED_DATA_OBSERVER";
+//
+//		public SensedDataObserver() {
+//			super(new Handler());
+//		}
+//
+//		@Override
+//		public void onChange(boolean selfChange) {
+//			super.onChange(selfChange);
+//
+//			PersistedSensorData data = PersistDataHelper.getSensorData(RACActivity.this, "LOCATION");
+//			final SharedPreferences settings = getSharedPreferences(UserSetupScreen.PREFS_NAME, 0);
+//			
+//			if(data != null) {
+//				JSONObject jsonData = new JSONObject();
+//
+//				try {
+//					jsonData = new JSONObject(data.value);
+//
+//					if(jsonData.has("LOCATION")) {
+//						final JSONObject locationData = jsonData.optJSONObject("LOCATION");
+//						
+//						RACActivity.this.runOnUiThread(new Runnable() {
+//
+//							@Override
+//							public void run() {
+//								((TextView)RACActivity.this.findViewById(R.id.current_location)).setText(
+//										"" + locationData.optDouble("mLatitude") + ", " + locationData.optDouble("mLongitude") + ", " + locationData.optDouble("mAccuracy"));
+//							}
+//						});
+//
+//						if(locationData.has("mAccuracy") && locationData.optLong("mAccuracy") <= 15) {
+//							RealmListAdapter adapter = new RealmListAdapter(
+//									RACActivity.this, 
+//									dataComm.getServerConn().getRealms(
+//											locationData.optDouble("mLatitude"), locationData.optDouble("mLongitude"), settings.getString("userID", "anonymous"))
+//							);
+//							realmsList.setAdapter(adapter);
+//
+//							RACActivity.this.runOnUiThread(new Runnable() {
+//
+//								@Override
+//								public void run() {
+//									switcher.showNext();
+//								}
+//							});
+//
+//							RACActivity.this.getContentResolver().unregisterContentObserver(observer);
+//						}
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//
+//	}
 }

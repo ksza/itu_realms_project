@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
-        android:text="..."
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textStyle="italic" />
     
