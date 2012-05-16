@@ -99,7 +99,7 @@ public class RACActivity extends Activity {
 						if(jsonData.has("LOCATION")) {
 							JSONObject locationData = jsonData.optJSONObject("LOCATION");
 
-							if(locationData.has("mAccuracy") && locationData.optDouble("mAccuracy") <= 100) {
+							if(locationData.has("mAccuracy") && locationData.optDouble("mAccuracy") <= 20) {
 								RACActivity.this.runOnUiThread(new Runnable() {
 
 									@Override
