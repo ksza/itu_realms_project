@@ -130,4 +130,20 @@ security while using \emph{MySQL 5} for a database. The system is deployed in
 and Spring are a perfect match.
 
 \subsection{Realms Configurator}
-In Section \ref{sec:design} we have designed for a generic system taking into account a large variety of possibilities. In the implementation, we had to readuce the complexity in order to create an actually working prototype. This means that we have implemetned the system with a limited set of features. 
+In Section \ref{sec:design} we have designed for a generic system taking into account a large variety of possibilities. In the implementation, we had to reduce the complexity in order to create an actually working prototype, meaning that we have implemented the system with a limited set of features. To be more specific, the configurator allows users to manage their realms (create, delete and edit). A realm is made up by a set of \emph{markers}\footnote{a virtual property placed on a map a specific (latitude, longitude) augmenting the location with virtual data} that can be either a \emph{Question} or an \emph{Information}. Semantically this means that the user configuring the realm can augment a location either with information that could be useful to the realm user (e.g. historical data about an old building)  or a question that a user of the realm can answer.\\
+
+\noindent The most important aspect of the configurator is to provide the user with an easy to use and intuitive interface to easily place markers on physical locations. Most people using computers have most probably used \emph{Google Maps}\footnote{http://maps.google.com/} at least once. We have decided to build our configurator on top of google maps, therefore the only previous knowledge to configure a realm is to know how to navigate in google maps and how to place a marker on the map.\\
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=\linewidth]{fig/my_realms.png}
+	\caption{"My realms" view}
+	\label{fig.my_realms}
+\end{figure}
+
+Figure \ref{fig.my_realms} depicts the home page of the configurator which presents the user with the realms he has created so far, if any. The user can choose to \emph{Create} a new realm, to \emph{Edit/Delete} an existing one or to see the \emph{Collected Results} (presents the answers realm users have given to questions or ratings for informations).
+
+\todo{Describe each screen, what it does an how it does it!}
+
+\todo{Talk about the webservices}
+
+\subsection{Mobile Client}
