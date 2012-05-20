@@ -1,19 +1,69 @@
 \section{Evaluation}
 \label{sec.eval}
-Our objective with this project was to \emph{explore if it is possible to abstract the creation of simple location-based systems from a programming level to a configuration level} and to \emph{discuss to what extent our system can support complex interactions between user and system}. To evaluate to what extend we have met this objective, we will conducted an evaluation in three parts. First we evaluated the Realms configurator with users by having them configure a realm. Second, we evaluated the mobile client with users having to explore some predefined realms. Third and last, we will discussed our system and compare it to existing apps. In this section we present the evaluation setup and the results. In the next section we will discuss the results.
+Our objective with this project was to \emph{explore if it is possible to abstract the creation of simple location-based systems from a programming level to a configuration level} and to \emph{discuss to what extent our system can support complex interactions between user and system}. To evaluate to what extend we have met this objective, we will conducted an evaluation in three parts. First we evaluated the Realms configurator with users by having them configure a realm. Second, we evaluated the mobile client with users having to explore some predefined realms. These evaluations focussed on the investigating the balance between the expressiveness (the complexity of interactions we could support) and the usability.  Third and last, we will discussed our system and compare it to existing apps. In this section we present the evaluation setup and the results. In the next section we will discuss the results.
 
-\subsection{Configuration Manager Evaluation} % (fold)
+\subsection{Participants} % (fold)
+\label{sub:participants}
+We recruited a total of 9 test subjects - 8 male and 1 female. All were students at the IT University of Copenhagen but included both undergraduate, master and phd students. Each participant was asked about age, and ask to rate their programming experience and mobile application mobile experience on a scale of 0 - 5 (0 for no experience, 5 for highly experienced). The average age of the participants was 26.67 (standard deviation 3.46). Their reported programming experience was 3.89 (standard deviation 1.26) and their reported mobile application programming experience 2.33 (standard deviation 1.41). 
+% subsection participants (end)
+
+\subsection{Procedure} % (fold)
+\label{sub:procedure}
+Each participant was given an introduction to the system as a general and was there after asked to try out one of the programs (configurator or mobile client). We switched the order in which the participants tried to the programs so 5 started with the configurator and 4 with the mobile client. Having tried the first program, the participants were interviewed regarding their experience before trying the second part of the system. Lastly, the participants were interviewed about the second part they tried a well as the the system as a whole.  
+
+The interviews we conducted were semi-structured interviews that included question regarding the usefulness of the system, the expressiveness of the configurator and the usability of the configurator and client. Being semi-structured interviews, we let the participants talk as they wanted and encouraged them to say everything that came in to their minds. We asked the participants the following questions:
+
+\paragraph{Configurator specific questiosn} % (fold)
+\label{par:configurator_specific_questiosn}
+\begin{itemize}
+	\item Do you see the creation of realms as useful?
+	\item Do you feel the configurator provides enough options?
+	\item Are there other features you would like to see?
+	\item How was the usability?
+\end{itemize}
+% paragraph configurator_specific_questiosn (end)
+
+\paragraph{Mobile client specific questions} % (fold)
+\label{par:mobile_client_specific_questions}
+\begin{itemize}
+	\item How was the usability of the client?
+	\item Did you find the client useful?
+	\item Are there other features you would like to see?
+\end{itemize}
+% paragraph mobile_client_specific_questions (end)
+
+\paragraph{Other questions} % (fold)
+\label{par:other_questions}
+\begin{itemize}
+	\item (For people who tried the configurator first) How does exploring a Realm compare to the thought you had when creating a Realm?
+	\item (For people who tried the mobile client first) Having tried the client first, were there any opportunities or limitations you thought about when configuring you own Realm?
+	\item We use the notion of Realms to explain an augmented physical location. How does this notion fit with your experience of using the system.
+\end{itemize}
+% paragraph other_questions (end)
+% subsection procedure (end)
+
+\subsection{Scenrios} % (fold)
+\label{sub:scenrios}
+We gave the participants two scenarios - one for the configurator and one for the mobile client - that we asked them to play out. During the scenarios we observed the participants and helped when asked.
+
+\subsubsection{Configuration Manager} % (fold)
 \label{sub:configuration_manager_evaluation}
-We will evaluate the configuration manager with users - preferably with knowledge of app but not necessarily with programming experience. The evaluation should focus on usefulness and usability
+For this test we created a scenario where users are asked to take on the position as a employee in the Copenhagen municipality. They were given the task to create a configuration to be used by tourist to explore the historical sites of Copenhagen. We asked the participants to create a Realm in Copenhagen and mark a few points of interest using both information and question marks.
 
-For the test we created a scenario where users are asked to take on the position as a employee in the Copenhagen municipality. 
 % subsection configuration_manager_evaluation (end)
 
-\subsection{Android Application Evaluation} % (fold)
+\subsubsection{Mobile Client} % (fold)
 \label{sub:android_application_evaluation}
-While the main focus for realms is the creation of realms through the configuration manager, we should still evaluate the Android application for accessing realms. We evaluated the client app by creating a configuration and had users explore that realm.
 
-We created a realm with the purpose of rating architecture around the city. The realm covered the IT University of Copenhagen as well as the surrounding building that include Copenhagen University buildings, an office building, a library, several apartment building and a some student housings. For each of these buildings we created a  mark with a description of the building, the year it was raised and the name of the architect who designed it. Our test users were given the task to go outside, enter the "Architecture Amager" realm, and walk around to different buildings in the area to explore the marks and rate them.  
+For the mobile application test we created a realm with the purpose of rating architecture around the city. The realm covered the IT University of Copenhagen as well as the surrounding building that include Copenhagen University buildings, an office building, a library, and a some student housings. For each of these buildings we created a mark with a either a description of the building, like year it was raised and the name of the architect who designed it, or a question regarding the history of the building or hosted institution. Our test users were given the task to go outside, enter the "Architecture Amager" realm, and walk around to different buildings in the area to explore the marks and rate them. The configuration for the Realm is shown in fig \ref{fig.amager.arc}.
 
-(Insert screenshot of configuration here)
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{fig/amager_configuration}
+	\caption{Configuration for the test Realm Amager Architecture}
+	\label{fig.amager.arc}
+\end{figure}
+
+In the next section we discuss the results of the evaluation.
+
 % subsection android_application_evaluation (end)
