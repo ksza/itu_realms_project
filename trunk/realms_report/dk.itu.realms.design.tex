@@ -1,39 +1,72 @@
 \section{Design} % (fold)
 \label{sec:design}
-The main goal of the \emph{Realms} system is to help in the creation of simple \emph{location-based applications} using a configuration process and consists of the following three major components:
+The main goal of the Realms system is to help in the creation of simple location-based applications using a configuration process and consists of the following two major components:
 \begin{itemize}
-	\item \emph{configuration manager} - empowers users with the possibility of augmenting a physical space with virtual properties and rules (we call it a \emph{realm})
+	\item \emph{configuration manager} - empowers users with the possibility of augmenting a physical space with virtual properties and rules (we call it a realm). It also has the responsibility of holding the configured virtual spaces and guides the user-system interaction based on each user's context (location) information and possible virtual properties of the system (which can be applied in the user's context).
 	\item \emph{mobile client} - collects relevant context data and intermediates the interaction between the users and the system
-	\item \emph{infrastructure} - holds the configured virtual spaces and guides the user-system interaction based on each user's context (location) information and possible virtual properties of the system (which can be applied in the user's context).
 \end{itemize}
-\\\\
-There are two end user types which will use our system: the \emph{realm managers}, which will create realms, and the \emph{realm users} which will interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the realm managers: they are our end-users because they will be using the mobile client, that we provide, to connect to one of the realms, provided by realm managers.
-\\\\
-Indoors positioning needs a lot more infrastructure than the one provided by GPS satellites which makes indoor locations hard to deal with. Hence, we consider indoors spaces to be out of scope for our system and the realms which a configuration manager will be able to create can be based only on outdoors spaces - we are excluding the possibility of indoors usage of the application and the mobile clients are meant to work only outdoors.
-\\\\
-The main advantage over similar system is that we empower users to create a ready-to-be-used location-based application without writing one line of code.\\
-\\\\
-The whole system is built around three main entities: \emph{location information}, \emph{virtual properties} and \emph{rules/decisions} to govern the data; hence, we are dealing with a data-driven system. Moreover, ss the system is made up by both a mobile client and a central infrastructure, the nature of the system is distributed. Therefore, our design will follow the client-server model \cite{Coulouris:2005}.
-\\\\
+
+\noindent From a hardware perspective, the mobile client is meant to run on a mobile platform (i.e. such as Android, iOS etc.) enabled with the necessary technologies to collect location data (i.e. GPS, mobile network, wi-fi). Although most mobile devices running one of the required platforms support internet connection, we would like to note that this is a mandatory requirement. The realms server is intended to run on a stationary computer connected to the internet.
+\\
+
+\noindent There are two end user types which will use our system: the realm managers, which create realms using the realm configurator, and the realm users which interact with the realms using the provided mobile client. Actually, the mobile client users are end-users both to us and the realm managers: they are our end-users because they use the mobile client, that we provide, to connect to one of the realms, provided by realm managers. To make a clear distinction between the components each user type interacts with, we have illustrated a system usecase scenario in Figure \ref{fig.system_usecase}. From the usecase we can conclude that the realm managers connect through a web-based interface to the reams server which enables them to manage their realms, while the realm users connect to the realms server using the provided mobile application.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/realms_high_lvl}
+	\includegraphics[width=1.0\linewidth]{fig/system_use_usecase}
+	\caption{Realms system usecase scenario}
+	\label{fig.system_usecase}
+\end{figure}
+\\
+
+\\
+\noindent Indoor positioning needs a lot more infrastructure than the one provided by GPS satellites which makes indoor locations hard to deal with. Hence, we consider indoor spaces to be out of scope for our system and the realms which a configuration manager will be able to create can be based only on outdoors spaces - we are excluding the possibility of indoors usage of the application and the mobile clients are meant to work only outdoors.
+\\
+
+\noindent The main advantage over similar system is that we empower users to create a ready-to-be-used location-based application without writing one line of code.
+\\
+
+\noindent The whole system is built around three main entities: \emph{location information}, \emph{virtual properties} and \emph{rules/decisions} to govern the data; hence, we are dealing with a data-driven system. Moreover,  the system is made up by a mobile client and a central infrastructure, the nature of the system being distributed. The natural choice to design such a system is to follow the client-server model \cite{Coulouris:2005}.
+\\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{fig/realms_high_lvl}
 	\caption{High level system overview}
 	\label{fig.design.high_lvl}
 \end{figure}
-Figure \ref{fig.design.high_lvl} depicts the major components and data structures of the system. On one hand we have the \emph{mobile clients} connected to the realms server, interacting with one of the realms and on the other hand we have the \emph{configured realms}, created by the \emph{realm manager}, and the \emph{realms server} driving the interaction. The mobile clients communicate with the sever sending over the sensed data which, and together with the virtual properties of the current realm, provides the server the necessary data to compute the next instructions for the client. Figure \ref{fig.design.comm_protocol} further details the interaction between the mobile client and the server.
-\\\\
+\noindent Figure \ref{fig.design.high_lvl} depicts the major components and data structures of the system. The configuration manager is a standalone web application running on a stationary computer (the realms server) and is made up by the following subcomponents:
+\begin{itemize}
+	\item a database assuring the persistence of configured realms
+	\item the application logic that holds the processing routines which take place behind the scene
+	\item two interfaces to be accessed from the outside by the different clients of the system - a set of web services to be accessed by the mobile clients and a configuration UI (user interface) to be accessed by the realm configurators through a web browser. 
+\end{itemize}
+
+\noindent Before we go any further, we would like to shortly address the concrete choices we have made in the design based on the 4 dimensions identified in Section \ref{sub:taxanomy_of_location_features}:
+\begin{enumerate}
+	\item The location is represented in absolute values expressed in terms of latitude and longitude, which represents raw location data. In the future, this can easily be expressed as symbolic or relative applying if needed, by simply applying a few transformations on top of the raw data.
+	\item For the location level have employed both levels. Location-based interactions happen when realm users receive information from the realm server based on their actual location. The realm user might be prompted to provide feedback in certain situations and the outcome of the interaction is the feedback of the user which is recorded in on the server side - this is characterised as a location-enhanced interaction.
+	\item As data types, both information and commands are present. Information is the data type generated when realm users receive information based on their actual location, while providing feedback based on the current location (and associated data) is done thought a location-based command.
+	\item The communication type we have employed is based exclusively on polling. That is, the user has to explicitly query the server for updates (i.e. by pressing a button).
+\end{enumerate}
+
+Figure \ref{fig.design.comm_protocol} further details the interaction between the mobile client and the server.
+\\
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/abstract_communication_protocol}
+	\includegraphics[width=1.0\linewidth]{fig/abstract_communication_protocol}
 	\caption{Abstract Communication Protocol}
 	\label{fig.design.comm_protocol}
 \end{figure}
-After the client is started up, it tries to communicate with the realms server sending over the authentication credentials and a \emph{realm} to connect to. If the authentication is successful, the server either creates a new session or resumes and existing one; the way we manage the user sessions is an important characteristic of the system -- we are supporting long-running communication sessions between mobile phones and a server. The data connectivity of a mobile phones is still highly volatile so we have to consider as a fact that client-server communication can be broken at any time. We try to overcome this problem by storing each user session ID (and any relevant data), for each separate realm, in a persistent storage. When the mobile client starts to communicate with the server on a specific realm, the realms server will determine whether a new sessions has to be created or an existing one can be resume.
-\\\\
-Once the client got a connection to the server a series of \emph{report status data} - \emph{get instructions} will follow. The client gathers \emph{location data} and communicates it to the server which, using the information of the realm the client is connected to, computes the \emph{instructions} to be sent back to the client. The communication stops in one of the following situations: an exception occurs during the communication session, the client stops or the interaction flow got to an end.
-\\\\
-Finally, as we will shortly address the concrete architecture we base our infrastructure and communication upon. \emph{REST} is an architecture style for distributed hypermedia systems. A \emph{web service} is an API which is accessed through the HyperText Transfer Protocol (HTTP) and executed on a remote system, hosting the requested service. A \emph{RESTful web service} is a web service implemented using HTTP and the principles of REST. The RESTful web service is defined by a collection of resource, each of which is defined by three main characteristics:
+After the client is started up, it tries to communicate with the realms server sending over the authentication credentials and a realm to connect to. If the authentication is successful, the server either creates a new session or resumes and existing one; the way we manage the user sessions is an important characteristic of the system -- we are supporting long-running communication sessions between mobile phones and a server. The data connectivity of a mobile phones is still highly volatile so we have to consider as a fact that client-server communication can be broken at any time. We try to overcome this problem by storing each user session ID (and any relevant data), for each separate realm, in a persistent storage. When the mobile client starts to communicate with the server on a specific realm, the realms server will determine whether a new sessions has to be created or an existing one can be resume.
+\\
+
+Once the client got a connection to the server a series of (report status data) - (receive instructions) will follow. The client gathers location data and communicates it to the server which, using the information of the current realm, computes the instructions to be sent back to the client. The communication stops in one of the following situations: an exception occurs during the communication session, the client stops or the interaction flow got to an end.
+\\
+
+Using the term "instruction", we cover a large range of meanings that can lead to ambiguities. Instruction is the result returned by the realm server after the mobile client requested an update based on its current location. This could be a simple historical information about a of a build the user is close to, a question and a set of answers the user can choose from to provide feedback etc.
+\\
+
+Finally, as we will shortly address the concrete architecture we base our infrastructure and communication upon. As discussed by Fielding in \cite{Fielding:2000}, REST is an architecture style for distributed hypermedia systems. A web service is an API which is accessed through the HyperText Transfer Protocol (HTTP) and executed on a remote system, hosting the requested service. A RESTful web service is a web service implemented using HTTP and the principles of REST. The RESTful web service is defined by a collection of resource, each of which is defined by three main characteristics:
 \begin{itemize}
   \item the base URI identifying the web service
   \item the MIME\footnote{Multipurpose Internet Mail Extensions} type of the
@@ -41,7 +74,6 @@ Finally, as we will shortly address the concrete architecture we base our infras
   \item the web service's interface defined against the HTTP supported methods
   like POST, GET, PUT, DELETE etc.
 \end{itemize}
-\\\\
 The REST architectural style imposes a client-server architecture, which fits well our system's architecture, which is also based on a client-server approach.
 
 \subsection{Configuration Manager} % (fold)
