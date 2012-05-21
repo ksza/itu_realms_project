@@ -49,7 +49,7 @@ The main goal of the Realms system is to help in the creation of simple location
 	\item The communication type we have employed is based exclusively on polling. That is, the user has to explicitly query the server for updates (i.e. by pressing a button).
 \end{enumerate}
 
-Figure \ref{fig.design.comm_protocol} further details the interaction between the mobile client and the server.
+\noindent Figure \ref{fig.design.comm_protocol} further details the interaction between the mobile client and the server.
 \\
 \begin{figure}[H]
 	\centering
@@ -57,16 +57,16 @@ Figure \ref{fig.design.comm_protocol} further details the interaction between th
 	\caption{Abstract Communication Protocol}
 	\label{fig.design.comm_protocol}
 \end{figure}
-After the client is started up, it tries to communicate with the realms server sending over the authentication credentials and a realm to connect to. If the authentication is successful, the server either creates a new session or resumes and existing one; the way we manage the user sessions is an important characteristic of the system -- we are supporting long-running communication sessions between mobile phones and a server. The data connectivity of a mobile phones is still highly volatile so we have to consider as a fact that client-server communication can be broken at any time. We try to overcome this problem by storing each user session ID (and any relevant data), for each separate realm, in a persistent storage. When the mobile client starts to communicate with the server on a specific realm, the realms server will determine whether a new sessions has to be created or an existing one can be resume.
+\noindent After the client is started up, it tries to communicate with the realms server sending over the authentication credentials and a realm to connect to. If the authentication is successful, the server either creates a new session or resumes and existing one; the way we manage the user sessions is an important characteristic of the system -- we are supporting long-running communication sessions between mobile phones and a server. The data connectivity of a mobile phones is still highly volatile so we have to consider as a fact that client-server communication can be broken at any time. We try to overcome this problem by storing each user session ID (and any relevant data), for each separate realm, in a persistent storage. When the mobile client starts to communicate with the server on a specific realm, the realms server will determine whether a new sessions has to be created or an existing one can be resume.
 \\
 
-Once the client got a connection to the server a series of (report status data) - (receive instructions) will follow. The client gathers location data and communicates it to the server which, using the information of the current realm, computes the instructions to be sent back to the client. The communication stops in one of the following situations: an exception occurs during the communication session, the client stops or the interaction flow got to an end.
+\noindent Once the client got a connection to the server a series of (report status data) - (receive instructions) will follow. The client gathers location data and communicates it to the server which, using the information of the current realm, computes the instructions to be sent back to the client. The communication stops in one of the following situations: an exception occurs during the communication session, the client stops or the interaction flow got to an end.
 \\
 
-Using the term "instruction", we cover a large range of meanings that can lead to ambiguities. Instruction is the result returned by the realm server after the mobile client requested an update based on its current location. This could be a simple historical information about a of a build the user is close to, a question and a set of answers the user can choose from to provide feedback etc.
+\noindent Using the term "instruction", we cover a large range of meanings that can lead to ambiguities. Instruction is the result returned by the realm server after the mobile client requested an update based on its current location. This could be a simple historical information about a of a build the user is close to, a question and a set of answers the user can choose from to provide feedback etc.
 \\
 
-Finally, as we will shortly address the concrete architecture we base our infrastructure and communication upon. As discussed by Fielding in \cite{Fielding:2000}, REST is an architecture style for distributed hypermedia systems. A web service is an API which is accessed through the HyperText Transfer Protocol (HTTP) and executed on a remote system, hosting the requested service. A RESTful web service is a web service implemented using HTTP and the principles of REST. The RESTful web service is defined by a collection of resource, each of which is defined by three main characteristics:
+\noindent Finally, as we will shortly address the concrete architecture we base our infrastructure and communication upon. As discussed by Fielding in \cite{Fielding:2000}, REST is an architecture style for distributed hypermedia systems. A web service is an API which is accessed through the HyperText Transfer Protocol (HTTP) and executed on a remote system, hosting the requested service. A RESTful web service is a web service implemented using HTTP and the principles of REST. The RESTful web service is defined by a collection of resource, each of which is defined by three main characteristics:
 \begin{itemize}
   \item the base URI identifying the web service
   \item the MIME\footnote{Multipurpose Internet Mail Extensions} type of the
@@ -78,34 +78,40 @@ The REST architectural style imposes a client-server architecture, which fits we
 
 \subsection{Configuration Manager} % (fold)
 \label{sub:configuration_manager}
-The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. There are two aspects when creating a realm -- on one hand there is the interface where concrete locations are augmented with virtual properties, and on the other hand there is the flow describing the interaction path between a client and the server.
-\\\\
-The most intuitive interface to augment physical location is probably a virtual map which can be easily be browsed for concrete physical locations (latitude and longitude), city name, place name, address etc. These features make it easy for the user to rapidly find the desired location they want to augment. The configuration process will result in a list of (location, information) pairs where location is always \emph{(latitude, longitude)} and \emph{information} is a simple JSON string. The semantics of the information will be interpreted in the interaction flow. In this initial implementation of the system, the information will only be a list of options which will be transmitted to the client and their choice will be taken into consideration during the interaction flow.
-\\\\
+\noindent The role of the configuration manager is to present a user with an interface where location-based interactions can be defined as they should appear in the mobile app. There are two aspects when creating a realm -- on one hand there is the interface where concrete locations are augmented with virtual properties, and on the other hand there is the flow describing the interaction between a client and the server.
+\\
+
+\noindent The most intuitive interface to augment physical location is probably a virtual map which can be easily be browsed for concrete physical locations (latitude and longitude), city name, place name, address etc. These features make it easy for the user to rapidly find the desired location they want to augment. The configuration process results in a list of (location, information) pairs where location is always (latitude, longitude) and information is a simple JSON\footnote{\url{http://www.json.org}} string. The semantics of the information are interpreted in the interaction flow. In this initial implementation of the system, the information is just a list of options which is transmitted to the client and their choice is taken into consideration during the interaction flow.
+\\
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/virtual_properties}
+	\includegraphics[width=1.0\linewidth]{fig/virtual_properties}
 	\caption{Augmented Location Data}
 	\label{fig.design.virtual_properties}
 \end{figure}
-As depicted in Figure \ref{fig.design.virtual_properties} the data will be stored in a database where concrete locations are in relation with augmented information. As the semantics of the information can be identified through their \emph{type}, this approach allows to easily enrich the types of information supported by the system in the future.
-\\\\
-In order to enable the user to easily specify the interaction flow between the client and the server we will employ the \emph{workflow} mechanism as it is the main mechanism to  capture and develop human-to-machine interaction \footnote{\url{http://www.interpriseo.com/resources/general_info_articles/Workflow.pdf}} consisting of a sequence of concatenated (connected) steps. Emphasis is on the flow paradigm, where each step follows the precedent without delay or gap and ends just before the subsequent step may begin. Figure \ref{fig.design.workflow} illustrates the concept of the workflow applied to our system. Each workflow has a \emph{Start} and an \emph{End} and a number of \emph{intermediate steps}. Each step of the workflow has as entry the user's current location, the optional choice of the user (based on the virtual data assigned to the user's location) and the virtual properties present at the user's location. Based in this information the step at hand will be able to decide which is the next step and when the transition will be made.
-\\\\
+\noindent As depicted in Figure \ref{fig.design.virtual_properties} the data will be stored in a database where concrete locations are in relation with augmented information. As the semantics of the information can be identified through their \emph{type}, this approach allows to easily enrich the types of information supported by the system in the future.
+\\
+
+In order to enable the user to easily specify the interaction flow between the client and the server we employ the workflow mechanism as it is the main mechanism to  capture and develop human-to-machine interaction \footnote{\url{http://www.interpriseo.com/resources/general_info_articles/Workflow.pdf}} consisting of a sequence of concatenated (connected) steps. Emphasis is on the flow paradigm, where each step follows the precedent without delay or gap and ends just before the subsequent step may begin. Figure \ref{fig.design.workflow} illustrates the concept of the workflow applied to our system. Each workflow has a \emph{Start} and an \emph{End} and a number of \emph{intermediate steps}. Each step of the workflow has as entry the user's current location, the optional choice of the user (based on the virtual data assigned to the user's location) and the virtual properties present at the user's location. Based in this information the step at hand will be able to decide which is the next step and when the transition will be made. 
+\\
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/workflow}
+	\includegraphics[width=1.0\linewidth]{fig/workflow}
 	\caption{Worflow concept illustrated}
 	\label{fig.design.workflow}
 \end{figure}
-The workflow builder is represented by a graphical tool where the user can create steps and connections inside the flow. For each step simple \emph{if-then-else} decision constructs will can be applied using the above mentioned variables (user location, virtual properties and optional user choice) and optional custom constants. A sketch of the tool is shown in Figure \ref{fig.design.workflow_sketch}.
-\\\\
+The workflow builder is represented by a graphical tool where the user can create steps and connections inside the flow. For each step simple if-then-else decision constructs can be applied using the above mentioned variables (user location, virtual properties and optional user choice) and optional custom constants. A sketch of the tool is shown in Figure \ref{fig.design.workflow_sketch}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{fig/workflow_sketch}
 	\caption{Worflow tool UI sketch}
 	\label{fig.design.workflow_sketch}
 \end{figure}
+\\
+
+For the current prototype we omitted this feature as it introduces a high level of complexity. Instead, we created a fixed interaction scenario -- "The realm user requests an update based on the current location. The realms server receives the request and computes the nearest virtual information, based on the location information, in the current realm which is returned to the mobile client which can provide a feedback". In short, we have implemented a workflow based on the request-reply programming model \cite{Coulouris:2005}.
 % subsection configuration_manager (end)be available having 
 
 \subsection{Realms Android App} % (fold)
@@ -113,7 +119,7 @@ The workflow builder is represented by a graphical tool where the user can creat
 The mobile application presents users with the ability to access realms and interact with them as described by their configuration. It is also meant to collect location information which is a required piece of data needed by the server to successfully guide the user through the realm's workflow. Figure \ref{fig.design.mobile_client} depicts the main data structures and the interface the mobile client should implement to communicate with the realms server.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/mobile_client}
+	\includegraphics[width=1.0\linewidth]{fig/mobile_client}
 	\caption{Data structures and communication interface which allows the mobile client to communicate with the realms server}
 	\label{fig.design.mobile_client}
 \end{figure}
