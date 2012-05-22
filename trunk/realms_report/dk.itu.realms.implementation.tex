@@ -133,3 +133,46 @@ The configurator allows users to manage their realms (create, delete and edit). 
 
 
 \subsection{Realms Android App}
+\noindent We have implemented the mobile client as an Adroid\footnote{http://www.android.com}. The application has to perform three main taks:
+\begin{itemize}
+	\item provide the most accurate location as long as the application is running
+	\item carry out location-based and location-enhanced interactions with the server
+	\item present the user with the results of the interactions
+\end{itemize}
+
+\noindent For data sensing we have used the Funf Open Sensing Framework\footnote{http://funf.media.mit.edu}. The Funf Open Sensing Framework is an extensible sensing and data processing framework for mobile devices, developed at the MIT Media Lab. We have chosen this framework because it provides built-in accurate location sensing making use of GPS, Wi-Fi and mobile network (GPRS tower cell ID) data to accurately locate the device. At application start-up we start funf's monitoring service. Each time we get a new reading, we store it in a local database -- we have configured funf to report location data sensed having an accuracy of at most 20 meters. This way the latest accurate location is available to be read by component of the application.
+\\
+
+\begin{figure}[H]
+        \centering
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/select_realm.png}
+                \label{fig.client.select_realm}
+        }
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/search_for_marks.png}
+                \label{fig.client.find_markers}
+        }
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/loading.png}
+		\label{fig.client.loading}
+        }
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/info_marker.png}
+                \label{fig.client.info_marker}
+        }
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/question_marker.png}
+                \label{fig.client.question_marker}
+        }
+        \subfigure[]{
+                \includegraphics[width=0.3\linewidth]{fig/client/answer_feedback.png}
+                \label{fig.client.answer_feedback}
+        }
+        \caption{The Realms Android App in action}
+        \label{fig.client}
+\end{figure}
+\noindent Figure \ref{fig.client} depicts six screenshots of the working application which, in the followings, will help us discuss the implemented features. The first screen that is displayed to the user is the "select realm" screen illustrated in Figure \ref{fig.client.select_realm}. Once an accurate location reading is available the user can click the refresh button, action that will result in querying the server for the realms the user is currently in. A list of realms might be returned (if any) and presented to the user. Choosing one of the realms will take the user to a screen which enables the user to search for markers in the selected realm. Therefore, as depicted in Figure \ref{fig.client.find_markers} the user can query the server for nearby markers clicking on the Update button. It has to be noted that each communication with the server is time consuming and the user has to be informed about this. Figure \ref{fig.client.loading} illustrates a loading screen which we used to notify the inform the user about the long running operation every time a communication with the server is in process.
+\\
+
+\noindent After an update process the screen is populated with the marker data. For the information marker, illustrated in Figure \ref{fig.client.info_marker}, the formatted information data is displayed together with a rating bar rate the information in the marker. For the question marker, depicted in Figure \ref{fig.client.question_marker}, on the other hand, the screen displays the formatted question and a list of choices to choose an answer from. In both cases, information and question marker, a feedback will be selected and submitted to the server. After the submission is complete, the user will get feedback on the action he just completed. For rating an information the feedback is simply notifying the user about the chosen rating, whereas for answering a question will notify the user if the selected answer was correct or false, as depicted in Figure \ref{fig.client.answer_feedback}.
