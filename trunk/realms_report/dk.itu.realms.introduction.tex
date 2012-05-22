@@ -11,43 +11,37 @@ In this project we want to explore the if it is possible to abstract the creatio
 
 \subsection{Motivation} % (fold)
 \label{sub:context_and_motivation}
-The use of location based systems have risen greatly over the last few years with the introduction of portable locatable devices. Location-based systems demonstrate a successful implementation of context-awareness and the popularity of systems such as foursquare and Facebook places shows that users have adapted this form of interaction. Companies as well use location information to a great extend, and meanwhile the process of programming location-aware application has become easy for programmers. Operating system and library support for obtaining location data now exists on most mobile platforms, and a few lines of code can yield a precise latitude and longitude of a device. Yet, programming experience is needed even to design the most simple location-based interaction. Holloway and Julien argue that for ubiquitous computing systems to become fully realized in the everyday environment, end-user programming must be available to bridge the gap between system and user \cite{Holloway:2010:CEP:1882362.1882398}. This will also serve as our motivation; to empower end users with the ability to augment physical locations with digital information in a simple non-programming way.
+The use of location based systems have risen greatly over the last few years with the introduction of portable locatable devices. Location-based systems demonstrate a successful implementation of context-awareness and the popularity of systems such as foursquare\footnote{\url{http://foursquare.com}} and Facebook places\footnote{\url{http://facebook.com}} show that users have adapted this form of interaction. Companies as well use location information to a great extend, and meanwhile the process of programming location-aware application has become easy for programmers. Operating system and library support for obtaining location data now exists on most mobile platforms, and a few lines of code can yield a precise latitude and longitude of a device. Yet, programming experience is needed even to design the most simple location-based interaction. Holloway and Julien argue that for ubiquitous computing systems to become fully realized in the everyday environment, end-user programming must be available to bridge the gap between system and user \cite{Holloway:2010:CEP:1882362.1882398}. This will also serve as our motivation; to empower end users with the ability to augment physical locations with digital information in a simple non-programming way.
 % subsection context_and_motivation (end)'
 
-\subsection{Related Work} % (fold)
-\label{sub:background}
-This subsection should in short list related works in the area. We will write this we we have investigated the subject further.
-
-% subsection background (end)
+%We mention related work in a section so we leave it out of the introduction
 
 \subsection{Hypothesis} % (fold)
 \label{sub:hypothesis}
-It is our hypothesis that some common features of location-based systems can be identified, and that these features can be supported by a system designed to create location-based interaction. We want to develop a software infrastructure that, when configured, augments a certain physical area with digital capabilities. To elaborate, we introduce the notion of 'Realms'. A realm is a physically confined space augmented with digital information. A realm is always associated with a physical space, however it can provide different affordances; a game, a campaign, general public information etc. Access to the realms is provided through a mobile phone application, and so only one app is needed to access any number of realms with any number of affordances. The managing of realms is handled by a server that phones connect to and the creation of realms is handled through a web-interface. 
+It is our hypothesis that some common features of location-based systems can be identified, and that these features can be supported by a system designed to create location-based interaction. We want to develop a software infrastructure that, when configured, augments a certain physical area with digital capabilities. To elaborate, we introduce the notion of 'Realms'. A realm is a physically confined place augmented with digital information. A Realm is always associated with a physical space, however it can provide different affordances; a game, a campaign, general public information etc. Access to the realms is provided through a mobile phone application, and so only one app is needed to access any number of realms with any number of affordances. The managing of realms is handled by a server that phones connect to and the creation of realms is handled through a web-interface. 
 % subsection hypothesis (end)
 
 \subsection{Goals and Methods} % (fold)
 \label{sub:goals_and_methods}
 Our goals with this project are three-fold:
-
 \begin{enumerate}
-	\item We will investigate popular location based apps and factor our the commonalities. From this investigation we will present a 
+	\item We will investigate existing location based apps and systems and identify a taxonomy of location-based systems.
 	\item We will implement a Realms system that allows for the creation of augmented physical spaces through configuration. 
-	\item We will present an evaluation of the system and discuss it's possibilities and limitations
+	\item We will present an evaluation of the system and discuss it's possibilities and limitations.
 \end{enumerate}
 
 \noindent To reach these goals, we will take the following steps:
 
 \begin{enumerate}
-	\item  We will study a number of popular location-based applications and group their functionalities. 
-	\item We will use the study of existing apps to select a few key functionalities that are popular in location based apps. We will build the Realms system to support these findings.
-	\item We will evaluate our system in two ways; (1) we will have users try the configuration manager to study the effectiveness and ease of use of our system, and (2) we will compare the functionalities of our system to those found in our study of other systems to conclude on the possibilities and limitations of our system.
+	\item We will study a number of popular location-based applications and group their functionalities. We will then generalize these functionalities to identify the taxonomy.
+	\item We will build the Realms system; a two part system consisting of a web-interface - the configurator - and a mobile client.
+	\item We will evaluate our system in two ways; (1) we will have users try the configurator and mobile client to study the effectiveness and ease of use of our system, and (2) we will compare the functionalities of our system to those found in other systems to conclude on the possibilities and limitations of our system.
 \end{enumerate}
 % subsection goals_and_methods (end)
 
 \subsection{Contributions} % (fold)
 \label{sub:contributions}
 Our main contributions follow our goals:
-
 \begin{itemize}
 	\item We present a taxonomy for location-based application functionalities. 
 	\item We present the Realms system. A software platform for augmenting physical locations through configuration.
